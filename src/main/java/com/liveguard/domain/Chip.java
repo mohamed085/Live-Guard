@@ -29,5 +29,8 @@ public class Chip extends BaseEntity {
     @JoinColumn(name = "chip_associated_details_id")
     private ChipAssociatedDetails chipAssociatedDetails;
 
+    @OneToMany(mappedBy = "chip")
+    private Set<Task> tasks = new HashSet<>();
+
 
 }

@@ -6,22 +6,21 @@ import com.liveguard.domain.User;
 import com.liveguard.dto.ChipAssociatedDetailsDTO;
 import com.liveguard.dto.ChipDTO;
 import com.liveguard.exception.BusinessException;
-import com.liveguard.mapper.ChipAssociatedDetailsMapper;
 import com.liveguard.mapper.ChipMapper;
+import com.liveguard.payload.ApiResponse;
 import com.liveguard.repository.ChipRepository;
-import com.liveguard.service.ChipService;
-import com.liveguard.service.ChipTypeService;
+import com.liveguard.service.*;
 import com.liveguard.util.FileUploadUtil;
 import com.liveguard.util.GenerateCodeUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -31,10 +30,18 @@ public class ChipServiceImp implements ChipService {
 
     private final ChipRepository chipRepository;
     private final ChipTypeService chipTypeService;
+    private final AccountService accountService;
+    private final UserService userService;
+    private final UsersTasksMuteService usersTasksMuteService;
 
-    public ChipServiceImp(ChipRepository chipRepository, ChipTypeService chipTypeService) {
+    public ChipServiceImp(ChipRepository chipRepository, ChipTypeService chipTypeService,
+                          AccountService accountService, UserService userService,
+                          UsersTasksMuteService usersTasksMuteService) {
         this.chipRepository = chipRepository;
         this.chipTypeService = chipTypeService;
+        this.accountService = accountService;
+        this.userService = userService;
+        this.usersTasksMuteService = usersTasksMuteService;
     }
 
     @Override
@@ -107,5 +114,31 @@ public class ChipServiceImp implements ChipService {
     @Override
     public ChipAssociatedDetails addChipAssociatedDetails(Long chipId, ChipAssociatedDetailsDTO chipAssociatedDetailsDTO) throws IOException {
         return new ChipAssociatedDetails();
+    }
+
+    @Override
+    public Set<Chip> getUserChips() {
+        User user = accountService.getAuthenticatedAccount();
+        log.debug("ChipService | getUserChips | user: " + user.getEmail());
+
+        return user.getChips();
+    }
+
+    @Override
+    public ApiResponse addNewChipToUser(Long chipId, String chipPassword) {
+        log.debug("ChipService | addNewChipToUser | chip id: " + chipId);
+        Chip chip = findById(chipId);
+
+        User user = accountService.getAuthenticatedAccount();
+        log.debug("ChipService | addNewChipToUser | user: " + user.getEmail());
+
+        if (chip.getPassword().equals(chipPassword)) {
+            user.getChips().add(chip);
+            userService.save(user);
+            usersTasksMuteService.addUsersMuteDefaultToAddNewChipToUser(chip, user);
+            return new ApiResponse(true, "Chip add successfully");
+        } else {
+            return new ApiResponse(true, "Chip not add successfully, password incorrect");
+        }
     }
 }

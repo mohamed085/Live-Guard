@@ -59,6 +59,9 @@ public class User extends BaseEntity {
     )
     private Set<Chip> chips = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<UsersTasksMute> usersTasksMutes = new HashSet<>();
+
 
     public User(String name, String email, String password) {
         this.name = name;

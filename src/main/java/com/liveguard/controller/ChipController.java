@@ -6,6 +6,7 @@ import com.liveguard.dto.ChipAssociatedDetailsDTO;
 import com.liveguard.dto.ChipDTO;
 import com.liveguard.mapper.ChipAssociatedDetailsMapper;
 import com.liveguard.mapper.ChipMapper;
+import com.liveguard.payload.AddNewChipRequest;
 import com.liveguard.payload.ApiResponse;
 import com.liveguard.service.ChipAssociatedDetailsService;
 import com.liveguard.service.ChipService;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @RestController
@@ -41,6 +44,28 @@ public class ChipController {
                 .ok()
                 .body(chipDTOs);
     }
+
+    @PostMapping("/add-new-chip-to-user")
+    public ResponseEntity<?> addNewChipToUser(@RequestBody AddNewChipRequest addNewChipRequest) {
+        log.debug("ChipTypeController | addNewChipToUser");
+
+        return ResponseEntity
+                .ok()
+                .body(chipService.addNewChipToUser(addNewChipRequest.getId(), addNewChipRequest.getPassword()));
+    }
+
+    @GetMapping("/get-user-chips")
+    private ResponseEntity<?> getUserChips() {
+        log.debug("ChipTypeController | getUserChips");
+
+        Set<ChipDTO> chipDTOs = new HashSet<>();
+        chipService.getUserChips().forEach(chip -> chipDTOs.add(ChipMapper.chipToChipDTO(chip)));
+
+        return ResponseEntity
+                .ok()
+                .body(chipDTOs);
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getChip(@PathVariable Long id) {

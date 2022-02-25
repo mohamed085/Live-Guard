@@ -4,9 +4,11 @@ import com.liveguard.domain.Chip;
 import com.liveguard.domain.ChipAssociatedDetails;
 import com.liveguard.dto.ChipAssociatedDetailsDTO;
 import com.liveguard.dto.ChipDTO;
+import com.liveguard.payload.ApiResponse;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 public interface ChipService {
 
@@ -22,4 +24,7 @@ public interface ChipService {
 
     ChipAssociatedDetails addChipAssociatedDetails(Long chipId, ChipAssociatedDetailsDTO chipAssociatedDetailsDTO) throws IOException;
 
+    Set<Chip> getUserChips();
+
+    ApiResponse addNewChipToUser(Long chipId, String chipPassword);
 }
