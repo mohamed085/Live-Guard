@@ -36,7 +36,7 @@ public class AccountController {
     }
 
     @PutMapping("")
-    public ResponseEntity<UserDTO> updateUserInfo(@Valid @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> updateUserInfo(@RequestBody UserDTO userDTO) {
         log.debug("AccountController | updateUserInfo");
         User returnUser = accountService.updateAuthenticatedAccount(userDTO);
         UserDTO returnUserDTO = UserMapper.UserToUserDTO(returnUser);
