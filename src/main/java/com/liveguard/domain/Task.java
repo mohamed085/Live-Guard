@@ -19,7 +19,6 @@ public class Task extends BaseEntity {
     private String name;
     private String description;
     private String ringtone;
-    private Boolean mute;
     private LocalTime startDate;
     private LocalTime endDate;
     private LocalDateTime createDate;
@@ -57,4 +56,20 @@ public class Task extends BaseEntity {
         return String.valueOf(createDate);
     }
 
+    @Override
+    public String toString() {
+        return "Task{" +
+                "name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", ringtone='" + ringtone + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", createDate=" + createDate +
+                ", lat=" + lat +
+                ", lng=" + lng +
+                ", area=" + area +
+                ", chip=" + chip.getId() +
+                ", usersTasksMutes=" + usersTasksMutes +
+                '}';
+    }
 }

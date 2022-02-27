@@ -1,5 +1,6 @@
 package com.liveguard.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,7 +16,10 @@ public class LocationDTO {
     private Long id;
     private Double lng;
     private Double lat;
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime date;
+
     private ChipSimpleDataDTO chip;
 
     @JsonProperty("chip_id")

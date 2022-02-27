@@ -20,4 +20,11 @@ public class TaskDay extends BaseEntity {
 
     @ManyToMany(mappedBy = "repeat")
     private Set<Task> tasks = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return "TaskDay{" +
+                "day=" + day +
+                '}';
+    }
 }

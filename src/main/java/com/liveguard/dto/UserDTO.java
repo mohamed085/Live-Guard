@@ -1,5 +1,6 @@
 package com.liveguard.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.liveguard.domain.Chip;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,7 @@ public class UserDTO {
     private String address;
 
     @JsonProperty("date_of_birth")
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate dateOfBirth;
 
     private String avatar;

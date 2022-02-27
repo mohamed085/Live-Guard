@@ -27,4 +27,13 @@ public class UsersTasksMute extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Override
+    public String toString() {
+        return "UsersTasksMute{" +
+                "status=" + status +
+                ", task=" + task.getId() +
+                ", user=" + user.getId() +
+                '}';
+    }
 }

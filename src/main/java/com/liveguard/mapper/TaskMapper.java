@@ -49,7 +49,6 @@ public class TaskMapper {
         taskDTO.setLat(task.getLat());
         taskDTO.setLng(task.getLng());
         taskDTO.setArea(task.getArea());
-        taskDTO.setMute(task.getMute());
         taskDTO.setStartDate(task.getStartDate());
         taskDTO.setEndDate(task.getEndDate());
         taskDTO.setCreateDate(task.getCreateDate());
