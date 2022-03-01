@@ -15,9 +15,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @RestControllerAdvice
@@ -44,15 +42,13 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler  {
         List<String> errors = new ArrayList<>();
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
+            String errorMessage = error.getDefaultMessage() + " ";
 
             log.error("GeneralExceptionHandler | handleMethodArgumentNotValid | fieldName: " + fieldName + ", errorMessage: " + errorMessage);
             errors.add(errorMessage);
         });
 
-        return ResponseEntity
-                .badRequest()
-                .body(errors);
+        throw new BusinessException(errors.toString(), HttpStatus.BAD_REQUEST);
     }
 
 
