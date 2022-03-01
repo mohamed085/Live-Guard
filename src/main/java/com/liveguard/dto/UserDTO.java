@@ -12,6 +12,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -41,4 +42,6 @@ public class UserDTO {
 
     private String avatar;
     private Set<ChipDTO> chips;
+
+    private List<String> roles;
 }

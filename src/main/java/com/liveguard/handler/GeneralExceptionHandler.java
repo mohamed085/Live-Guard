@@ -1,6 +1,7 @@
 package com.liveguard.handler;
 
 import com.liveguard.exception.BusinessException;
+import com.liveguard.payload.ApiResponse;
 import com.liveguard.payload.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -48,10 +49,9 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler  {
             errors.add(errorMessage);
         });
 
-        throw new BusinessException(errors.toString(), HttpStatus.BAD_REQUEST);
+        return ResponseEntity
+                .badRequest()
+                .body(new ApiResponse(false, errors.toString()));
     }
-
-
-
 
 }
