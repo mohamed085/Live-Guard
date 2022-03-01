@@ -9,14 +9,14 @@ public class ChipTypeMapper {
 
     public static ChipType chipTypeDTOToChipType(ChipTypeDTO chipTypeDTO) {
         ChipType chipType = new ChipType();
-        chipType.setType(chipTypeDTO.getType());
+        chipType.setName(chipTypeDTO.getType());
 
         return chipType;
     }
 
     public static ChipTypeDTO chipTypeToChipTypeDTO(ChipType chipType) {
         ChipTypeDTO chipTypeDTO = new ChipTypeDTO();
-        chipTypeDTO.setType(chipType.getType());
+        chipTypeDTO.setType(chipType.getName());
         chipTypeDTO.setId(chipType.getId());
 
         return chipTypeDTO;
