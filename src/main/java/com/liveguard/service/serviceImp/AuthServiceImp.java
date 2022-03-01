@@ -116,7 +116,7 @@ public class AuthServiceImp implements AuthService {
                 return CheckVerifyCode(request, code);
             }
             else {
-                return new VerifyAccountResponse("You are blocked now", code.getUser().getEmail());
+                throw new BusinessException("You are blocked now", HttpStatus.BAD_REQUEST);
             }
         }
     }
@@ -184,10 +184,10 @@ public class AuthServiceImp implements AuthService {
 
                 code.getUser().setAccountNonLocked(false);
                 verificationCodeService.save(code);
-                return new VerifyAccountResponse("Your code is incorrect, and your account blocked for 1 hour", code.getUser().getEmail());
+                throw new BusinessException("Your code is incorrect, and your account blocked for 1 hour", HttpStatus.BAD_REQUEST);
             }
             verificationCodeService.save(code);
-            return new VerifyAccountResponse("Your code is incorrect", code.getUser().getEmail());
+            throw new BusinessException("Your code is incorrect", HttpStatus.BAD_REQUEST);
         }
     }
 

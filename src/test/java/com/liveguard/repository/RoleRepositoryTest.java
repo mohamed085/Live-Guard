@@ -20,8 +20,8 @@ class RoleRepositoryTest {
     @Test
     public void testAddNewRole() {
         Role role = new Role();
-        role.setRole("user");
-        role.setDescription("Default role");
+        role.setRole("admin");
+        role.setDescription("");
 
         Role savedRole = roleRepository.save(role);
 
