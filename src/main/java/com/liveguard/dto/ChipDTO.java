@@ -23,6 +23,7 @@ public class ChipDTO implements Serializable {
     private String name;
 
     private String photo;
+    private String password;
 
     @JsonProperty("photo_file")
     private MultipartFile photoFile;
