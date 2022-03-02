@@ -37,10 +37,10 @@ public class ChipType extends BaseEntity {
     @OneToMany(mappedBy = "chipType")
     private Set<Chip> chips = new HashSet<>();
 
-    @OneToMany(mappedBy = "chipType", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "chipType", cascade = CascadeType.ALL)
     private List<ChipTypeDetail> details = new ArrayList<>();
 
-    @OneToMany(mappedBy = "chipType", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "chipType", cascade = CascadeType.ALL)
     private List<ChipTypeImage> images = new ArrayList<>();
 
     public void addExtraImage(String imageName) {
@@ -58,14 +58,6 @@ public class ChipType extends BaseEntity {
         }
 
         return false;
-    }
-
-    public void addDetail(String name, String value) {
-        this.details.add(new ChipTypeDetail(name, value, this));
-    }
-
-    public void addDetail(Long id, String name, String value) {
-        this.details.add(new ChipTypeDetail(id, name, value, this));
     }
 
 }

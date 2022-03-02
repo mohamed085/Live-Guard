@@ -22,12 +22,8 @@ public class ChipTypeDetailDTO {
     @NotEmpty(message = "Value must not empty")
     private String value;
 
-
-    private ChipTypeSimpleDateDTO chipType;
-
-    @NotNull(message = "Chip type id must not null")
-    @NotEmpty(message = "Chip type id must not empty")
-    private Long chipTypeId;
-
-
+    public ChipTypeDetailDTO(@NotNull(message = "Name must not null") @NotEmpty(message = "Name must not empty") String name, @NotNull(message = "Value must not null") @NotEmpty(message = "Value must not empty") String value) {
+        this.name = name;
+        this.value = value;
+    }
 }

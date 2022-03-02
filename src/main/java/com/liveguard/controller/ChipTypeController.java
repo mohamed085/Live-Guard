@@ -2,12 +2,16 @@ package com.liveguard.controller;
 
 import com.liveguard.domain.ChipType;
 import com.liveguard.dto.ChipTypeDTO;
+import com.liveguard.dto.ChipTypeDetailDTO;
+import com.liveguard.exception.BusinessException;
 import com.liveguard.mapper.ChipTypeMapper;
-import com.liveguard.payload.ApiResponse;
+import com.liveguard.payload.*;
 import com.liveguard.service.ChipTypeService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -61,10 +65,72 @@ public class ChipTypeController {
                     .ok()
                     .body(savedChipTypeDTO);
         } catch (IOException e) {
-            return ResponseEntity
-                    .internalServerError()
-                    .body(new ApiResponse(false, "Failed to save chip photo"));
+            throw new BusinessException("Failed to save chip photo", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @PutMapping("/{id}/image")
+    public ResponseEntity<ApiResponse> updateChipTypeMainImage(@PathVariable("id") Long id,
+                                                               @Valid @RequestParam("file") MultipartFile multipartFile) {
+        log.debug("ChipTypeController | updateChipTypeMainImage | chip id: " + id);
+
+        try {
+            chipTypeService.updateChipTypeMainImage(id, multipartFile);
+            return ResponseEntity
+                    .ok()
+                    .body(new ApiResponse(true, "Image saved successfully"));
+        } catch (IOException e) {
+            throw new BusinessException("Failed to save chip photo", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/{id}/overview")
+    public ResponseEntity<ApiResponse> updateChipTypeOverview(@PathVariable("id") Long id,
+                                                              @Valid @RequestBody UpdateChipTypeOverviewRequest chipTypeOverview) {
+        log.debug("ChipTypeController | updateChipTypeOverview | chip id: " + id);
+
+        chipTypeService.updateChipTypeOverview(id, chipTypeOverview);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Chip id: " + id + " updated successfully"));
+    }
+
+
+    @PutMapping("/{id}/description")
+    public ResponseEntity<ApiResponse> updateChipTypeDescription(@PathVariable("id") Long id,
+                                                                 @Valid @RequestBody UpdateChipTypeDescriptionRequest chipTypeDescription) {
+
+        log.debug("ChipTypeController | updateChipTypeDescription | chip id: " + id);
+        chipTypeService.updateChipTypeDescription(id, chipTypeDescription);
+
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Chip id: " + id + " updated successfully"));
+    }
+
+
+    @PutMapping("/{id}/details")
+    public ResponseEntity<ApiResponse> updateChipTypeDetails(@PathVariable("id") Long id,
+                                                             @Valid @RequestBody UpdateChipTypeDetailsRequest chipTypeDetails) {
+        log.debug("ChipTypeController | updateChipTypeDetails | chip id: " + id);
+        log.debug("ChipTypeController | updateChipTypeDetails | chipTypeDetails: " + chipTypeDetails.toString());
+        chipTypeService.updateChipTypeDetails(id, chipTypeDetails.getChipTypeDetailDTOs());
+
+
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Chip id: " + id + " updated successfully"));
+    }
+
+    @PutMapping("/{id}/shipping")
+    public ResponseEntity<ApiResponse> updateChipTypeShipping(@PathVariable("id") Long id,
+                                                              @Valid @RequestBody UpdateChipTypeShippingRequest chipTypeShipping) {
+        log.debug("ChipTypeController | updateChipTypeShipping | chip id: " + id);
+        chipTypeService.updateChipTypeShipping(id, chipTypeShipping);
+
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Chip id: " + id + " updated successfully"));
     }
 
 }

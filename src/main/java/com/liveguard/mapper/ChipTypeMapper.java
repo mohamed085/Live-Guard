@@ -35,15 +35,11 @@ public class ChipTypeMapper {
         chipType.getDetails().forEach(chipTypeDetail ->
                 chipTypeDetails.add(new ChipTypeDetailDTO(chipTypeDetail.getId(),
                         chipTypeDetail.getName(),
-                        chipTypeDetail.getValue(),
-                        null,
-                        chipType.getId())));
+                        chipTypeDetail.getValue())));
 
         chipType.getImages().forEach(chipTypeImage ->
                 images.add(new ChipTypeImageDTO(chipTypeImage.getId(),
-                        chipTypeImage.getName(),
-                        null,
-                        chipType.getId())));
+                        chipTypeImage.getName())));
 
         ChipTypeDTO chipTypeDTO = new ChipTypeDTO();
         chipTypeDTO.setId(chipType.getId());
