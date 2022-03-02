@@ -52,9 +52,12 @@ public class AccountServiceImp implements AccountService {
         if (userDTO.getDateOfBirth() != null)
             user.setDateOfBirth(userDTO.getDateOfBirth());
 
-        User savedUser = userService.save(user);
-
-        return savedUser;
+        try {
+            User savedUser = userService.save(user);
+            return savedUser;
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -65,19 +68,24 @@ public class AccountServiceImp implements AccountService {
         log.debug("UserService | updateAuthenticatedAccountAvatar | file name: " + fileName);
 
         user.setAvatar("/user-photos/" + user.getId() + "/" + fileName);
-        User savedUser = userService.save(user);
 
-        String uploadDir = "user-photos/" + savedUser.getId();
-
-        log.debug("AccountService | updateAuthenticatedAccountAvatar | savedUser : " + savedUser.toString());
-        log.debug("AccountService | updateAuthenticatedAccountAvatar | uploadDir : " + uploadDir);
-
-        FileUploadUtil.cleanDir(uploadDir);
         try {
-            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
-        } catch (IOException e) {
-            throw new BusinessException("Unable to save photo", HttpStatus.INTERNAL_SERVER_ERROR);
+            User savedUser = userService.save(user);
+            String uploadDir = "user-photos/" + savedUser.getId();
+
+            log.debug("AccountService | updateAuthenticatedAccountAvatar | savedUser : " + savedUser.toString());
+            log.debug("AccountService | updateAuthenticatedAccountAvatar | uploadDir : " + uploadDir);
+
+            FileUploadUtil.cleanDir(uploadDir);
+            try {
+                FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+            } catch (IOException e) {
+                throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+
     }
 
 

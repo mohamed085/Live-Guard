@@ -22,8 +22,6 @@ public interface ChipService {
 
     List<Chip> getChipsByType(Long chipTypeId);
 
-    ChipAssociatedDetails addChipAssociatedDetails(Long chipId, ChipAssociatedDetailsDTO chipAssociatedDetailsDTO) throws IOException;
-
     Set<Chip> getUserChips();
 
     ApiResponse addNewChipToUser(Long chipId, String chipPassword);

@@ -26,16 +26,22 @@ public class RoleServiceImp implements RoleService {
     public Role findById(Long id) {
         log.debug("RoleService | findById | id: " + id);
 
-        return roleRepository.findById(id)
-                .orElseThrow(() -> new BusinessException("Role not found", HttpStatus.INTERNAL_SERVER_ERROR));
+        try {
+            return roleRepository.findById(id)
+                    .orElseThrow(() -> new BusinessException("Role not found", HttpStatus.INTERNAL_SERVER_ERROR));
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public List<Role> findAll() {
         log.debug("RoleService | findAll");
 
-        return  StreamSupport
-                .stream(roleRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+        try {
+            return roleRepository.findAll();
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

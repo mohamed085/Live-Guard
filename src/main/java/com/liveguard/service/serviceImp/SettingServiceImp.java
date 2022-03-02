@@ -3,9 +3,11 @@ package com.liveguard.service.serviceImp;
 import com.liveguard.domain.EmailSettingBag;
 import com.liveguard.domain.Setting;
 import com.liveguard.domain.SettingCategory;
+import com.liveguard.exception.BusinessException;
 import com.liveguard.repository.SettingRepository;
 import com.liveguard.service.SettingService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,10 +25,14 @@ public class SettingServiceImp implements SettingService {
     @Override
     public EmailSettingBag getEmailSettings() {
         log.debug("SettingService | getEmailSettings");
-        List<Setting> settings = settingRepository.findByCategory(SettingCategory.MAIL_SERVER);
+        try {
+            List<Setting> settings = settingRepository.findByCategory(SettingCategory.MAIL_SERVER);
+            settings.addAll(settingRepository.findByCategory(SettingCategory.MAIL_TEMPLATES));
 
-        settings.addAll(settingRepository.findByCategory(SettingCategory.MAIL_TEMPLATES));
+            return new EmailSettingBag(settings);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-        return new EmailSettingBag(settings);
     }
 }

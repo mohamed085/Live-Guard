@@ -43,9 +43,13 @@ public class TaskServiceImp implements TaskService {
     @Override
     public Task findById(Long id) {
         log.debug("TaskService | findById | id: " + id);
-        return taskRepository
-                .findById(id)
-                .orElseThrow(() -> new BusinessException("Task not found", HttpStatus.NOT_FOUND));
+        try {
+            return taskRepository
+                    .findById(id)
+                    .orElseThrow(() -> new BusinessException("Task not found", HttpStatus.NOT_FOUND));
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -76,12 +80,16 @@ public class TaskServiceImp implements TaskService {
 
         log.debug("TaskService | addTask | task: " + task.getName());
 
-        Task savedTask = taskRepository.save(task);
-        log.debug("TaskService | addTask | savedTask: " + savedTask.getName());
+        try {
+            Task savedTask = taskRepository.save(task);
+            log.debug("TaskService | addTask | savedTask: " + savedTask.getName());
 
-        usersTasksMuteService.addTasksMuteDefaultToNewTask(chip, savedTask);
+            usersTasksMuteService.addTasksMuteDefaultToNewTask(chip, savedTask);
 
-        return savedTask;
+            return savedTask;
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 
@@ -93,13 +101,17 @@ public class TaskServiceImp implements TaskService {
         log.debug("TaskService | findByChipIdInTaskSimpleDataDTO | user id: " + user.getId());
 
         List<TaskSimpleDataDTO> taskSimpleDataDTOs = new ArrayList<>();
-        taskRepository.findByChipId(id).forEach(task -> {
-            UserSimpleDataDTO userSimpleDataDTO = new UserSimpleDataDTO(task.getAddByUser().getId(), task.getAddByUser().getEmail(), task.getAddByUser().getName(), task.getAddByUser().getAvatar());
-            UsersTasksMute usersTasksMute = usersTasksMuteService.findByTaskIdAndUserId(task.getId(), user.getId());
-            taskSimpleDataDTOs.add(new TaskSimpleDataDTO(task.getId(), task.getName(), usersTasksMute.getStatus(), userSimpleDataDTO));
-        });
+        try {
+            taskRepository.findByChipId(id).forEach(task -> {
+                UserSimpleDataDTO userSimpleDataDTO = new UserSimpleDataDTO(task.getAddByUser().getId(), task.getAddByUser().getEmail(), task.getAddByUser().getName(), task.getAddByUser().getAvatar());
+                UsersTasksMute usersTasksMute = usersTasksMuteService.findByTaskIdAndUserId(task.getId(), user.getId());
+                taskSimpleDataDTOs.add(new TaskSimpleDataDTO(task.getId(), task.getName(), usersTasksMute.getStatus(), userSimpleDataDTO));
+            });
 
-        return taskSimpleDataDTOs;
+            return taskSimpleDataDTOs;
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -108,16 +120,20 @@ public class TaskServiceImp implements TaskService {
         User user = accountService.getAuthenticatedAccount();
 
         log.debug("TaskService | findByChipIdAndUser | userEmail: " + user.getEmail());
-        List<Task> tasks = taskRepository.findByChipIdAndAddByUserId(id, user.getId());
-        List<TaskSimpleDataDTO> taskSimpleDataDTOs = new ArrayList<>();
+        try {
+            List<Task> tasks = taskRepository.findByChipIdAndAddByUserId(id, user.getId());
+            List<TaskSimpleDataDTO> taskSimpleDataDTOs = new ArrayList<>();
 
-        tasks.forEach(task -> {
-            UserSimpleDataDTO userSimpleDataDTO = new UserSimpleDataDTO(task.getAddByUser().getId(), task.getAddByUser().getEmail(), task.getAddByUser().getName(), task.getAddByUser().getAvatar());
-            UsersTasksMute usersTasksMute = usersTasksMuteService.findByTaskIdAndUserId(task.getId(), user.getId());
-            taskSimpleDataDTOs.add(new TaskSimpleDataDTO(task.getId(), task.getName(), usersTasksMute.getStatus(), userSimpleDataDTO));
-        });
+            tasks.forEach(task -> {
+                UserSimpleDataDTO userSimpleDataDTO = new UserSimpleDataDTO(task.getAddByUser().getId(), task.getAddByUser().getEmail(), task.getAddByUser().getName(), task.getAddByUser().getAvatar());
+                UsersTasksMute usersTasksMute = usersTasksMuteService.findByTaskIdAndUserId(task.getId(), user.getId());
+                taskSimpleDataDTOs.add(new TaskSimpleDataDTO(task.getId(), task.getName(), usersTasksMute.getStatus(), userSimpleDataDTO));
+            });
 
-        return taskSimpleDataDTOs;
+            return taskSimpleDataDTOs;
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -128,16 +144,20 @@ public class TaskServiceImp implements TaskService {
 
         log.debug("TaskService | findByChipIdAndUser | userEmail: " + user.getEmail());
 
-        List<Task> tasks = taskRepository.findByChipIdAndAddByUserId(chipId, user.getId());
-        List<TaskSimpleDataDTO> taskSimpleDataDTOs = new ArrayList<>();
+       try {
+           List<Task> tasks = taskRepository.findByChipIdAndAddByUserId(chipId, user.getId());
+           List<TaskSimpleDataDTO> taskSimpleDataDTOs = new ArrayList<>();
 
-        tasks.forEach(task -> {
-            UserSimpleDataDTO userSimpleDataDTO = new UserSimpleDataDTO(task.getAddByUser().getId(), task.getAddByUser().getEmail(), task.getAddByUser().getName(), task.getAddByUser().getAvatar());
-            UsersTasksMute usersTasksMute = usersTasksMuteService.findByTaskIdAndUserId(task.getId(), user.getId());
-            taskSimpleDataDTOs.add(new TaskSimpleDataDTO(task.getId(), task.getName(), usersTasksMute.getStatus(), userSimpleDataDTO));
-        });
+           tasks.forEach(task -> {
+               UserSimpleDataDTO userSimpleDataDTO = new UserSimpleDataDTO(task.getAddByUser().getId(), task.getAddByUser().getEmail(), task.getAddByUser().getName(), task.getAddByUser().getAvatar());
+               UsersTasksMute usersTasksMute = usersTasksMuteService.findByTaskIdAndUserId(task.getId(), user.getId());
+               taskSimpleDataDTOs.add(new TaskSimpleDataDTO(task.getId(), task.getName(), usersTasksMute.getStatus(), userSimpleDataDTO));
+           });
 
-        return taskSimpleDataDTOs;
+           return taskSimpleDataDTOs;
+       } catch (Exception e) {
+           throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+       }
     }
 
 }

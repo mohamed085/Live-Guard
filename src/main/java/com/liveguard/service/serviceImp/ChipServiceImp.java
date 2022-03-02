@@ -48,17 +48,23 @@ public class ChipServiceImp implements ChipService {
     public List<Chip> findAll() {
         log.debug("ChipService | findAll");
 
-        return StreamSupport
-                .stream(chipRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+        try {
+            return chipRepository.findAll();
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public Chip findById(Long id) {
         log.debug("ChipService | findById | id: " + id);
 
-        return chipRepository.findById(id)
-                .orElseThrow(() -> new BusinessException("This chip not found", HttpStatus.NOT_FOUND));
+        try {
+            return chipRepository.findById(id)
+                    .orElseThrow(() -> new BusinessException("This chip not found", HttpStatus.NOT_FOUND));
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -101,19 +107,22 @@ public class ChipServiceImp implements ChipService {
 
     @Override
     public Chip save(Chip chip) {
-        return chipRepository.save(chip);
+        try {
+            return chipRepository.save(chip);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public List<Chip> getChipsByType(Long chipTypeId) {
         log.debug("ChipService | getChipsByType | chipTypeId: " + chipTypeId);
 
-        return chipRepository.findByChipTypeId(chipTypeId);
-    }
-
-    @Override
-    public ChipAssociatedDetails addChipAssociatedDetails(Long chipId, ChipAssociatedDetailsDTO chipAssociatedDetailsDTO) throws IOException {
-        return new ChipAssociatedDetails();
+        try {
+            return chipRepository.findByChipTypeId(chipTypeId);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -134,11 +143,17 @@ public class ChipServiceImp implements ChipService {
 
         if (chip.getPassword().equals(chipPassword)) {
             user.getChips().add(chip);
-            userService.save(user);
+
+            try {
+                userService.save(user);
+            } catch (Exception e) {
+                throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
             usersTasksMuteService.addUsersMuteDefaultToAddNewChipToUser(chip, user);
             return new ApiResponse(true, "Chip add successfully");
         } else {
-            return new ApiResponse(true, "Chip not add successfully, password incorrect");
+            throw new BusinessException("Chip not add successfully, password incorrect", HttpStatus.BAD_REQUEST);
         }
     }
 }

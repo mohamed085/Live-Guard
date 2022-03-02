@@ -22,23 +22,35 @@ public class UserServiceImp implements UserService {
     public User findByEmail(String email) {
         log.debug("UserService | findByEmail | email: " + email);
 
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new BusinessException("User not found", HttpStatus.NOT_FOUND));
+        try {
+            return userRepository.findByEmail(email)
+                    .orElseThrow(() -> new BusinessException("User not found", HttpStatus.NOT_FOUND));
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public User findById(Long id) {
         log.debug("UserService | findById | id: " + id);
 
-        return userRepository.findById(id)
-                .orElseThrow(() -> new BusinessException("User not found", HttpStatus.NOT_FOUND));
+        try {
+            return userRepository.findById(id)
+                    .orElseThrow(() -> new BusinessException("User not found", HttpStatus.NOT_FOUND));
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public Boolean userExistByEmail(String email) {
         log.debug("UserService | userExistByEmail | email: " + email);
 
-        return userRepository.existsByEmail(email);
+        try {
+            return userRepository.existsByEmail(email);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -51,7 +63,10 @@ public class UserServiceImp implements UserService {
                 throw new BusinessException(String.format("Email %s already exists", user.getEmail()), HttpStatus.BAD_REQUEST);
             }
         }
-        User savedUser = userRepository.save(user);
-        return savedUser;
+        try {
+            return userRepository.save(user);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

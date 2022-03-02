@@ -41,8 +41,8 @@ public class UsersTasksMuteServiceImp implements UsersTasksMuteService {
             try {
                 UsersTasksMute savedUsersTasksMute = usersTasksMuteRepository.save(usersTasksMute);
                 log.debug("UsersTasksMuteService | addUsersMuteDefaultToAddNewChipToUser | savedUsersTasksMute id: " + savedUsersTasksMute.getId());
-            } catch (Exception exception) {
-                throw new BusinessException("Failed to save users tasks mute", HttpStatus.INTERNAL_SERVER_ERROR);
+            } catch (Exception e) {
+                throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
             }
         });
 
@@ -63,8 +63,8 @@ public class UsersTasksMuteServiceImp implements UsersTasksMuteService {
             try {
                 UsersTasksMute savedUsersTasksMute = usersTasksMuteRepository.save(usersTasksMute);
                 log.debug("UsersTasksMuteService | addUsersMuteDefaultToAddNewChipToUser | savedUsersTasksMute id: " + savedUsersTasksMute.getId());
-            } catch (Exception exception) {
-                throw new BusinessException("Failed to save users tasks mute", HttpStatus.INTERNAL_SERVER_ERROR);
+            } catch (Exception e) {
+                throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
             }
 
         });
@@ -75,7 +75,11 @@ public class UsersTasksMuteServiceImp implements UsersTasksMuteService {
         log.debug("UsersTasksMuteService | findByTaskIdAndUserId | taskId: " + taskId);
         log.debug("UsersTasksMuteService | findByTaskIdAndUserId | userId: " + userId);
 
-        return usersTasksMuteRepository.findByTaskIdAndUserId(taskId, userId);
+        try {
+            return usersTasksMuteRepository.findByTaskIdAndUserId(taskId, userId);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -85,6 +89,10 @@ public class UsersTasksMuteServiceImp implements UsersTasksMuteService {
         log.debug("UsersTasksMuteService | updateMuteStatusByUserIdAndTaskId | taskId: " + taskId);
         log.debug("UsersTasksMuteService | updateMuteStatusByUserIdAndTaskId | status: " + status);
 
-        usersTasksMuteRepository.updateMuteStatus(userId, taskId, status);
+        try {
+            usersTasksMuteRepository.updateMuteStatus(userId, taskId, status);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

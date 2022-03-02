@@ -26,16 +26,23 @@ public class TaskDayServiceImp implements TaskDayService {
     public List<TaskDay> findAll() {
         log.debug("TaskDayService | findAll");
 
-        return StreamSupport
-                .stream(taskDayRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+        try {
+            return taskDayRepository.findAll();
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public TaskDay findById(Long id) {
         log.debug("TaskDayService | findById | id: " + id);
-        return taskDayRepository
-                .findById(id)
-                .orElseThrow(() -> new BusinessException("This day not found", HttpStatus.NOT_FOUND));
+
+        try {
+            return taskDayRepository
+                    .findById(id)
+                    .orElseThrow(() -> new BusinessException("This day not found", HttpStatus.NOT_FOUND));
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

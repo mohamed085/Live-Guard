@@ -4,6 +4,7 @@ import com.liveguard.domain.Chip;
 import com.liveguard.domain.ChipAssociatedDetails;
 import com.liveguard.domain.User;
 import com.liveguard.dto.ChipAssociatedDetailsDTO;
+import com.liveguard.exception.BusinessException;
 import com.liveguard.mapper.ChipAssociatedDetailsMapper;
 import com.liveguard.repository.ChipAssociatedDetailsRepository;
 import com.liveguard.service.AccountService;
@@ -11,6 +12,7 @@ import com.liveguard.service.ChipAssociatedDetailsService;
 import com.liveguard.service.ChipService;
 import com.liveguard.util.FileUploadUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -54,9 +56,19 @@ public class ChipAssociatedDetailsServiceImp implements ChipAssociatedDetailsSer
             String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             log.debug("ChipAssociatedDetailsService | addChipAssociatedDetails | file name: " + fileName);
 
-            savedChipAssociatedDetails = chipAssociatedDetailsRepository.save(chipAssociatedDetails);
-            chipAssociatedDetails.setPhoto("/chip-associated_details-photos/" + savedChipAssociatedDetails.getId() + "/" +fileName);
-            savedChipAssociatedDetails = chipAssociatedDetailsRepository.save(chipAssociatedDetails);
+            try {
+                savedChipAssociatedDetails = chipAssociatedDetailsRepository.save(chipAssociatedDetails);
+            } catch (Exception e) {
+                throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            savedChipAssociatedDetails.setPhoto("/chip-associated_details-photos/" + savedChipAssociatedDetails.getId() + "/" +fileName);
+
+            try {
+                savedChipAssociatedDetails = chipAssociatedDetailsRepository.save(savedChipAssociatedDetails);
+            }  catch (Exception e) {
+                throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
 
             String uploadDir = "chip-associated_details-photos/" + savedChipAssociatedDetails.getId();
 
@@ -69,7 +81,11 @@ public class ChipAssociatedDetailsServiceImp implements ChipAssociatedDetailsSer
         } else {
             log.debug("ChipAssociatedDetailsService | addChipAssociatedDetails | savedChipAssociatedDetails not has file");
 
-            savedChipAssociatedDetails = chipAssociatedDetailsRepository.save(chipAssociatedDetails);
+           try {
+               savedChipAssociatedDetails = chipAssociatedDetailsRepository.save(chipAssociatedDetails);
+           }  catch (Exception e) {
+               throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+           }
         }
 
         chip.setChipAssociatedDetails(savedChipAssociatedDetails);

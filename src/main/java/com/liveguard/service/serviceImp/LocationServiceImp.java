@@ -2,6 +2,7 @@ package com.liveguard.service.serviceImp;
 
 import com.liveguard.domain.*;
 import com.liveguard.dto.LocationDTO;
+import com.liveguard.exception.BusinessException;
 import com.liveguard.mapper.LocationMapper;
 import com.liveguard.repository.LocationRepository;
 import com.liveguard.repository.TaskDayRepository;
@@ -10,6 +11,7 @@ import com.liveguard.service.ChipService;
 import com.liveguard.service.LocationService;
 import com.liveguard.util.CaseTransfer;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -42,21 +44,26 @@ public class LocationServiceImp implements LocationService {
         Location location = LocationMapper.locationDTOToLocation(locationDTO);
         location.setDate(LocalDateTime.now());
         location.setChip(chip);
-        Location savedLocation = locationRepository.save(location);
 
-        pushLocationToSpecificChipChannel(savedLocation);
-        List<Task> currentTasks = getCurrentTasks(savedLocation);
-        currentTasks.forEach(task -> checkLocationStatus(task, savedLocation));
+        try {
+            Location savedLocation = locationRepository.save(location);
+            pushLocationToSpecificChipChannel(savedLocation);
+            List<Task> currentTasks = getCurrentTasks(savedLocation);
+            currentTasks.forEach(task -> checkLocationStatus(task, savedLocation));
 
-        /**
-         * TODO
-         * Send in socket
-         * Get Current Task
-         * Check location status
-         * Push Notification if status out
-         */
+            /**
+             * TODO
+             * Send in socket
+             * Get Current Task
+             * Check location status
+             * Push Notification if status out
+             */
 
-        return savedLocation;
+            return savedLocation;
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 
     private void pushLocationToSpecificChipChannel(Location location) {
@@ -71,20 +78,25 @@ public class LocationServiceImp implements LocationService {
         log.debug("LocationService | add | getCurrentTasks | current day: " + day);
 
         Day day1 = Day.valueOf(CaseTransfer.toLowerCaseExpectedFirstLetter(day));
-        TaskDay taskDay = taskDayRepository.findByDay(day1);
-        log.debug("LocationService | add | getCurrentTasks | current day id: " + taskDay.getId());
 
-        LocalTime time = location.getDate().toLocalTime();
-        log.debug("LocationService | add | getCurrentTasks | current time: " + time);
+        try {
+            TaskDay taskDay = taskDayRepository.findByDay(day1);
+            log.debug("LocationService | add | getCurrentTasks | current day id: " + taskDay.getId());
 
-        List<Task> tasks = taskRepository
-                .findByChipIdAndRepeatEquals(location.getChip().getId(), taskDay)
-                .stream()
-                .filter(task -> task.getStartDate().isBefore(time) && task.getEndDate().isAfter(time))
-                .collect(Collectors.toList());
+            LocalTime time = location.getDate().toLocalTime();
+            log.debug("LocationService | add | getCurrentTasks | current time: " + time);
 
-        log.debug("LocationService | add | getCurrentTasks | current tasks: " + tasks);
-        return tasks;
+            List<Task> tasks = taskRepository
+                    .findByChipIdAndRepeatEquals(location.getChip().getId(), taskDay)
+                    .stream()
+                    .filter(task -> task.getStartDate().isBefore(time) && task.getEndDate().isAfter(time))
+                    .collect(Collectors.toList());
+
+            log.debug("LocationService | add | getCurrentTasks | current tasks: " + tasks);
+            return tasks;
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     private void checkLocationStatus(Task task, Location location) {

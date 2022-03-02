@@ -13,6 +13,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         exposeDirectory("user-photos", registry);
+        exposeDirectory("chip-type-photos", registry);
         exposeDirectory("chip-photos", registry);
         exposeDirectory("chip-associated_details-photos", registry);
 

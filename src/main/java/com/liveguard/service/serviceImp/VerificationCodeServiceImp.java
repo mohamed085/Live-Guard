@@ -4,11 +4,13 @@ import com.liveguard.domain.EmailSendStatus;
 import com.liveguard.domain.User;
 import com.liveguard.domain.VerificationCode;
 import com.liveguard.domain.VerificationCodeStatus;
+import com.liveguard.exception.BusinessException;
 import com.liveguard.repository.UserRepository;
 import com.liveguard.repository.VerificationCodeRepository;
 import com.liveguard.service.VerificationCodeService;
 import com.liveguard.util.GenerateCodeUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -41,13 +43,21 @@ public class VerificationCodeServiceImp implements VerificationCodeService {
     @Override
     public VerificationCode save(VerificationCode code) {
         log.debug("VerificationCodeService | save | code id: " + code.getId());
-        return verificationCodeRepository.save(code);
+        try {
+            return verificationCodeRepository.save(code);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public VerificationCode findByUserId(Long id) {
         log.debug("VerificationCodeService | findByUserId | code id: " + id);
-        return verificationCodeRepository.findByUserId(id);
+        try {
+            return verificationCodeRepository.findByUserId(id);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -56,14 +66,22 @@ public class VerificationCodeServiceImp implements VerificationCodeService {
 
         VerificationCode code = findByUserId(userId);
         code.setEmailSendStatus(status);
-        verificationCodeRepository.save(code);
+        try {
+            verificationCodeRepository.save(code);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public Set<VerificationCode> findUnsendedEmail() {
         log.debug("VerificationCodeService | findUnsendedEmail");
 
-        return verificationCodeRepository.findByEmailSendStatus(EmailSendStatus.UNSEND);
+        try {
+            return verificationCodeRepository.findByEmailSendStatus(EmailSendStatus.UNSEND);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 
