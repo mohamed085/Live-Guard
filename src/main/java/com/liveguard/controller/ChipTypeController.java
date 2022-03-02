@@ -24,7 +24,7 @@ import static org.springframework.http.ResponseEntity.internalServerError;
 
 @Slf4j
 @RestController
-@RequestMapping("/chipTypes")
+@RequestMapping("/chip_types")
 public class ChipTypeController {
 
     private final ChipTypeService chipTypeService;
