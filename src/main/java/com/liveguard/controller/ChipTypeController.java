@@ -27,6 +27,7 @@ import static org.springframework.http.ResponseEntity.internalServerError;
 @RequestMapping("/chip-types")
 public class ChipTypeController {
 
+
     private final ChipTypeService chipTypeService;
 
     public ChipTypeController(ChipTypeService chipTypeService) {
