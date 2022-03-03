@@ -32,5 +32,4 @@ public class Chip extends BaseEntity {
     @OneToMany(mappedBy = "chip")
     private Set<Task> tasks = new HashSet<>();
 
-
 }
