@@ -16,7 +16,7 @@ public interface ChipService {
 
     Chip findById(Long id);
 
-    Chip add(ChipDTO chipDTO) throws IOException;
+    Chip add(ChipDTO chipDTO);
 
     Chip save(Chip chip);
 

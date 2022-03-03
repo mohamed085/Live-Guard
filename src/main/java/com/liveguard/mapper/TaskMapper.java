@@ -39,6 +39,7 @@ public class TaskMapper {
                 task.getChip().getId(),
                 task.getChip().getName(),
                 null,
+                task.getChip().getUsed(),
                 task.getChip().getPhoto());
 
         UserSimpleDataDTO addByUser = new UserSimpleDataDTO(

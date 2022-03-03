@@ -44,6 +44,7 @@ public class ChipController {
                 .add(new ChipSimpleDataDTO(chip.getId(),
                         chip.getName(),
                         chip.getPassword(),
+                        chip.getUsed(),
                         chip.getPhoto())));
 
         return ResponseEntity
@@ -88,16 +89,11 @@ public class ChipController {
     public ResponseEntity<?> addChip(@Valid @ModelAttribute ChipDTO chipDTO) {
         log.debug("ChipTypeController | addChipType | chipTypeDTO: " + chipDTO.getName());
 
-        try {
-            Chip returnChip = chipService.add(chipDTO);
-            return ResponseEntity
-                    .ok()
-                    .body(ChipMapper.chipToChipDTO(returnChip));
-        } catch (IOException e) {
-            return ResponseEntity
-                    .internalServerError()
-                    .body(new ApiResponse(false, "Failed to save chip photo"));
-        }
+        Chip returnChip = chipService.add(chipDTO);
+        return ResponseEntity
+                .ok()
+                .body(ChipMapper.chipToChipDTO(returnChip));
+
     }
 
     @GetMapping("/chipType/{chipTypeId}")

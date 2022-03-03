@@ -69,12 +69,13 @@ public class ChipServiceImp implements ChipService {
     }
 
     @Override
-    public Chip add(ChipDTO chipDTO) throws IOException {
+    public Chip add(ChipDTO chipDTO) {
         log.debug("ChipService | add | chipDTO name: " + chipDTO.getName());
         Chip chip = ChipMapper.chipDTOToChip(chipDTO);
 
         chip.setChipType(chipTypeService.findById(chipDTO.getChipTypeId()));
         chip.setPassword(RandomStringUtils.randomAlphanumeric(9));
+        chip.setUsed(false);
 
         Chip savedChip;
 
@@ -95,7 +96,11 @@ public class ChipServiceImp implements ChipService {
             log.debug("ChipService | add | uploadDir : " + uploadDir);
 
             FileUploadUtil.cleanDir(uploadDir);
-            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+            try {
+                FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+            } catch (IOException e) {
+                throw new BusinessException("Failed to save photo", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
 
         } else {
             log.debug("ChipService | add | chipDTO not has file");
@@ -138,15 +143,17 @@ public class ChipServiceImp implements ChipService {
     public ApiResponse addNewChipToUser(Long chipId, String chipPassword) {
         log.debug("ChipService | addNewChipToUser | chip id: " + chipId);
         Chip chip = findById(chipId);
+        chip.setUsed(true);
 
         User user = accountService.getAuthenticatedAccount();
         log.debug("ChipService | addNewChipToUser | user: " + user.getEmail());
 
         if (chip.getPassword().equals(chipPassword)) {
             user.getChips().add(chip);
+            userService.save(user);
 
             try {
-                userService.save(user);
+                chipRepository.save(chip);
             } catch (Exception e) {
                 throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
             }

@@ -17,6 +17,7 @@ public class Chip extends BaseEntity {
     private String name;
     private String photo;
     private String password;
+    private Boolean used;
 
     @ManyToOne
     @JoinColumn(name="chip_type_id", nullable=false)

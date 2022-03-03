@@ -11,5 +11,6 @@ public class ChipSimpleDataDTO {
     private Long id;
     private String name;
     private String password;
+    private Boolean used;
     private String photo;
 }
