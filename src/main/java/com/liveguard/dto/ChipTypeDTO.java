@@ -66,7 +66,7 @@ public class ChipTypeDTO {
     @JsonProperty("main_image_file")
     private MultipartFile mainImageFile;
 
-    @JsonProperty("chip_type_detail")
+    @JsonProperty("details")
     private List<ChipTypeDetailDTO> chipTypeDetails;
 
     private List<ChipTypeImageDTO> images;

@@ -15,6 +15,6 @@ import java.util.List;
 public class UpdateChipTypeDetailsRequest {
 
     @NotEmpty(message = "name must not empty")
-    @JsonProperty("chip_type_details")
+    @JsonProperty("details")
     List<ChipTypeDetailDTO> chipTypeDetailDTOs;
 }
