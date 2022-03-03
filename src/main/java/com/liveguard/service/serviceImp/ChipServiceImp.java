@@ -77,7 +77,7 @@ public class ChipServiceImp implements ChipService {
 
         Chip savedChip;
 
-        if (!chipDTO.getPhotoFile().isEmpty()) {
+        if (chipDTO.getPhotoFile() != null || !chipDTO.getPhotoFile().isEmpty()) {
             log.debug("ChipService | add | chipDTO has file");
 
             MultipartFile multipartFile = chipDTO.getPhotoFile();

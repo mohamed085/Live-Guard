@@ -10,5 +10,6 @@ import lombok.NoArgsConstructor;
 public class ChipSimpleDataDTO {
     private Long id;
     private String name;
+    private String password;
     private String photo;
 }

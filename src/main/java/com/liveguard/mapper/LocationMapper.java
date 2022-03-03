@@ -20,7 +20,7 @@ public class LocationMapper {
         locationDTO.setLng(location.getLng());
         locationDTO.setLat(location.getLat());
         locationDTO.setDate(location.getDate());
-        locationDTO.setChip(new ChipSimpleDataDTO(location.getChip().getId(), location.getChip().getName(), location.getChip().getPhoto()));
+        locationDTO.setChip(new ChipSimpleDataDTO(location.getChip().getId(), location.getChip().getName(), null, location.getChip().getPhoto()));
         locationDTO.setChipId(location.getChip().getId());
 
         return locationDTO;

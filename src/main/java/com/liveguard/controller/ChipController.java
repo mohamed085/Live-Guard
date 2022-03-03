@@ -4,6 +4,7 @@ import com.liveguard.domain.Chip;
 import com.liveguard.domain.ChipAssociatedDetails;
 import com.liveguard.dto.ChipAssociatedDetailsDTO;
 import com.liveguard.dto.ChipDTO;
+import com.liveguard.dto.ChipSimpleDataDTO;
 import com.liveguard.mapper.ChipAssociatedDetailsMapper;
 import com.liveguard.mapper.ChipMapper;
 import com.liveguard.payload.AddNewChipRequest;
@@ -38,8 +39,13 @@ public class ChipController {
     public ResponseEntity<?> getAllChips() {
         log.debug("ChipTypeController | getAllChipTypes");
 
-        List<ChipDTO> chipDTOs = new ArrayList<>();
-        chipService.findAll().forEach(chip -> chipDTOs.add(ChipMapper.chipToChipDTO(chip)));
+        List<ChipSimpleDataDTO> chipDTOs = new ArrayList<>();
+        chipService.findAll().forEach(chip -> chipDTOs
+                .add(new ChipSimpleDataDTO(chip.getId(),
+                        chip.getName(),
+                        chip.getPassword(),
+                        chip.getPhoto())));
+
         return ResponseEntity
                 .ok()
                 .body(chipDTOs);

@@ -35,11 +35,17 @@ public class TaskMapper {
         List<TaskDayDTO> repeat = new ArrayList<>();
         task.getRepeat().forEach(taskDay -> repeat.add(TaskDayMapper.taskDayToTaskDayDTO(taskDay)));
 
-        ChipSimpleDataDTO chip = new ChipSimpleDataDTO(task.getChip().getId(), task.getChip().getName(),
+        ChipSimpleDataDTO chip = new ChipSimpleDataDTO(
+                task.getChip().getId(),
+                task.getChip().getName(),
+                null,
                 task.getChip().getPhoto());
 
-        UserSimpleDataDTO addByUser = new UserSimpleDataDTO(task.getAddByUser().getId(),
-                task.getAddByUser().getEmail(), task.getAddByUser().getName(), task.getAddByUser().getAvatar());
+        UserSimpleDataDTO addByUser = new UserSimpleDataDTO(
+                task.getAddByUser().getId(),
+                task.getAddByUser().getEmail(),
+                task.getAddByUser().getName(),
+                task.getAddByUser().getAvatar());
 
         TaskDTO taskDTO = new TaskDTO();
         taskDTO.setId(task.getId());
