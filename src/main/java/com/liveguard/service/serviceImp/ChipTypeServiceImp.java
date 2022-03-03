@@ -210,4 +210,31 @@ public class ChipTypeServiceImp implements ChipTypeService {
         }
     }
 
+    @Override
+    @Transactional
+    public void updateEnabledStatus(Long id, Boolean status) {
+        log.debug("ChipTypeController | updateEnabledStatus | chip id: " + id);
+        log.debug("ChipTypeController | updateEnabledStatus | status: " + status);
+
+        try {
+            chipTypeRepository.updateEnabledStatus(id, status);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public void updateInStockStatus(Long id, Boolean status) {
+        log.debug("ChipTypeController | updateInStockStatus | chip id: " + id);
+        log.debug("ChipTypeController | updateInStockStatus | status: " + status);
+
+        try {
+            chipTypeRepository.updateEnabledStatus(id, status);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

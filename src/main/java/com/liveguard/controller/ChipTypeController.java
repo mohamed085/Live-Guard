@@ -125,4 +125,23 @@ public class ChipTypeController {
                 .body(new ApiResponse(true, "Chip id: " + id + " updated successfully"));
     }
 
+    @GetMapping("/enabled/{id}/{status}")
+    public ResponseEntity<?> updateEnabledStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
+        log.debug("ChipTypeController | updateEnabledStatus | chip id: " + id);
+
+        chipTypeService.updateEnabledStatus(id, status);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Chip id: " + id + " updated successfully"));
+    }
+
+    @GetMapping("/inStock/{id}/{status}")
+    public ResponseEntity<?> updateInStockStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
+        log.debug("ChipTypeController | updateInStockStatus | chip id: " + id);
+
+        chipTypeService.updateInStockStatus(id, status);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Chip id: " + id + " updated successfully"));
+    }
 }

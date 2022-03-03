@@ -30,4 +30,8 @@ public interface ChipTypeService {
 
     void updateChipTypeShipping(Long id, UpdateChipTypeShippingRequest chipTypeShipping);
 
+    void updateEnabledStatus(Long id, Boolean status);
+
+    void updateInStockStatus(Long id, Boolean status);
+
 }
