@@ -135,7 +135,7 @@ public class ChipTypeController {
                 .body(new ApiResponse(true, "Chip id: " + id + " updated successfully"));
     }
 
-    @GetMapping("/inStock/{id}/{status}")
+    @GetMapping("/in-stock/{id}/{status}")
     public ResponseEntity<?> updateInStockStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
         log.debug("ChipTypeController | updateInStockStatus | chip id: " + id);
 
