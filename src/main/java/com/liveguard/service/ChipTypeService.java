@@ -18,9 +18,9 @@ public interface ChipTypeService {
 
     ChipType findById(Long id);
 
-    ChipType add(ChipTypeDTO chipTypeDTO) throws IOException;
+    ChipType add(ChipTypeDTO chipTypeDTO);
 
-    void updateChipTypeMainImage(Long id, MultipartFile multipartFile) throws IOException;
+    void updateChipTypeMainImage(Long id, MultipartFile multipartFile);
 
     void updateChipTypeOverview(Long id, UpdateChipTypeOverviewRequest chipTypeOverview);
 

@@ -56,19 +56,18 @@ public class ChipTypeServiceImp implements ChipTypeService {
     }
 
     @Override
-    public ChipType add(ChipTypeDTO chipTypeDTO) throws IOException {
+    public ChipType add(ChipTypeDTO chipTypeDTO) {
         log.debug("ChipTypeService | add: " + chipTypeDTO.toString());
         ChipType chipType = ChipTypeMapper.chipTypeDTOToChipType(chipTypeDTO);
 
         ChipType savedChipType;
         chipType.setCreatedTime(LocalDateTime.now());
         chipType.setUpdatedTime(LocalDateTime.now());
-        chipType.setEnabled(true);
         chipType.setInStock(true);
-        chipType.setDiscountPercent(0.0F);
+        chipType.setEnabled(true);
 
 
-        if (chipTypeDTO.getMainImageFile() == null) {
+        if (chipTypeDTO.getMainImageFile() != null) {
             log.debug("ChipTypeService | add | chipDTO has file");
 
             MultipartFile multipartFile = chipTypeDTO.getMainImageFile();
@@ -84,7 +83,7 @@ public class ChipTypeServiceImp implements ChipTypeService {
             savedChipType.setMainImage("/chip-type-photos/" + savedChipType.getId() + "/" +fileName);
 
             try {
-                savedChipType =chipTypeRepository.save(savedChipType);
+                savedChipType = chipTypeRepository.save(savedChipType);
             } catch (Exception e) {
                 throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
             }
@@ -95,7 +94,11 @@ public class ChipTypeServiceImp implements ChipTypeService {
             log.debug("ChipTypeService | add | uploadDir : " + uploadDir);
 
             FileUploadUtil.cleanDir(uploadDir);
-            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+            try {
+                FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+            } catch (IOException e) {
+                throw new BusinessException("Failed to save chip photo", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
 
         } else {
             log.debug("ChipTypeService | add | chipTypeDTO not has file");
@@ -103,12 +106,11 @@ public class ChipTypeServiceImp implements ChipTypeService {
             savedChipType = chipTypeRepository.save(chipType);
         }
 
-
         return savedChipType;
     }
 
     @Override
-    public void updateChipTypeMainImage(Long id, MultipartFile multipartFile) throws IOException {
+    public void updateChipTypeMainImage(Long id, MultipartFile multipartFile) {
         log.debug("ChipTypeService | updateChipTypeMainImage | id: " + id);
         log.debug("ChipTypeService | updateChipTypeMainImage | multipartFile: " + multipartFile.getOriginalFilename());
 
@@ -131,7 +133,11 @@ public class ChipTypeServiceImp implements ChipTypeService {
         log.debug("ChipTypeService | updateChipTypeMainImage | uploadDir : " + uploadDir);
 
         FileUploadUtil.cleanDir(uploadDir);
-        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        try {
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        } catch (IOException e) {
+            throw new BusinessException("Failed to save chip photo", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override

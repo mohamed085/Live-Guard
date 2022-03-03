@@ -59,15 +59,10 @@ public class ChipTypeController {
     public ResponseEntity<?> addChipType(@Valid @ModelAttribute ChipTypeDTO chipTypeDTO) {
         log.debug("ChipTypeController | addChipType | chipTypeDTO: " + chipTypeDTO.toString());
 
-        ChipTypeDTO savedChipTypeDTO = null;
-        try {
-            savedChipTypeDTO = ChipTypeMapper.chipTypeToChipTypeDTO(chipTypeService.add(chipTypeDTO));
-            return ResponseEntity
-                    .ok()
-                    .body(savedChipTypeDTO);
-        } catch (IOException e) {
-            throw new BusinessException("Failed to save chip photo", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        ChipTypeDTO savedChipTypeDTO = ChipTypeMapper.chipTypeToChipTypeDTO(chipTypeService.add(chipTypeDTO));
+        return ResponseEntity
+                .ok()
+                .body(savedChipTypeDTO);
     }
 
     @PutMapping("/{id}/image")
@@ -75,16 +70,13 @@ public class ChipTypeController {
                                                                @Valid @RequestParam("file") MultipartFile multipartFile) {
         log.debug("ChipTypeController | updateChipTypeMainImage | chip id: " + id);
 
-        try {
-            chipTypeService.updateChipTypeMainImage(id, multipartFile);
-            return ResponseEntity
-                    .ok()
-                    .body(new ApiResponse(true, "Image saved successfully"));
-        } catch (IOException e) {
-            throw new BusinessException("Failed to save chip photo", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        chipTypeService.updateChipTypeMainImage(id, multipartFile);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Image saved successfully"));
     }
 
+    @CrossOrigin(origins = "http://localhost:8082")
     @PutMapping("/{id}/overview")
     public ResponseEntity<ApiResponse> updateChipTypeOverview(@PathVariable("id") Long id,
                                                               @Valid @RequestBody UpdateChipTypeOverviewRequest chipTypeOverview) {
