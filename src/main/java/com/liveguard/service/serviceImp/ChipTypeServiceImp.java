@@ -231,7 +231,7 @@ public class ChipTypeServiceImp implements ChipTypeService {
         log.debug("ChipTypeController | updateInStockStatus | status: " + status);
 
         try {
-            chipTypeRepository.updateEnabledStatus(id, status);
+            chipTypeRepository.updateInStockStatus(id, status);
         } catch (Exception e) {
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
