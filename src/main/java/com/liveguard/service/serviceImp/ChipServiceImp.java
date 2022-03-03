@@ -13,6 +13,7 @@ import com.liveguard.service.*;
 import com.liveguard.util.FileUploadUtil;
 import com.liveguard.util.GenerateCodeUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -73,7 +74,7 @@ public class ChipServiceImp implements ChipService {
         Chip chip = ChipMapper.chipDTOToChip(chipDTO);
 
         chip.setChipType(chipTypeService.findById(chipDTO.getChipTypeId()));
-        chip.setPassword(String.valueOf(GenerateCodeUtil.generateRandomDigits(12)));
+        chip.setPassword(RandomStringUtils.randomAlphanumeric(9));
 
         Chip savedChip;
 
