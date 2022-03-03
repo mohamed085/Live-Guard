@@ -71,6 +71,9 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.15" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.33" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aspects:5.3.15" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.httpcomponents:httpclient:4.5.13" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.apache.httpcomponents:httpcore:4.4.15" level="project" />
+    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.15" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-mail:2.6.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context-support:5.3.15" level="project" />
     <orderEntry type="library" name="Maven: com.sun.mail:jakarta.mail:1.6.7" level="project" />
@@ -113,7 +116,6 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.13.1" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.13.1" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.1" level="project" />
-    <orderEntry type="library" name="Maven: commons-codec:commons-codec:1.15" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.springframework.boot:spring-boot-devtools:2.6.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.6.3" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.6.3" level="project" />
