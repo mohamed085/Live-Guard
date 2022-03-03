@@ -34,7 +34,7 @@ public class ChipAssociatedDetailsServiceImp implements ChipAssociatedDetailsSer
     }
 
     @Override
-    public ChipAssociatedDetails addChipAssociatedDetails(Long chipId, ChipAssociatedDetailsDTO chipAssociatedDetailsDTO) throws IOException {
+    public ChipAssociatedDetails addChipAssociatedDetails(Long chipId, ChipAssociatedDetailsDTO chipAssociatedDetailsDTO) {
         log.debug("ChipAssociatedDetailsService | addChipAssociatedDetails | chipId: " + chipId);
         log.debug("ChipAssociatedDetailsService | addChipAssociatedDetails | chipAssociatedDetails: " + chipAssociatedDetailsDTO.getName());
 
@@ -76,7 +76,11 @@ public class ChipAssociatedDetailsServiceImp implements ChipAssociatedDetailsSer
             log.debug("ChipAssociatedDetailsService | addChipAssociatedDetails | uploadDir : " + uploadDir);
 
             FileUploadUtil.cleanDir(uploadDir);
-            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+            try {
+                FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+            } catch (IOException e) {
+                throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+            }
 
         } else {
             log.debug("ChipAssociatedDetailsService | addChipAssociatedDetails | savedChipAssociatedDetails not has file");

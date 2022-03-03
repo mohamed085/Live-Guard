@@ -7,6 +7,6 @@ import java.io.IOException;
 
 public interface ChipAssociatedDetailsService {
 
-    ChipAssociatedDetails addChipAssociatedDetails(Long chipId, ChipAssociatedDetailsDTO chipAssociatedDetailsDTO) throws IOException;
+    ChipAssociatedDetails addChipAssociatedDetails(Long chipId, ChipAssociatedDetailsDTO chipAssociatedDetailsDTO);
 
 }

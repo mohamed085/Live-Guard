@@ -18,6 +18,8 @@ public interface ChipService {
 
     Chip add(ChipDTO chipDTO);
 
+    void delete(Long id);
+
     Chip save(Chip chip);
 
     List<Chip> getChipsByType(Long chipTypeId);

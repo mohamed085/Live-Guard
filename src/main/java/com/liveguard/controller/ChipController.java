@@ -52,6 +52,37 @@ public class ChipController {
                 .body(chipDTOs);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getChip(@PathVariable("id") Long id) {
+        log.debug("ChipTypeController | getChipType | id: " + id);
+
+
+        return ResponseEntity
+                .ok()
+                .body(ChipMapper.chipToChipDTO(chipService.findById(id)));
+    }
+
+
+    @RequestMapping(value = "",  method = RequestMethod.POST, consumes = {"multipart/form-data"})
+    public ResponseEntity<?> addChip(@Valid @ModelAttribute ChipDTO chipDTO) {
+        log.debug("ChipTypeController | addChipType | chipTypeDTO: " + chipDTO.getName());
+
+        Chip returnChip = chipService.add(chipDTO);
+        return ResponseEntity
+                .ok()
+                .body(ChipMapper.chipToChipDTO(returnChip));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteChip(@PathVariable("id") Long id) {
+        log.debug("ChipTypeController | deleteChip | id: " + id);
+
+        chipService.delete(id);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Chip deleted successfully"));
+    }
+
     @PostMapping("/add-new-chip-to-user")
     public ResponseEntity<?> addNewChipToUser(@RequestBody AddNewChipRequest addNewChipRequest) {
         log.debug("ChipTypeController | addNewChipToUser");
@@ -74,28 +105,6 @@ public class ChipController {
     }
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getChip(@PathVariable Long id) {
-        log.debug("ChipTypeController | getChipType | id: " + id);
-
-
-        return ResponseEntity
-                .ok()
-                .body(ChipMapper.chipToChipDTO(chipService.findById(id)));
-    }
-
-
-    @RequestMapping(value = "",  method = RequestMethod.POST, consumes = {"multipart/form-data"})
-    public ResponseEntity<?> addChip(@Valid @ModelAttribute ChipDTO chipDTO) {
-        log.debug("ChipTypeController | addChipType | chipTypeDTO: " + chipDTO.getName());
-
-        Chip returnChip = chipService.add(chipDTO);
-        return ResponseEntity
-                .ok()
-                .body(ChipMapper.chipToChipDTO(returnChip));
-
-    }
-
     @GetMapping("/chipType/{chipTypeId}")
     public ResponseEntity<?> getChipsByType(@PathVariable("chipTypeId") Long chipTypeId) {
 
@@ -115,16 +124,11 @@ public class ChipController {
         log.debug("ChipTypeController | addChipAssociatedDetails | chip id: " + id);
         log.debug("ChipTypeController | addChipAssociatedDetails | chipAssociatedDetailsDTO: " + chipAssociatedDetailsDTO.getName());
 
-        try {
-            ChipAssociatedDetails savedChipAssociatedDetails = chipAssociatedDetailsService.addChipAssociatedDetails(id, chipAssociatedDetailsDTO);
-            return ResponseEntity
-                    .ok()
-                    .body(ChipAssociatedDetailsMapper.chipAssociatedDetailsToChipAssociatedDetailsDTO(savedChipAssociatedDetails));
-        } catch (IOException e) {
-            return ResponseEntity
-                    .internalServerError()
-                    .body(new ApiResponse(false, "Failed to save chip photo"));
-        }
+        ChipAssociatedDetails savedChipAssociatedDetails = chipAssociatedDetailsService.addChipAssociatedDetails(id, chipAssociatedDetailsDTO);
+        return ResponseEntity
+                .ok()
+                .body(ChipAssociatedDetailsMapper.chipAssociatedDetailsToChipAssociatedDetailsDTO(savedChipAssociatedDetails));
+
     }
 
 
