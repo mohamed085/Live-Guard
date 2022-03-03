@@ -16,6 +16,7 @@ import java.io.IOException;
 @Slf4j
 @RestController
 @RequestMapping("/account")
+
 public class AccountController {
 
     private final AccountService accountService;

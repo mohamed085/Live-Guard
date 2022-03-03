@@ -25,7 +25,7 @@ public class LocationDTO {
     @NotEmpty(message = "lat date not empty")
     private Double lat;
 
-    @JsonFormat(pattern="dd/MM/yyyy hh:mm aa")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime date;
 
     private ChipSimpleDataDTO chip;
