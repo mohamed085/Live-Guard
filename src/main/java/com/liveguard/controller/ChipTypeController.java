@@ -77,7 +77,6 @@ public class ChipTypeController {
     }
 
 
-    @CrossOrigin("http://localhost:8082")
     @PutMapping({"/{id}/overview"})
     public ResponseEntity<ApiResponse> updateChipTypeOverview(@PathVariable("id") Long id,
                                                               @Valid @RequestBody UpdateChipTypeOverviewRequest chipTypeOverview) {
