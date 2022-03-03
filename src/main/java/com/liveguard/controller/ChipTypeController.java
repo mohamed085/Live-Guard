@@ -76,18 +76,18 @@ public class ChipTypeController {
                 .body(new ApiResponse(true, "Image saved successfully"));
     }
 
-    @CrossOrigin(origins = "http://localhost:8082")
-    @PutMapping("/{id}/overview")
+
+    @CrossOrigin("http://localhost:8082")
+    @PutMapping({"/{id}/overview"})
     public ResponseEntity<ApiResponse> updateChipTypeOverview(@PathVariable("id") Long id,
                                                               @Valid @RequestBody UpdateChipTypeOverviewRequest chipTypeOverview) {
-        log.debug("ChipTypeController | updateChipTypeOverview | chip id: " + id);
 
-        chipTypeService.updateChipTypeOverview(id, chipTypeOverview);
+        log.debug("ChipTypeController | updateChipTypeOverview | chip id: " + id);
+        this.chipTypeService.updateChipTypeOverview(id, chipTypeOverview);
         return ResponseEntity
                 .ok()
                 .body(new ApiResponse(true, "Chip id: " + id + " updated successfully"));
     }
-
 
     @PutMapping("/{id}/description")
     public ResponseEntity<ApiResponse> updateChipTypeDescription(@PathVariable("id") Long id,
