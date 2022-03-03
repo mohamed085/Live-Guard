@@ -37,7 +37,7 @@ public class UserDTO {
     private String address;
 
     @JsonProperty("date_of_birth")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="dd/MM/yyyy")
     private LocalDate dateOfBirth;
 
     private String avatar;

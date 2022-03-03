@@ -46,19 +46,19 @@ public class TaskDTO {
     @NotNull(message = "Start date must not null")
     @NotEmpty(message = "Start date not empty")
     @JsonProperty("start_date")
-    @JsonFormat(pattern="HH:mm:ss")
+    @JsonFormat(pattern="hh:mm aa")
     private LocalTime startDate;
 
     @NotNull(message = "End date not null")
     @NotEmpty(message = "End date not empty")
     @JsonProperty("end_date")
-    @JsonFormat(pattern="HH:mm:ss")
+    @JsonFormat(pattern="hh:mm aa")
     private LocalTime endDate;
 
     @NotNull(message = "Create date must not null")
     @NotEmpty(message = "Create date must not empty")
     @JsonProperty("create_date")
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern="dd/MM/yyyy hh:mm aa")
     private LocalDateTime createDate;
 
     @NotNull(message = "Repeats must not null")
