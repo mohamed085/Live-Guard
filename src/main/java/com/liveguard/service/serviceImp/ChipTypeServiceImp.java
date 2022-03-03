@@ -143,12 +143,15 @@ public class ChipTypeServiceImp implements ChipTypeService {
     @Override
     public void updateChipTypeOverview(Long id, UpdateChipTypeOverviewRequest chipTypeOverview) {
         log.debug("ChipTypeService | updateChipTypeOverview | id: " + id);
+        log.debug("ChipTypeService | updateChipTypeOverview | id: " + chipTypeOverview.toString());
+
         ChipType savedChipType = findById(id);
 
         savedChipType.setName(chipTypeOverview.getName());
         savedChipType.setAlias(chipTypeOverview.getAlias());
         savedChipType.setCost(chipTypeOverview.getCost());
         savedChipType.setPrice(chipTypeOverview.getPrice());
+        savedChipType.setDiscountPercent(chipTypeOverview.getDiscountPercent());
         savedChipType.setInStock(chipTypeOverview.getInStock());
         savedChipType.setEnabled(chipTypeOverview.getEnabled());
 
