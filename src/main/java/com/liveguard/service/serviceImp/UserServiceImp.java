@@ -1,14 +1,22 @@
 package com.liveguard.service.serviceImp;
 
+import com.liveguard.domain.AuthenticationType;
 import com.liveguard.domain.User;
+import com.liveguard.domain.VerificationCode;
+import com.liveguard.dto.UserDTO;
 import com.liveguard.exception.BusinessException;
+import com.liveguard.mapper.UserMapper;
 import com.liveguard.repository.UserRepository;
 import com.liveguard.service.RoleService;
 import com.liveguard.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import java.io.UnsupportedEncodingException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Slf4j
@@ -17,10 +25,12 @@ public class UserServiceImp implements UserService {
 
     private final UserRepository userRepository;
     private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceImp(UserRepository userRepository, RoleService roleService) {
+    public UserServiceImp(UserRepository userRepository, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -94,4 +104,21 @@ public class UserServiceImp implements UserService {
         } catch (Exception e) {
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }    }
+
+    @Override
+    public void addVendor(UserDTO userDTO) {
+        log.debug("AuthService | addVendor | user: " + userDTO.getEmail());
+
+        User user = UserMapper.UserDTOToUser(userDTO);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.getRoles().add(roleService.findById(2L));
+        user.setCreatedTime(LocalDateTime.now());
+        user.setCredentialsNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setAccountNonExpired(true);
+        user.setEnable(true);
+        user.setAuthenticationType(AuthenticationType.DATABASE);
+
+        save(user);
+    }
 }

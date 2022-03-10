@@ -1,6 +1,7 @@
 package com.liveguard.service;
 
 import com.liveguard.domain.User;
+import com.liveguard.dto.UserDTO;
 
 import java.util.List;
 
@@ -17,5 +18,7 @@ public interface UserService {
     List<User> getAllVendors();
 
     List<User> getAllCustomers();
+
+    void addVendor(UserDTO userDTO);
 
 }
