@@ -18,8 +18,9 @@ public class TaskDay extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Day day;
 
-    @ManyToMany(mappedBy = "repeat")
-    private Set<Task> tasks = new HashSet<>();
+    public TaskDay(Day day) {
+        this.day = day;
+    }
 
     @Override
     public String toString() {

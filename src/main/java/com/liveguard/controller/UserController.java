@@ -22,6 +22,15 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getUser(@PathVariable("id") Long id) {
+        log.debug("UserController | getUser | user id: " + id);
+
+        return ResponseEntity
+                .ok()
+                .body(UserMapper.UserToUserDTO(userService.findById(id)));
+    }
+
     @GetMapping("/customers")
     public ResponseEntity<?> getAllCustomers() {
         log.debug("UserController | getAllCustomers");
