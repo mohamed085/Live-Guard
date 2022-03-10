@@ -48,8 +48,14 @@ public class UserDTO {
     private LocalDateTime createdDate;
 
     private Boolean enable;
+
+    @JsonProperty("account_non_expired")
     private Boolean accountNonExpired;
+
+    @JsonProperty("credentials_non_expired")
     private Boolean credentialsNonExpired;
+
+    @JsonProperty("account_non_locked")
     private Boolean accountNonLocked;
 
     private String avatar;
