@@ -37,7 +37,6 @@ public class UserController {
 
 
     @GetMapping("/vendors")
-    @CrossOrigin(origins = "http://localhost:8082")
     public ResponseEntity<?> getAllVendors() {
         log.debug("UserController | getAllVendors");
 
