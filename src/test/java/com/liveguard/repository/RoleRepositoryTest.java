@@ -36,7 +36,8 @@ class RoleRepositoryTest {
     @Test
     public void testAddListOfRole() {
         List<Role> roles = Arrays.asList(
-                new Role("user", ""),
+                new Role("customer", ""),
+                new Role("vendor", ""),
                 new Role("admin", "")
         );
 
@@ -46,5 +47,20 @@ class RoleRepositoryTest {
         System.out.println(iterable);
         assertNotNull(iterable);
 
+    }
+
+    @Test
+    public void findAll() {
+        List<Role> roles = roleRepository.findAll();
+
+        System.out.println(roles);
+        assertNotNull(roles);
+    }
+    
+    @Test
+    public void findById() {
+        Role role = roleRepository.findById(1L).get();
+        System.out.println(role);
+        assertEquals(role.getId(), 1L);
     }
 }

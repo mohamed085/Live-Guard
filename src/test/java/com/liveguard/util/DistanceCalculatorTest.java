@@ -8,6 +8,7 @@ class DistanceCalculatorTest {
 
     @Test
     void distance() {
-        System.out.println(DistanceCalculator.distance(32.9697, -96.80322, 29.46786, -98.53506) + " Miles\n");
+//        System.out.println(DistanceCalculator.distance(30.723079, 30.2645248, 31.122716, 31.0214656));
+        System.out.println(DistanceCalculator.distance(30.723083, 30.723081, 31.122720, 31.122718));
     }
 }

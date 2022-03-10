@@ -49,6 +49,7 @@ public class UserMapper {
         userDTO.setAvatar(user.getAvatar());
         userDTO.setChips(chips);
         userDTO.setRoles(roles);
+        userDTO.setCreatedDate(user.getCreatedTime());
 
         return userDTO;
     }

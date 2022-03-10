@@ -69,16 +69,28 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
+    public User(String name, String email, String password, Boolean enable, Role role) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.enable = enable;
+        this.roles.add(role);
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", createdTime=" + createdTime +
                 ", enable=" + enable +
-                ", password=" + password +
+                ", accountNonExpired=" + accountNonExpired +
+                ", credentialsNonExpired=" + credentialsNonExpired +
+                ", accountNonLocked=" + accountNonLocked +
                 ", roles=" + roles +
                 ", authenticationType=" + authenticationType +
-                '}';
+                '}' + '\n';
     }
 }
 

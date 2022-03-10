@@ -2,6 +2,8 @@ package com.liveguard.service;
 
 import com.liveguard.domain.User;
 
+import java.util.List;
+
 public interface UserService {
 
     User findByEmail(String email);
@@ -11,5 +13,9 @@ public interface UserService {
     Boolean userExistByEmail(String email);
 
     User save(User user);
+
+    List<User> getAllVendors();
+
+    List<User> getAllCustomers();
 
 }

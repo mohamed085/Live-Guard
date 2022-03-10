@@ -11,6 +11,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -39,6 +40,10 @@ public class UserDTO {
     @JsonProperty("date_of_birth")
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate dateOfBirth;
+
+    @JsonProperty("create_date")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime createdDate;
 
     private String avatar;
     private Set<ChipDTO> chips;

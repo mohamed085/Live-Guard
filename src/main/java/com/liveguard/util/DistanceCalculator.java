@@ -47,9 +47,18 @@ public class DistanceCalculator {
         lat1 = Math.toRadians(lat1);
         lat2 = Math.toRadians(lat2);
 
-        // Haversine formula
         double dlon = lon2 - lon1;
+
+        if (lon2 < lon1) {
+            dlon = lon1 - lon2;
+        }
+
         double dlat = lat2 - lat1;
+
+        if (lat2 < lat1) {
+            dlat = lat1 - lat2;
+        }
+
         double a = Math.pow(Math.sin(dlat / 2), 2)
                 + Math.cos(lat1) * Math.cos(lat2)
                 * Math.pow(Math.sin(dlon / 2),2);
@@ -58,7 +67,7 @@ public class DistanceCalculator {
 
         // Radius of earth in kilometers. Use 3956
         // for miles
-        double r = 6371;
+        double r = 6371*1000;
 
         // calculate the result
         return(c * r);
