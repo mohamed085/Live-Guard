@@ -45,6 +45,11 @@ public class UserDTO {
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdDate;
 
+    private Boolean enable;
+    private Boolean accountNonExpired;
+    private Boolean credentialsNonExpired;
+    private Boolean accountNonLocked;
+
     private String avatar;
     private Set<ChipDTO> chips;
 

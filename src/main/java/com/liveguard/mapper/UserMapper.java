@@ -50,6 +50,10 @@ public class UserMapper {
         userDTO.setChips(chips);
         userDTO.setRoles(roles);
         userDTO.setCreatedDate(user.getCreatedTime());
+        userDTO.setEnable(user.getEnable());
+        userDTO.setAccountNonLocked(user.getAccountNonLocked());
+        userDTO.setCredentialsNonExpired(user.getCredentialsNonExpired());
+        userDTO.setAccountNonExpired(user.getAccountNonExpired());
 
         return userDTO;
     }
