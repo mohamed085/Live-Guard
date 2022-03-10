@@ -21,6 +21,8 @@ import java.util.Set;
 @NoArgsConstructor
 public class UserDTO {
 
+    private Long id;
+
     @NotNull(message = "Email must not null")
     @NotEmpty(message = "Email must not empty")
     @Email(message = "Email not valid")

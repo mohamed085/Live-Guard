@@ -40,6 +40,7 @@ public class UserMapper {
         user.getRoles().forEach(role -> roles.add(role.getRole()));
 
         UserDTO userDTO = new UserDTO();
+        userDTO.setId(user.getId());
         userDTO.setEmail(user.getEmail());
         userDTO.setName(user.getName());
         userDTO.setPassword(null);
