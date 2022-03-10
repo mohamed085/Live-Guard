@@ -24,11 +24,10 @@ import lombok.Setter;
 @Setter
 public class Country extends BaseEntity {
 
-
-    @Column(nullable = false, length = 45)
+    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, length = 5)
+    @Column(nullable = false)
     private String code;
 
     @JsonBackReference

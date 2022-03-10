@@ -28,7 +28,7 @@ import lombok.Setter;
 @Setter
 public class State extends BaseEntity {
 
-    @Column(nullable = false, length = 45)
+    @Column(nullable = false)
     private String name;
 
     @JsonManagedReference

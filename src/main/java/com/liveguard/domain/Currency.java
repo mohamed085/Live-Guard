@@ -13,13 +13,13 @@ import javax.persistence.*;
 @Setter
 public class Currency extends BaseEntity {
 
-    @Column(nullable = false, length = 64)
+    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, length = 3)
+    @Column(nullable = false)
     private String symbol;
 
-    @Column(nullable = false, length = 4)
+    @Column(nullable = false)
     private String code;
 
     public Currency(String name, String symbol, String code) {

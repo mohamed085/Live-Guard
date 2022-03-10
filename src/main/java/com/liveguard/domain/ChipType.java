@@ -18,7 +18,7 @@ public class ChipType extends BaseEntity {
     private String name;
     private String alias;
 
-    @Column(length = 1024, nullable = false, name = "short_description")
+    @Column(length = 4096, nullable = false, name = "short_description")
     private String shortDescription;
 
     @Column(length = 4096, nullable = false, name = "full_description")
