@@ -44,6 +44,7 @@ public class UserMapper {
         userDTO.setEmail(user.getEmail());
         userDTO.setName(user.getName());
         userDTO.setPassword(null);
+        userDTO.setGender(user.getGender());
         userDTO.setPhone(user.getPhone());
         userDTO.setAddress(user.getAddress());
         userDTO.setDateOfBirth(user.getDateOfBirth());
@@ -55,6 +56,9 @@ public class UserMapper {
         userDTO.setAccountNonLocked(user.getAccountNonLocked());
         userDTO.setCredentialsNonExpired(user.getCredentialsNonExpired());
         userDTO.setAccountNonExpired(user.getAccountNonExpired());
+        userDTO.setFacebookUrl(user.getFacebookUrl());
+        userDTO.setInstagramUrl(user.getInstagramUrl());
+        userDTO.setTwitterUrl(user.getTwitterUrl());
 
         return userDTO;
     }

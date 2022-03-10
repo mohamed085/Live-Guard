@@ -37,6 +37,7 @@ public class UserDTO {
     private String password;
 
     private String phone;
+    private String gender;
     private String address;
 
     @JsonProperty("date_of_birth")
@@ -57,6 +58,15 @@ public class UserDTO {
 
     @JsonProperty("account_non_locked")
     private Boolean accountNonLocked;
+
+    @JsonProperty("facebook_url")
+    private String facebookUrl;
+
+    @JsonProperty("twitter_url")
+    private String twitterUrl;
+
+    @JsonProperty("instagram_url")
+    private String instagramUrl;
 
     private String avatar;
     private Set<ChipDTO> chips;

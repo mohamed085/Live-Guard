@@ -30,14 +30,21 @@ public class User extends BaseEntity {
     private String avatar;
     private String phone;
     private String address;
+    private String gender;
+
     private LocalDate dateOfBirth;
     private String postalCode;
     private LocalDateTime createdTime;
     private String resetPasswordToken;
+
     private Boolean enable;
     private Boolean accountNonExpired;
     private Boolean credentialsNonExpired;
     private Boolean accountNonLocked;
+
+    private String facebookUrl;
+    private String twitterUrl;
+    private String instagramUrl;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
