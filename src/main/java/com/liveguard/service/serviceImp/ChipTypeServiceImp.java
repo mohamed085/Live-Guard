@@ -2,6 +2,7 @@ package com.liveguard.service.serviceImp;
 
 import com.liveguard.domain.ChipType;
 import com.liveguard.domain.ChipTypeDetail;
+import com.liveguard.domain.User;
 import com.liveguard.dto.ChipTypeDTO;
 import com.liveguard.dto.ChipTypeDetailDTO;
 import com.liveguard.exception.BusinessException;
@@ -11,6 +12,7 @@ import com.liveguard.payload.UpdateChipTypeOverviewRequest;
 import com.liveguard.payload.UpdateChipTypeShippingRequest;
 import com.liveguard.repository.ChipTypeDetailRepository;
 import com.liveguard.repository.ChipTypeRepository;
+import com.liveguard.service.AccountService;
 import com.liveguard.service.ChipTypeService;
 import com.liveguard.util.FileUploadUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -32,10 +34,12 @@ public class ChipTypeServiceImp implements ChipTypeService {
 
     private final ChipTypeRepository chipTypeRepository;
     private final ChipTypeDetailRepository chipTypeDetailRepository;
+    private final AccountService accountService;
 
-    public ChipTypeServiceImp(ChipTypeRepository chipTypeRepository, ChipTypeDetailRepository chipTypeDetailRepository) {
+    public ChipTypeServiceImp(ChipTypeRepository chipTypeRepository, ChipTypeDetailRepository chipTypeDetailRepository, AccountService accountService) {
         this.chipTypeRepository = chipTypeRepository;
         this.chipTypeDetailRepository = chipTypeDetailRepository;
+        this.accountService = accountService;
     }
 
     @Override
@@ -60,11 +64,14 @@ public class ChipTypeServiceImp implements ChipTypeService {
         log.debug("ChipTypeService | add: " + chipTypeDTO.toString());
         ChipType chipType = ChipTypeMapper.chipTypeDTOToChipType(chipTypeDTO);
 
+        User vendor = accountService.getAuthenticatedAccount();
+
         ChipType savedChipType;
         chipType.setCreatedTime(LocalDateTime.now());
         chipType.setUpdatedTime(LocalDateTime.now());
         chipType.setInStock(true);
         chipType.setEnabled(true);
+        chipType.setVendor(vendor);
 
 
         if (chipTypeDTO.getMainImageFile() != null) {

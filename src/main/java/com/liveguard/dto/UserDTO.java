@@ -69,7 +69,6 @@ public class UserDTO {
     private String instagramUrl;
 
     private String avatar;
-    private Set<ChipDTO> chips;
 
     private List<String> roles;
 }

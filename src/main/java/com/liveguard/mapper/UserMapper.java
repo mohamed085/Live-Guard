@@ -30,12 +30,7 @@ public class UserMapper {
     public static UserDTO UserToUserDTO(User user) {
         log.debug("UserMapper | UserToUserDTO | " + user.toString());
 
-        Set<ChipDTO> chips = new HashSet<>();
         List<String> roles = new ArrayList<>();
-
-        user.getChips().forEach(chip -> {
-            chips.add(ChipMapper.chipToChipDTO(chip));
-        });
 
         user.getRoles().forEach(role -> roles.add(role.getRole()));
 
@@ -49,7 +44,6 @@ public class UserMapper {
         userDTO.setAddress(user.getAddress());
         userDTO.setDateOfBirth(user.getDateOfBirth());
         userDTO.setAvatar(user.getAvatar());
-        userDTO.setChips(chips);
         userDTO.setRoles(roles);
         userDTO.setCreatedDate(user.getCreatedTime());
         userDTO.setEnable(user.getEnable());

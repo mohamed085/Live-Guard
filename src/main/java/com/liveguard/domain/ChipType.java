@@ -34,6 +34,10 @@ public class ChipType extends BaseEntity {
     private Float weight;
     private String mainImage;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User vendor;
+
     @OneToMany(mappedBy = "chipType", cascade = CascadeType.ALL)
     private List<ChipTypeDetail> details = new ArrayList<>();
 
