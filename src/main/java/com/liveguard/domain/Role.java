@@ -18,9 +18,6 @@ public class Role extends BaseEntity {
     private String role;
     private String description;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> Users = new HashSet<>();
-
     public Role(String role, String description) {
         this.role = role;
         this.description = description;
@@ -31,6 +28,6 @@ public class Role extends BaseEntity {
         return "Role{" +
                 "role='" + role + '\'' +
                 ", description='" + description + '\'' +
-                '}';
+                '}' + '\n';
     }
 }

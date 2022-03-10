@@ -34,9 +34,6 @@ public class ChipType extends BaseEntity {
     private Float weight;
     private String mainImage;
 
-    @OneToMany(mappedBy = "chipType")
-    private Set<Chip> chips = new HashSet<>();
-
     @OneToMany(mappedBy = "chipType", cascade = CascadeType.ALL)
     private List<ChipTypeDetail> details = new ArrayList<>();
 

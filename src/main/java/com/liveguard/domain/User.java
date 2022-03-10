@@ -49,19 +49,12 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private AuthenticationType authenticationType;
 
-    @OneToOne(mappedBy = "user")
-    private VerificationCode verificationCode;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "chips_users",
             joinColumns = {@JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "chip_id")}
     )
     private Set<Chip> chips = new HashSet<>();
-
-    @OneToMany(mappedBy = "user")
-    private Set<UsersTasksMute> usersTasksMutes = new HashSet<>();
-
 
     public User(String name, String email, String password) {
         this.name = name;

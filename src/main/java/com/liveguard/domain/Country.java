@@ -30,9 +30,6 @@ public class Country extends BaseEntity {
     @Column(nullable = false)
     private String code;
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "country")
-    private Set<State> states;
 
     public Country(String name, String code) {
         this.name = name;
@@ -47,10 +44,6 @@ public class Country extends BaseEntity {
 
     public Country(String name) {
         this.name = name;
-    }
-
-    public Country(Long id) {
-        super.setId(id);
     }
 
     @Override

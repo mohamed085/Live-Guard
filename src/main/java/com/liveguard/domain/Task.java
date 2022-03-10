@@ -41,21 +41,6 @@ public class Task extends BaseEntity {
     @JoinColumn(name = "chip_id")
     private Chip chip;
 
-    @OneToMany(mappedBy = "task")
-    private Set<UsersTasksMute> usersTasksMutes = new HashSet<>();
-
-    public String getStartDateInString() {
-        return String.valueOf(startDate);
-    }
-
-    public String getEndDateInString() {
-        return String.valueOf(endDate);
-    }
-
-    public String getCreateDateInString() {
-        return String.valueOf(createDate);
-    }
-
     @Override
     public String toString() {
         return "Task{" +
@@ -69,7 +54,6 @@ public class Task extends BaseEntity {
                 ", lng=" + lng +
                 ", area=" + area +
                 ", chip=" + chip.getId() +
-                ", usersTasksMutes=" + usersTasksMutes +
                 '}';
     }
 }
