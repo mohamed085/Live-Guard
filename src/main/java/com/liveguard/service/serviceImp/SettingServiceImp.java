@@ -41,7 +41,11 @@ public class SettingServiceImp implements SettingService {
     @Override
     public List<Setting> getAllSettings() {
         log.debug("SettingService | getAllSettings");
-        return settingRepository.findAll();
+        try {
+            return settingRepository.findAll();
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
@@ -49,36 +53,57 @@ public class SettingServiceImp implements SettingService {
         log.debug("SettingService | getGeneralSettings");
         List<Setting> settings = new ArrayList<>();
 
-        List<Setting> generalSettings = settingRepository.findByCategory(SettingCategory.GENERAL);
-        List<Setting> currencySettings = settingRepository.findByCategory(SettingCategory.CURRENCY);
+        try {
+            List<Setting> generalSettings = settingRepository.findByCategory(SettingCategory.GENERAL);
+            List<Setting> currencySettings = settingRepository.findByCategory(SettingCategory.CURRENCY);
 
-        settings.addAll(generalSettings);
-        settings.addAll(currencySettings);
+            settings.addAll(generalSettings);
+            settings.addAll(currencySettings);
 
-        return new GeneralSettingBag(settings);
+            return new GeneralSettingBag(settings);
+
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public void saveAll(Iterable<Setting> settings) {
         log.debug("SettingService | saveAll");
-        settingRepository.saveAll(settings);
+        try {
+            settingRepository.saveAll(settings);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public List<Setting> getMailServerSettings() {
         log.debug("SettingService | getMailServerSettings");
-        return settingRepository.findByCategory(SettingCategory.MAIL_SERVER);
+        try {
+            return settingRepository.findByCategory(SettingCategory.MAIL_SERVER);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public List<Setting> getMailTemplateSettings() {
         log.debug("SettingService | getMailTemplateSettings");
-        return settingRepository.findByCategory(SettingCategory.MAIL_TEMPLATES);
+        try {
+            return settingRepository.findByCategory(SettingCategory.MAIL_TEMPLATES);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public List<Setting> getCurrencySettings() {
         log.debug("SettingService | getCurrencySettings");
-        return settingRepository.findByCategory(SettingCategory.CURRENCY);
+        try {
+            return settingRepository.findByCategory(SettingCategory.CURRENCY);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
