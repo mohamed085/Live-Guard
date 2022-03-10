@@ -2,13 +2,11 @@ package com.liveguard.controller;
 
 import com.liveguard.dto.UserDTO;
 import com.liveguard.mapper.UserMapper;
+import com.liveguard.payload.ApiResponse;
 import com.liveguard.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +33,6 @@ public class UserController {
                 .body(customers);
     }
 
-
     @GetMapping("/vendors")
     public ResponseEntity<?> getAllVendors() {
         log.debug("UserController | getAllVendors");
@@ -46,4 +43,55 @@ public class UserController {
                 .ok()
                 .body(vendors);
     }
+
+    @PostMapping("/vendor")
+    public ResponseEntity<?> addVendor(@RequestBody UserDTO userDTO) {
+        log.debug("UserController | getAllVendors");
+
+        userService.addVendor(userDTO);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Vendor added successfully updated successfully"));
+    }
+
+    @GetMapping("/{id}/enabled/{status}")
+    public ResponseEntity<?> updateEnabledStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
+        log.debug("UserController | updateEnabledStatus | user id: " + id);
+
+        userService.updateEnabledStatus(id, status);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "User id: " + id + " updated successfully"));
+    }
+
+    @GetMapping("/{id}/account_non_expired/{status}")
+    public ResponseEntity<?> updateAccountNonExpiredStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
+        log.debug("UserController | updateAccountNonExpiredStatus | user id: " + id);
+
+        userService.updateAccountNonExpiredStatus(id, status);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "User id: " + id + " updated successfully"));
+    }
+
+    @GetMapping("/{id}/account_non_locked/{status}")
+    public ResponseEntity<?> updateAccountNonLockedStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
+        log.debug("UserController | updateAccountNonLockedStatus | user id: " + id);
+
+        userService.updateAccountNonLockedStatus(id, status);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "User id: " + id + " updated successfully"));
+    }
+
+    @GetMapping("/{id}/credentials_non_expired/{status}")
+    public ResponseEntity<?> updateCredentialsNonExpiredStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
+        log.debug("UserController | updateCredentialsNonExpiredStatus | user id: " + id);
+
+        userService.updateCredentialsNonExpiredStatus(id, status);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "User id: " + id + " updated successfully"));
+    }
+
 }

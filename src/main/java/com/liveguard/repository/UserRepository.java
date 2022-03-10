@@ -24,4 +24,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     void updateEnabledStatus(Long id, Boolean status);
 
+    @Query("UPDATE User u SET u.accountNonExpired = ?2 WHERE u.id = ?1")
+    @Modifying
+    void updateAccountNonExpiredStatus(Long id, Boolean status);
+
+    @Query("UPDATE User u SET u.accountNonLocked = ?2 WHERE u.id = ?1")
+    @Modifying
+    void updateAccountNonLockedStatus(Long id, Boolean status);
+
+    @Query("UPDATE User u SET u.credentialsNonExpired = ?2 WHERE u.id = ?1")
+    @Modifying
+    void updateCredentialsNonExpiredStatus(Long id, Boolean status);
+
+
 }

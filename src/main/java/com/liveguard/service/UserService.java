@@ -21,4 +21,12 @@ public interface UserService {
 
     void addVendor(UserDTO userDTO);
 
+    void updateEnabledStatus(Long id, Boolean status);
+
+    void updateAccountNonExpiredStatus(Long id, Boolean status);
+
+    void updateAccountNonLockedStatus(Long id, Boolean status);
+
+    void updateCredentialsNonExpiredStatus(Long id, Boolean status);
+
 }

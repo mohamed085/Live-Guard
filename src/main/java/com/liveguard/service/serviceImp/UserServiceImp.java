@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import javax.transaction.Transactional;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -71,7 +72,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public User save(User user) {
-        log.debug("UserService | userExistByEmail | email: " + user.getEmail());
+        log.debug("UserService | save | email: " + user.getEmail());
 
         if (user.getId() == null) {
             if (userExistByEmail(user.getEmail())) {
@@ -103,7 +104,8 @@ public class UserServiceImp implements UserService {
             return userRepository.findAllByRoles(roleService.findById(1L));
         } catch (Exception e) {
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }    }
+        }
+    }
 
     @Override
     public void addVendor(UserDTO userDTO) {
@@ -120,5 +122,52 @@ public class UserServiceImp implements UserService {
         user.setAuthenticationType(AuthenticationType.DATABASE);
 
         save(user);
+    }
+
+    @Override
+    @Transactional
+    public void updateEnabledStatus(Long id, Boolean status) {
+        log.debug("UserService | updateEnabledStatus");
+        try {
+            userRepository.updateEnabledStatus(id, status);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void updateAccountNonExpiredStatus(Long id, Boolean status) {
+        log.debug("UserService | updateAccountNonExpiredStatus");
+        try {
+            userRepository.updateAccountNonExpiredStatus(id, status);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public void updateAccountNonLockedStatus(Long id, Boolean status) {
+        log.debug("UserService | updateAccountNonLockedStatus");
+        try {
+            userRepository.updateAccountNonLockedStatus(id, status);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public void updateCredentialsNonExpiredStatus(Long id, Boolean status) {
+        log.debug("UserService | updateCredentialsNonExpiredStatus");
+        try {
+            userRepository.updateCredentialsNonExpiredStatus(id, status);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
     }
 }
