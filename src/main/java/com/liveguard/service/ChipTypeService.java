@@ -18,6 +18,10 @@ public interface ChipTypeService {
 
     List<ChipType> findAllEnable();
 
+    List<ChipType> findAllByVendorId(Long id);
+
+    List<ChipType> findAllEnableByVendorId(Long id);
+
     ChipType findById(Long id);
 
     ChipType add(ChipTypeDTO chipTypeDTO);

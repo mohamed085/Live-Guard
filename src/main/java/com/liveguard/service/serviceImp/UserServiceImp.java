@@ -98,6 +98,16 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
+    public List<User> getAllEnableVendors() {
+        log.debug("UserService | getAllVendors");
+        try {
+            return userRepository.findAllByRolesAndEnableTrue(roleService.findById(2L));
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
     public List<User> getAllCustomers() {
         log.debug("UserService | getAllCustomers");
         try {
@@ -168,6 +178,5 @@ public class UserServiceImp implements UserService {
         } catch (Exception e) {
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 }

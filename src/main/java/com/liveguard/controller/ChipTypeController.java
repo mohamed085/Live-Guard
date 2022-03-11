@@ -59,8 +59,31 @@ public class ChipTypeController {
                 .body(chipTypeDTOs);
     }
 
+    @GetMapping("/vendor/{id}")
+    public ResponseEntity<?> getVendorChipTypes(@PathVariable("id") Long id) {
+        log.debug("ChipTypeController | getVendorChipTypes");
+
+        List<ChipTypeDTO> chipTypeDTOs = new ArrayList<>();
+        chipTypeService.findAllByVendorId(id).forEach(chipType -> chipTypeDTOs.add(ChipTypeMapper.chipTypeToChipTypeDTO(chipType)));
+        return ResponseEntity
+                .ok()
+                .body(chipTypeDTOs);
+    }
+
+
+    @GetMapping("/vendor/{id}/enable")
+    public ResponseEntity<?> getVendorEnableChipTypes(@PathVariable("id") Long id) {
+        log.debug("ChipTypeController | getVendorChipTypes");
+
+        List<ChipTypeDTO> chipTypeDTOs = new ArrayList<>();
+        chipTypeService.findAllEnableByVendorId(id).forEach(chipType -> chipTypeDTOs.add(ChipTypeMapper.chipTypeToChipTypeDTO(chipType)));
+        return ResponseEntity
+                .ok()
+                .body(chipTypeDTOs);
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<?> getChipType(@PathVariable Long id) {
+    public ResponseEntity<?> getChipType(@PathVariable("id") Long id) {
         log.debug("ChipTypeController | getChipType | id: " + id);
 
         ChipTypeDTO chipTypeDTO = ChipTypeMapper.chipTypeToChipTypeDTO(chipTypeService.findById(id));

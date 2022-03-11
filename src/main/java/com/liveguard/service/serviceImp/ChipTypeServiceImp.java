@@ -55,9 +55,32 @@ public class ChipTypeServiceImp implements ChipTypeService {
 
     @Override
     public List<ChipType> findAllEnable() {
+        log.debug("ChipTypeService | findAllEnable");
 
         try {
             return chipTypeRepository.findAllByEnabledTrue();
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public List<ChipType> findAllByVendorId(Long id) {
+        log.debug("ChipTypeService | findAllByVendorId | vendor id: " + id);
+
+        try {
+            return chipTypeRepository.findAllByVendorId(id);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public List<ChipType> findAllEnableByVendorId(Long id) {
+        log.debug("ChipTypeService | findAllEnableByVendorId | vendor id: " + id);
+
+        try {
+            return chipTypeRepository.findAllByVendorIdAndEnabledTrue(id);
         } catch (Exception e) {
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

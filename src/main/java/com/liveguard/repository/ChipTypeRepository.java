@@ -13,6 +13,10 @@ public interface ChipTypeRepository extends JpaRepository<ChipType, Long> {
 
     List<ChipType> findAllByEnabledTrue();
 
+    List<ChipType> findAllByVendorId(Long id);
+
+    List<ChipType> findAllByVendorIdAndEnabledTrue(Long id);
+
     @Query("UPDATE ChipType c SET c.enabled = ?2 WHERE c.id = ?1")
     @Modifying
     void updateEnabledStatus(Long id, Boolean status);

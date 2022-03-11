@@ -20,6 +20,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findAllByRoles(Role role);
 
+    List<User> findAllByRolesAndEnableTrue(Role role);
+
     @Query("UPDATE User u SET u.enable = ?2 WHERE u.id = ?1")
     @Modifying
     void updateEnabledStatus(Long id, Boolean status);

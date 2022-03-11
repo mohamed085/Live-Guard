@@ -17,6 +17,8 @@ public interface UserService {
 
     List<User> getAllVendors();
 
+    List<User> getAllEnableVendors();
+
     List<User> getAllCustomers();
 
     void addVendor(UserDTO userDTO);

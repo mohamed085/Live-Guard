@@ -54,6 +54,17 @@ public class UserController {
                 .body(vendors);
     }
 
+    @GetMapping("/vendors/enable")
+    public ResponseEntity<?> getAllEnableVendors() {
+        log.debug("UserController | getAllEnableVendors");
+
+        List<UserDTO> vendors = new ArrayList<>();
+        userService.getAllEnableVendors().forEach(user -> vendors.add(UserMapper.UserToUserDTO(user)));
+        return ResponseEntity
+                .ok()
+                .body(vendors);
+    }
+
     @PostMapping("/vendor")
     public ResponseEntity<?> addVendor(@RequestBody UserDTO userDTO) {
         log.debug("UserController | getAllVendors");
@@ -63,6 +74,7 @@ public class UserController {
                 .ok()
                 .body(new ApiResponse(true, "Vendor added successfully updated successfully"));
     }
+
 
     @GetMapping("/{id}/enabled/{status}")
     public ResponseEntity<?> updateEnabledStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
