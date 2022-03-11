@@ -13,6 +13,7 @@ import com.liveguard.service.ChipAssociatedDetailsService;
 import com.liveguard.service.ChipService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -64,6 +65,7 @@ public class ChipController {
 
 
     @RequestMapping(value = "",  method = RequestMethod.POST, consumes = {"multipart/form-data"})
+    @PreAuthorize("hasRole('ROLE_admin') or hasRole('ROLE_vendor')")
     public ResponseEntity<?> addChip(@Valid @ModelAttribute ChipDTO chipDTO) {
         log.debug("ChipTypeController | addChipType | chipTypeDTO: " + chipDTO.getName());
 
@@ -74,6 +76,7 @@ public class ChipController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_admin') or hasRole('ROLE_vendor')")
     public ResponseEntity<?> deleteChip(@PathVariable("id") Long id) {
         log.debug("ChipTypeController | deleteChip | id: " + id);
 

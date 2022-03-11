@@ -6,6 +6,7 @@ import com.liveguard.payload.ApiResponse;
 import com.liveguard.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -54,6 +55,7 @@ public class UserController {
     }
 
     @PostMapping("/vendor")
+    @PreAuthorize("hasRole('ROLE_admin')")
     public ResponseEntity<?> addVendor(@RequestBody UserDTO userDTO) {
         log.debug("UserController | getAllVendors");
 
@@ -64,6 +66,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/enabled/{status}")
+    @PreAuthorize("hasRole('ROLE_admin')")
     public ResponseEntity<?> updateEnabledStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
         log.debug("UserController | updateEnabledStatus | user id: " + id);
 
@@ -74,6 +77,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/account_non_expired/{status}")
+    @PreAuthorize("hasRole('ROLE_admin')")
     public ResponseEntity<?> updateAccountNonExpiredStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
         log.debug("UserController | updateAccountNonExpiredStatus | user id: " + id);
 
@@ -84,6 +88,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/account_non_locked/{status}")
+    @PreAuthorize("hasRole('ROLE_admin')")
     public ResponseEntity<?> updateAccountNonLockedStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
         log.debug("UserController | updateAccountNonLockedStatus | user id: " + id);
 
@@ -94,6 +99,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}/credentials_non_expired/{status}")
+    @PreAuthorize("hasRole('ROLE_admin')")
     public ResponseEntity<?> updateCredentialsNonExpiredStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
         log.debug("UserController | updateCredentialsNonExpiredStatus | user id: " + id);
 

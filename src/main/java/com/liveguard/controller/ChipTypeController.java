@@ -38,6 +38,7 @@ public class ChipTypeController {
     }
 
     @GetMapping("")
+    @PreAuthorize("hasRole('ROLE_admin') or hasRole('ROLE_vendor')")
     public ResponseEntity<?> getAllChipTypes() {
         log.debug("ChipTypeController | getAllChipTypes");
 
@@ -70,6 +71,7 @@ public class ChipTypeController {
     }
 
     @RequestMapping(value = "",  method = RequestMethod.POST, consumes = {"multipart/form-data"})
+    @PreAuthorize("hasRole('ROLE_admin') or hasRole('ROLE_vendor')")
     public ResponseEntity<?> addChipType(@Valid @ModelAttribute ChipTypeDTO chipTypeDTO) {
         log.debug("ChipTypeController | addChipType | chipTypeDTO: " + chipTypeDTO.toString());
 
@@ -80,6 +82,7 @@ public class ChipTypeController {
     }
 
     @PutMapping("/{id}/image")
+    @PreAuthorize("hasRole('ROLE_admin') or hasRole('ROLE_vendor')")
     public ResponseEntity<ApiResponse> updateChipTypeMainImage(@PathVariable("id") Long id,
                                                                @Valid @RequestParam("file") MultipartFile multipartFile) {
         log.debug("ChipTypeController | updateChipTypeMainImage | chip id: " + id);
@@ -92,6 +95,7 @@ public class ChipTypeController {
 
 
     @PutMapping("/{id}/overview")
+    @PreAuthorize("hasRole('ROLE_admin') or hasRole('ROLE_vendor')")
     public ResponseEntity<ApiResponse> updateChipTypeOverview(@PathVariable("id") Long id,
                                                               @Valid @RequestBody UpdateChipTypeOverviewRequest chipTypeOverview) {
 
@@ -103,6 +107,7 @@ public class ChipTypeController {
     }
 
     @PutMapping("/{id}/description")
+    @PreAuthorize("hasRole('ROLE_admin') or hasRole('ROLE_vendor')")
     public ResponseEntity<ApiResponse> updateChipTypeDescription(@PathVariable("id") Long id,
                                                                  @Valid @RequestBody UpdateChipTypeDescriptionRequest chipTypeDescription) {
 
@@ -116,6 +121,7 @@ public class ChipTypeController {
 
 
     @PutMapping("/{id}/details")
+    @PreAuthorize("hasRole('ROLE_admin') or hasRole('ROLE_vendor')")
     public ResponseEntity<ApiResponse> updateChipTypeDetails(@PathVariable("id") Long id,
                                                              @Valid @RequestBody UpdateChipTypeDetailsRequest chipTypeDetails) {
         log.debug("ChipTypeController | updateChipTypeDetails | chip id: " + id);
@@ -129,6 +135,7 @@ public class ChipTypeController {
     }
 
     @PutMapping("/{id}/shipping")
+    @PreAuthorize("hasRole('ROLE_admin') or hasRole('ROLE_vendor')")
     public ResponseEntity<ApiResponse> updateChipTypeShipping(@PathVariable("id") Long id,
                                                               @Valid @RequestBody UpdateChipTypeShippingRequest chipTypeShipping) {
         log.debug("ChipTypeController | updateChipTypeShipping | chip id: " + id);
@@ -140,6 +147,7 @@ public class ChipTypeController {
     }
 
     @GetMapping("/{id}/enabled/{status}")
+    @PreAuthorize("hasRole('ROLE_admin') or hasRole('ROLE_vendor')")
     public ResponseEntity<?> updateEnabledStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
         log.debug("ChipTypeController | updateEnabledStatus | chip id: " + id);
 
@@ -150,6 +158,7 @@ public class ChipTypeController {
     }
 
     @GetMapping("/in-stock/{id}/{status}")
+    @PreAuthorize("hasRole('ROLE_admin') or hasRole('ROLE_vendor')")
     public ResponseEntity<?> updateInStockStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
         log.debug("ChipTypeController | updateInStockStatus | chip id: " + id);
 
