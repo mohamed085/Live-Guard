@@ -10,6 +10,8 @@ public interface CountryService {
 
     Country findByName(String name);
 
+    Country findById(Long id);
+
     Boolean isExist(String name);
 
     void add(Country country);

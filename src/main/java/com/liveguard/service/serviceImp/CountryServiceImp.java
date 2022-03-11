@@ -33,10 +33,22 @@ public class CountryServiceImp implements CountryService {
 
     @Override
     public Country findByName(String name) {
-        log.debug("CountryService | isExist | findByName: " + name);
+        log.debug("CountryService | findByName | name: " + name);
 
         try {
             return countryRepository.findByName(name);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public Country findById(Long id) {
+        log.debug("CountryService | findById | id: " + id);
+
+        try {
+            return countryRepository.findById(id)
+                    .orElseThrow(() -> new BusinessException("Country not found", HttpStatus.NOT_FOUND));
         } catch (Exception e) {
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
