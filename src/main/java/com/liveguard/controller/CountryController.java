@@ -55,7 +55,7 @@ public class CountryController {
 
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> updateById(@PathVariable("id") Long id,
                                         @RequestBody Country country) {
         log.debug("CountryController | updateById | id: " + id);
