@@ -66,7 +66,7 @@ public class TaskDTO {
     @JsonProperty("repeat_id")
     private List<Long> repeatId;
 
-    private List<TaskDayDTO> repeat;
+    private List<DayDTO> repeat;
     private ChipSimpleDataDTO chip;
 
     @JsonProperty("add_by_user")

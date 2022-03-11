@@ -3,13 +3,14 @@ package com.liveguard.controller;
 import com.liveguard.domain.Task;
 import com.liveguard.domain.User;
 import com.liveguard.dto.TaskDTO;
-import com.liveguard.dto.TaskDayDTO;
+import com.liveguard.dto.DayDTO;
 import com.liveguard.dto.TaskSimpleDataDTO;
-import com.liveguard.mapper.TaskDayMapper;
+import com.liveguard.mapper.DayMapper;
 import com.liveguard.mapper.TaskMapper;
 import com.liveguard.payload.ApiResponse;
 import com.liveguard.service.AccountService;
-import com.liveguard.service.TaskDayService;
+import com.liveguard.service.DayService;
+import com.liveguard.service.DayService;
 import com.liveguard.service.TaskService;
 import com.liveguard.service.UsersTasksMuteService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,38 +27,16 @@ import java.util.List;
 public class TaskController {
 
     private final TaskService taskService;
-    private final TaskDayService taskDayService;
     private final UsersTasksMuteService usersTasksMuteService;
     private final AccountService accountService;
 
-    public TaskController(TaskService taskService, TaskDayService taskDayService,
-                          UsersTasksMuteService usersTasksMuteService, AccountService accountService) {
+    public TaskController(TaskService taskService, UsersTasksMuteService usersTasksMuteService,
+                          AccountService accountService) {
         this.taskService = taskService;
-        this.taskDayService = taskDayService;
         this.usersTasksMuteService = usersTasksMuteService;
         this.accountService = accountService;
     }
 
-    @GetMapping("/days")
-    public ResponseEntity<?> getAllDays() {
-        log.debug("TaskController | getAllDays");
-
-        List<TaskDayDTO> taskDayDTOs = new ArrayList<>();
-        taskDayService.findAll().forEach(taskDay -> taskDayDTOs.add(TaskDayMapper.taskDayToTaskDayDTO(taskDay)));
-        return ResponseEntity
-                .ok()
-                .body(taskDayDTOs);
-    }
-
-    @GetMapping("/days/{id}")
-    public ResponseEntity<?> getDay(@PathVariable("id") Long id) {
-        log.debug("TaskController | getDay | id: " + id);
-
-        TaskDayDTO taskDayDTO = TaskDayMapper.taskDayToTaskDayDTO(taskDayService.findById(id));
-        return ResponseEntity
-                .ok()
-                .body(taskDayDTO);
-    }
 
     @PostMapping("/chip/{id}")
     public ResponseEntity<?> addTaskToChip(@PathVariable("id") Long id,

@@ -5,7 +5,7 @@ import com.liveguard.dto.LocationDTO;
 import com.liveguard.exception.BusinessException;
 import com.liveguard.mapper.LocationMapper;
 import com.liveguard.repository.LocationRepository;
-import com.liveguard.repository.TaskDayRepository;
+import com.liveguard.repository.DayRepository;
 import com.liveguard.repository.TaskRepository;
 import com.liveguard.service.ChipService;
 import com.liveguard.service.LocationService;
@@ -26,11 +26,11 @@ public class LocationServiceImp implements LocationService {
 
     private final LocationRepository locationRepository;
     private final ChipService chipService;
-    private final TaskDayRepository taskDayRepository;
+    private final DayRepository taskDayRepository;
     private final TaskRepository taskRepository;
 
     public LocationServiceImp(LocationRepository locationRepository, ChipService chipService,
-                              TaskDayRepository taskDayRepository, TaskRepository taskRepository) {
+                              DayRepository taskDayRepository, TaskRepository taskRepository) {
         this.locationRepository = locationRepository;
         this.chipService = chipService;
         this.taskDayRepository = taskDayRepository;
@@ -77,17 +77,17 @@ public class LocationServiceImp implements LocationService {
         String day = dayOfWeek.name();
         log.debug("LocationService | add | getCurrentTasks | current day: " + day);
 
-        Day day1 = Day.valueOf(CaseTransfer.toLowerCaseExpectedFirstLetter(day));
+        EnumDay day1 = EnumDay.valueOf(CaseTransfer.toLowerCaseExpectedFirstLetter(day));
 
         try {
-            TaskDay taskDay = taskDayRepository.findByDay(day1);
-            log.debug("LocationService | add | getCurrentTasks | current day id: " + taskDay.getId());
+            Day findedDay = taskDayRepository.findByDay(day1);
+            log.debug("LocationService | add | getCurrentTasks | current day id: " + findedDay.getId());
 
             LocalTime time = location.getDate().toLocalTime();
             log.debug("LocationService | add | getCurrentTasks | current time: " + time);
 
             List<Task> tasks = taskRepository
-                    .findByChipIdAndRepeatEquals(location.getChip().getId(), taskDay)
+                    .findByChipIdAndRepeatEquals(location.getChip().getId(), findedDay)
                     .stream()
                     .filter(task -> task.getStartDate().isBefore(time) && task.getEndDate().isAfter(time))
                     .collect(Collectors.toList());

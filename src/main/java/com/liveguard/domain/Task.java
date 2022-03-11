@@ -31,7 +31,7 @@ public class Task extends BaseEntity {
             joinColumns = {@JoinColumn(name = "task_id")},
             inverseJoinColumns = {@JoinColumn(name = "day_id")}
     )
-    private Set<TaskDay> repeat = new HashSet<>();
+    private Set<Day> repeat = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")

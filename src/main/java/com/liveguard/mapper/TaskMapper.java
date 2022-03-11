@@ -1,10 +1,10 @@
 package com.liveguard.mapper;
 
 import com.liveguard.domain.Task;
-import com.liveguard.domain.TaskDay;
+import com.liveguard.domain.Day;
 import com.liveguard.dto.ChipSimpleDataDTO;
 import com.liveguard.dto.TaskDTO;
-import com.liveguard.dto.TaskDayDTO;
+import com.liveguard.dto.DayDTO;
 import com.liveguard.dto.UserSimpleDataDTO;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,8 +32,8 @@ public class TaskMapper {
     }
 
     public static TaskDTO taskToTaskDTO(Task task) {
-        List<TaskDayDTO> repeat = new ArrayList<>();
-        task.getRepeat().forEach(taskDay -> repeat.add(TaskDayMapper.taskDayToTaskDayDTO(taskDay)));
+        List<DayDTO> repeat = new ArrayList<>();
+        task.getRepeat().forEach(day -> repeat.add(DayMapper.taskDayToTaskDayDTO(day)));
 
         ChipSimpleDataDTO chip = new ChipSimpleDataDTO(
                 task.getChip().getId(),

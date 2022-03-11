@@ -68,7 +68,7 @@ public class ChipTypeController {
         return ResponseEntity
                 .ok()
                 .body(chipTypeDTOs);
-    }
+    }   
 
 
     @GetMapping("/vendor/{id}/enable")

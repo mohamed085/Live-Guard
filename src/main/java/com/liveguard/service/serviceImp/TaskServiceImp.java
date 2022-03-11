@@ -25,17 +25,17 @@ public class TaskServiceImp implements TaskService {
     private final TaskRepository taskRepository;
     private final ChipService chipService;
     private final AccountService accountService;
-    private final TaskDayService taskDayService;
+    private final DayService dayService;
     private final UsersTasksMuteService usersTasksMuteService;
     private final UserService userService;
 
     public TaskServiceImp(TaskRepository taskRepository, ChipService chipService, AccountService accountService,
-                          TaskDayService taskDayService, UsersTasksMuteService usersTasksMuteService,
+                          DayService dayService, UsersTasksMuteService usersTasksMuteService,
                           UserService userService) {
         this.taskRepository = taskRepository;
         this.chipService = chipService;
         this.accountService = accountService;
-        this.taskDayService = taskDayService;
+        this.dayService = dayService;
         this.usersTasksMuteService = usersTasksMuteService;
         this.userService = userService;
     }
@@ -70,8 +70,8 @@ public class TaskServiceImp implements TaskService {
 
         Task task = TaskMapper.taskDTOToTask(taskDTO);
 
-        Set<TaskDay> repeat = new HashSet<>();
-        taskDTO.getRepeatId().forEach(dayId -> repeat.add(taskDayService.findById(dayId)));
+        Set<Day> repeat = new HashSet<>();
+        taskDTO.getRepeatId().forEach(dayId -> repeat.add(dayService.findById(dayId)));
 
         task.setRepeat(repeat);
         task.setChip(chip);

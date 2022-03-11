@@ -1,8 +1,7 @@
 package com.liveguard.repository;
 
-import com.liveguard.domain.Currency;
 import com.liveguard.domain.Day;
-import com.liveguard.domain.TaskDay;
+import com.liveguard.domain.EnumDay;
 import com.liveguard.util.CaseTransfer;
 import org.junit.jupiter.api.Test;
 
@@ -17,9 +16,6 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -27,23 +23,23 @@ import static org.junit.jupiter.api.Assertions.*;
 class TaskDayRepositoryTest {
 
     @Autowired
-    private TaskDayRepository taskDayRepository;
+    private DayRepository taskDayRepository;
 
     @Test
     void testSaveAll() {
-        List<TaskDay> taskDays = Arrays.asList(
-                new TaskDay(Day.Saturday),
-                new TaskDay(Day.Sunday),
-                new TaskDay(Day.Monday),
-                new TaskDay(Day.Tuesday),
-                new TaskDay(Day.Wednesday),
-                new TaskDay(Day.Thursday),
-                new TaskDay(Day.Friday)
+        List<Day> taskDays = Arrays.asList(
+                new Day(EnumDay.Saturday),
+                new Day(EnumDay.Sunday),
+                new Day(EnumDay.Monday),
+                new Day(EnumDay.Tuesday),
+                new Day(EnumDay.Wednesday),
+                new Day(EnumDay.Thursday),
+                new Day(EnumDay.Friday)
         );
 
         taskDayRepository.saveAll(taskDays);
 
-        Iterable<TaskDay> iterable = taskDayRepository.findAll();
+        Iterable<Day> iterable = taskDayRepository.findAll();
         System.out.println(iterable);
         assertNotNull(iterable);
     }
@@ -52,8 +48,8 @@ class TaskDayRepositoryTest {
     void searchByDay() {
         DayOfWeek dayOfWeek = LocalDateTime.now().getDayOfWeek();
         String day = dayOfWeek.name();
-        Day day1 = Day.valueOf(CaseTransfer.toLowerCaseExpectedFirstLetter(day));
-        TaskDay taskDay = taskDayRepository.findByDay(day1);
+        EnumDay day1 = EnumDay.valueOf(CaseTransfer.toLowerCaseExpectedFirstLetter(day));
+        Day taskDay = taskDayRepository.findByDay(day1);
 
         System.out.println(taskDay.toString());
         assertNotNull(taskDay);
