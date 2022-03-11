@@ -20,7 +20,7 @@ import java.util.List;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Rollback(value = false)
-class TaskDayRepositoryTest {
+class DayRepositoryTest {
 
     @Autowired
     private DayRepository taskDayRepository;
