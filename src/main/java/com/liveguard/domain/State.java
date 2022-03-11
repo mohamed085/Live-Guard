@@ -31,10 +31,13 @@ public class State extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
-    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "country_id")
     private Country country;
+
+    public State(String name) {
+        this.name = name;
+    }
 
     public State(String name, Country country) {
         this.name = name;
@@ -43,8 +46,10 @@ public class State extends BaseEntity {
 
     @Override
     public String toString() {
-        return "State [id=" + super.getId() + ", name=" + name + "]";
+        return "State{" +
+                "id='" + super.getId() + '\'' +
+                "name='" + name + '\'' +
+                ", country=" + country.getName() +
+                '}';
     }
-
-
 }

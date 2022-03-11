@@ -1,0 +1,87 @@
+package com.liveguard.repository;
+
+import com.liveguard.domain.Country;
+import com.liveguard.domain.State;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.annotation.Rollback;
+
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Rollback(false)
+class StateRepositoryTest {
+
+    private StateRepository repo;
+
+    private TestEntityManager entityManager;
+
+    @Autowired
+    public StateRepositoryTest(StateRepository repo, TestEntityManager entityManager) {
+        super();
+        this.repo = repo;
+        this.entityManager = entityManager;
+    }
+
+    @Test
+    public void testCreateStates() {
+
+        Long countryId = 3L;
+        Country country = entityManager.find(Country.class, countryId);
+
+//        State state = repo.save(new State("Alexandria", country));
+		State state = repo.save(new State("Cairo", country));
+//		State state = repo.save(new State("Monufia", country));
+//      State state = repo.save(new State("Gharbia", country));
+
+        assertNotNull(state);
+    }
+
+
+    @Test
+    public void testListStatesByCountry() {
+        Long countryId = 1L;
+        List<State> listStates = repo.findByCountryIdOrderByNameAsc(countryId);
+
+        listStates.forEach(System.out::println);
+
+        assertNotNull(listStates);
+    }
+
+    @Test
+    public void testUpdateState() {
+        Long stateId = 3L;
+        String stateName = "Giza";
+        State state = repo.findById(stateId).get();
+
+        state.setName(stateName);
+        State updatedState = repo.save(state);
+
+        assertEquals(updatedState.getName(), stateName);
+    }
+
+    @Test
+    public void testGetState() {
+        Long stateId = 1L;
+        Optional<State> findById = repo.findById(stateId);
+
+        assertNotNull(findById.isPresent());
+    }
+
+    @Test
+    public void testDeleteState() {
+        Long stateId = 8L;
+        repo.deleteById(stateId);
+
+        Optional<State> findById = repo.findById(stateId);
+        assertNotNull(findById.get());
+    }
+
+}
