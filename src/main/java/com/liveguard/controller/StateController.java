@@ -42,7 +42,6 @@ public class StateController {
 
     }
 
-
     @GetMapping("/country/{id}")
     public ResponseEntity<?> getCountryStates(@PathVariable("id") Long id) {
         log.debug("StateController | getCountryStates | country id: " + id);
@@ -53,5 +52,14 @@ public class StateController {
                 .ok()
                 .body(stateDTOs);
 
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
+        log.debug("StateController | deleteById | id: " + id);
+        stateService.deleteById(id);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "State deleted successfully"));
     }
 }
