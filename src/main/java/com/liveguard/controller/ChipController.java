@@ -65,7 +65,6 @@ public class ChipController {
 
 
     @RequestMapping(value = "",  method = RequestMethod.POST, consumes = {"multipart/form-data"})
-    @PreAuthorize("hasRole('ROLE_admin') or hasRole('ROLE_vendor')")
     public ResponseEntity<?> addChip(@Valid @ModelAttribute ChipDTO chipDTO) {
         log.debug("ChipTypeController | addChipType | chipTypeDTO: " + chipDTO.getName());
 
@@ -76,7 +75,6 @@ public class ChipController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_admin') or hasRole('ROLE_vendor')")
     public ResponseEntity<?> deleteChip(@PathVariable("id") Long id) {
         log.debug("ChipTypeController | deleteChip | id: " + id);
 

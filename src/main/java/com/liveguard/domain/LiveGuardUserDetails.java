@@ -19,7 +19,7 @@ public class LiveGuardUserDetails  implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return user.getRoles()
                 .stream()
-                .map(userRole -> new SimpleGrantedAuthority("ROLE_"+ userRole))
+                .map(userRole -> new SimpleGrantedAuthority("ROLE_" + userRole))
                 .collect(Collectors.toSet());
     }
 
