@@ -48,7 +48,13 @@ public class StateServiceImp implements StateService {
 
     @Override
     public State findById(Long id) {
-        return null;
+        log.debug("StateService | findById | id: " + id);
+        try {
+            return stateRepository.findById(id)
+                    .orElseThrow(() -> new BusinessException("State not found", HttpStatus.NOT_FOUND));
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override

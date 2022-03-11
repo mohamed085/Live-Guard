@@ -32,6 +32,17 @@ public class StateController {
                 .body(new ApiResponse(true, "State saved successfully"));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getState(@PathVariable("id") Long id) {
+        log.debug("StateController | getState | id: " + id);
+
+        return ResponseEntity
+                .ok()
+                .body(StateMapper.stateToStateDTO(stateService.findById(id)));
+
+    }
+
+
     @GetMapping("/country/{id}")
     public ResponseEntity<?> getCountryStates(@PathVariable("id") Long id) {
         log.debug("StateController | getCountryStates | country id: " + id);
