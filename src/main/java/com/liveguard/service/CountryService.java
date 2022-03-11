@@ -16,7 +16,7 @@ public interface CountryService {
 
     void add(Country country);
 
-    void update(Country country);
+    void update(Long id, Country country);
 
     void deleteById(Long id);
 }

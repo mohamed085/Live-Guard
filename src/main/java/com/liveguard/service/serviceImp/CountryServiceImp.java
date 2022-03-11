@@ -82,7 +82,9 @@ public class CountryServiceImp implements CountryService {
     }
 
     @Override
-    public void update(Country country) {
+    public void update(Long id, Country country) {
+        country.setId(id);
+
         log.debug("CountryService | update | add: " + country.getName());
         if (isExist(country.getName())) {
             log.error("CountryService | update | Country already exist: " + country.getName());

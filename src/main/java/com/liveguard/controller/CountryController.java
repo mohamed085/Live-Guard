@@ -55,4 +55,14 @@ public class CountryController {
 
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> updateById(@PathVariable("id") Long id,
+                                        @RequestBody Country country) {
+        log.debug("CountryController | updateById | id: " + id);
+        countryService.update(id, country); ;
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Country deleted successfully"));
+    }
+
 }
