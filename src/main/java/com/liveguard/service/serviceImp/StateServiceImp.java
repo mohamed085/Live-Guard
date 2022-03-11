@@ -83,6 +83,12 @@ public class StateServiceImp implements StateService {
 
     @Override
     public void deleteById(Long id) {
+        log.debug("StateService | deleteById | id: " + id);
+        try {
+            stateRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
     }
 }
