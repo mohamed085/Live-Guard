@@ -3,6 +3,7 @@ package com.liveguard.mapper;
 import com.liveguard.domain.User;
 import com.liveguard.dto.ChipDTO;
 import com.liveguard.dto.UserDTO;
+import com.liveguard.dto.VendorDTO;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -55,6 +56,23 @@ public class UserMapper {
         userDTO.setTwitterUrl(user.getTwitterUrl());
 
         return userDTO;
+    }
+
+    public static VendorDTO userToVendorDTO(User user) {
+        log.debug("UserMapper | userToVendorDTO | " + user.toString());
+
+        VendorDTO vendor = new VendorDTO(
+                user.getId(),
+                user.getName(),
+                user.getAvatar(),
+                user.getAddress(),
+                user.getPhone(),
+                user.getFacebookUrl(),
+                user.getTwitterUrl(),
+                user.getInstagramUrl()
+        );
+
+        return vendor;
     }
 
 }

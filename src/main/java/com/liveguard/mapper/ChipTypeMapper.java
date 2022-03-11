@@ -1,10 +1,7 @@
 package com.liveguard.mapper;
 
 import com.liveguard.domain.ChipType;
-import com.liveguard.dto.ChipTypeDTO;
-import com.liveguard.dto.ChipTypeDetailDTO;
-import com.liveguard.dto.ChipTypeImageDTO;
-import com.liveguard.dto.ChipTypeSimpleDateDTO;
+import com.liveguard.dto.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -14,6 +11,7 @@ import java.util.List;
 public class ChipTypeMapper {
 
     public static ChipType chipTypeDTOToChipType(ChipTypeDTO chipTypeDTO) {
+        log.debug("ChipTypeMapper | chipTypeDTOToChipType | " + chipTypeDTO.getName());
         ChipType chipType = new ChipType();
         chipType.setName(chipTypeDTO.getName());
         chipType.setAlias(chipTypeDTO.getAlias());
@@ -29,6 +27,8 @@ public class ChipTypeMapper {
     }
 
     public static ChipTypeDTO chipTypeToChipTypeDTO(ChipType chipType) {
+        log.debug("ChipTypeMapper | chipTypeToChipTypeDTO | " + chipType.getName());
+
         List<ChipTypeDetailDTO> chipTypeDetails = new ArrayList<>();
         List<ChipTypeImageDTO> images = new ArrayList<>();
 
@@ -40,6 +40,8 @@ public class ChipTypeMapper {
         chipType.getImages().forEach(chipTypeImage ->
                 images.add(new ChipTypeImageDTO(chipTypeImage.getId(),
                         chipTypeImage.getName())));
+
+        VendorDTO vendor = UserMapper.userToVendorDTO(chipType.getVendor());
 
         ChipTypeDTO chipTypeDTO = new ChipTypeDTO();
         chipTypeDTO.setId(chipType.getId());
@@ -58,6 +60,7 @@ public class ChipTypeMapper {
         chipTypeDTO.setMainImage(chipType.getMainImage());
         chipTypeDTO.setChipTypeDetails(chipTypeDetails);
         chipTypeDTO.setImages(images);
+        chipTypeDTO.setVendor(vendor);
 
         return chipTypeDTO;
     }

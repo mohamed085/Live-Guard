@@ -71,4 +71,6 @@ public class ChipTypeDTO {
 
     private List<ChipTypeImageDTO> images;
 
+    private VendorDTO vendor;
+
 }

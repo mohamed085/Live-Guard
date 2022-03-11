@@ -1,6 +1,7 @@
 package com.liveguard.controller;
 
 import com.liveguard.domain.ChipType;
+import com.liveguard.domain.LiveGuardUserDetails;
 import com.liveguard.dto.ChipTypeDTO;
 import com.liveguard.dto.ChipTypeDetailDTO;
 import com.liveguard.exception.BusinessException;
@@ -10,6 +11,8 @@ import com.liveguard.service.ChipTypeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,6 +43,17 @@ public class ChipTypeController {
 
         List<ChipTypeDTO> chipTypeDTOs = new ArrayList<>();
         chipTypeService.findAll().forEach(chipType -> chipTypeDTOs.add(ChipTypeMapper.chipTypeToChipTypeDTO(chipType)));
+        return ResponseEntity
+                .ok()
+                .body(chipTypeDTOs);
+    }
+
+    @GetMapping("/enable")
+    public ResponseEntity<?> getAllEnableChipTypes() {
+        log.debug("ChipTypeController | getAllEnableChipTypes");
+
+        List<ChipTypeDTO> chipTypeDTOs = new ArrayList<>();
+        chipTypeService.findAllEnable().forEach(chipType -> chipTypeDTOs.add(ChipTypeMapper.chipTypeToChipTypeDTO(chipType)));
         return ResponseEntity
                 .ok()
                 .body(chipTypeDTOs);

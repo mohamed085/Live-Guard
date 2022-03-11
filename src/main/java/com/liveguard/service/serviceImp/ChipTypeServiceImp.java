@@ -46,17 +46,33 @@ public class ChipTypeServiceImp implements ChipTypeService {
     public List<ChipType> findAll() {
         log.debug("ChipTypeService | findAll");
 
-        return StreamSupport
-                .stream(chipTypeRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+        try {
+            return chipTypeRepository.findAll();
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public List<ChipType> findAllEnable() {
+
+        try {
+            return chipTypeRepository.findAllByEnabledTrue();
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override
     public ChipType findById(Long id) {
         log.debug("ChipTypeService | findById | id: " + id);
 
-        return chipTypeRepository.findById(id)
-                .orElseThrow(() -> new BusinessException("This chip type not found", HttpStatus.NOT_FOUND));
+        try {
+            return chipTypeRepository.findById(id)
+                    .orElseThrow(() -> new BusinessException("This chip type not found", HttpStatus.NOT_FOUND));
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Override

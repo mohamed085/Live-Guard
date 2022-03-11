@@ -6,8 +6,12 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ChipTypeRepository extends JpaRepository<ChipType, Long> {
+
+    List<ChipType> findAllByEnabledTrue();
 
     @Query("UPDATE ChipType c SET c.enabled = ?2 WHERE c.id = ?1")
     @Modifying

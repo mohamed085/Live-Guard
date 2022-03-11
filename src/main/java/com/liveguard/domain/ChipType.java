@@ -61,4 +61,14 @@ public class ChipType extends BaseEntity {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "ChipType{" +
+                "name='" + name + '\'' +
+                ", enabled=" + enabled +
+                ", inStock=" + inStock +
+                ", cost=" + cost +
+                ", vendor=" + vendor.getName() +
+                '}';
+    }
 }
