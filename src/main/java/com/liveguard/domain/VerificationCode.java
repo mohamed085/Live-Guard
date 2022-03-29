@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "verification_codes")
@@ -14,6 +13,7 @@ import java.util.Date;
 @Getter
 @NoArgsConstructor
 public class VerificationCode extends BaseEntity {
+
     private String code;
     private int tempVerify;
     private LocalDateTime createDate;
@@ -31,11 +31,13 @@ public class VerificationCode extends BaseEntity {
     @Override
     public String toString() {
         return "VerificationCode{" +
-                "code='" + code + '\'' +
+                "id='" + super.getId() + '\'' +
+                ", code='" + code + '\'' +
                 ", tempVerify=" + tempVerify +
                 ", createDate=" + createDate +
                 ", emailSendStatus=" + emailSendStatus +
                 ", status=" + status +
+                ", user=" + user.toString() +
                 '}';
     }
 }

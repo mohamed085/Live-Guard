@@ -62,6 +62,10 @@ public class Setting implements Serializable {
 
     @Override
     public String toString() {
-        return "[" + key + ", = " + value + "] \n";
+        return "Setting{" +
+                "key='" + key + '\'' +
+                ", value='" + value + '\'' +
+                ", category=" + category +
+                '}';
     }
 }

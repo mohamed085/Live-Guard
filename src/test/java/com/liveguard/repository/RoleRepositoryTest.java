@@ -1,6 +1,5 @@
 package com.liveguard.repository;
 
-import com.liveguard.domain.Currency;
 import com.liveguard.domain.Role;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,52 +14,42 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Rollback(value = false)
+@Rollback(false)
 class RoleRepositoryTest {
 
     @Autowired
-    private RoleRepository roleRepository;
+    RoleRepository roleRepository;
 
     @Test
-    public void testAddNewRole() {
-        Role role = new Role();
-        role.setRole("admin");
-        role.setDescription("");
+    void save() {
+        Role roleAdmin = new Role("Admin", "manage everything");
+        Role savedRole = roleRepository.save(roleAdmin);
 
-        Role savedRole = roleRepository.save(role);
-
-        System.out.println(savedRole.getId() + " " + savedRole.getRole() + " " + savedRole.getDescription());
-        assertNotNull(savedRole);
+        System.out.println(savedRole.toString());
+        assertEquals(savedRole.getRole(), roleAdmin.getRole());
     }
 
     @Test
-    public void testAddListOfRole() {
+    void saveAll() {
         List<Role> roles = Arrays.asList(
-                new Role("customer", ""),
-                new Role("vendor", ""),
-                new Role("admin", "")
+                new Role("Customer", "users that use applications"),
+                new Role("Shipper", "view products, view orders and update order status"),
+                new Role("Assistant", "manage questions and reviews"),
+                new Role("Salesperson", "manage chip versions and price")
         );
 
-        roleRepository.saveAll(roles);
-
-        List<Role> iterable = roleRepository.findAll();
-        System.out.println(iterable);
-        assertNotNull(iterable);
-
+        List<Role> savedRoles = roleRepository.saveAll(roles);
+        System.out.println(savedRoles.toString());
+        assertEquals(savedRoles.size(), roles.size());
     }
 
     @Test
-    public void findAll() {
+    void findAll() {
         List<Role> roles = roleRepository.findAll();
 
-        System.out.println(roles);
+        System.out.println(roles.toString());
         assertNotNull(roles);
     }
-    
-    @Test
-    public void findById() {
-        Role role = roleRepository.findById(1L).get();
-        System.out.println(role);
-        assertEquals(role.getId(), 1L);
-    }
+
+
 }

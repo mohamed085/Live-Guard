@@ -1,9 +1,9 @@
 package com.liveguard.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,7 +15,6 @@ import java.util.Set;
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 public class User extends BaseEntity {
 
     @Column(nullable = false)
@@ -56,41 +55,15 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private AuthenticationType authenticationType;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "chips_users",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "chip_id")}
-    )
-    private Set<Chip> chips = new HashSet<>();
-
-    public User(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
-
-    public User(String name, String email, String password, Boolean enable, Role role) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.enable = enable;
-        this.roles.add(role);
-    }
-
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "id='" + super.getId() + '\'' +
+                ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", createdTime=" + createdTime +
                 ", enable=" + enable +
-                ", accountNonExpired=" + accountNonExpired +
-                ", credentialsNonExpired=" + credentialsNonExpired +
-                ", accountNonLocked=" + accountNonLocked +
                 ", roles=" + roles +
                 ", authenticationType=" + authenticationType +
-                '}' + '\n';
+                '}';
     }
 }
-

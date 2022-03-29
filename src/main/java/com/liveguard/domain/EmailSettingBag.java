@@ -41,10 +41,10 @@ public class EmailSettingBag extends SettingBag {
     }
 
     public String getCustomerVerifySubject() {
-        return super.getValue("USER_VERIFY_SUBJECT");
+        return super.getValue("CUSTOMER_VERIFY_SUBJECT");
     }
 
     public String getCustomerVerifyContent() {
-        return super.getValue("USER_VERIFY_CONTENT");
+        return super.getValue("CUSTOMER_VERIFY_CONTENT");
     }
 }

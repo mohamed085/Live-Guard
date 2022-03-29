@@ -1,14 +1,10 @@
 package com.liveguard.controller;
 
-import com.liveguard.dto.UserDTO;
 import com.liveguard.payload.*;
 import com.liveguard.service.AuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -19,24 +15,55 @@ public class AuthController {
 
     private final AuthService authService;
 
-
     public AuthController(AuthService authService) {
         this.authService = authService;
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody UserDTO userDTO) {
-        log.debug("AuthController | Register | user email: " + userDTO.getEmail());
+    public ResponseEntity<?> register(@Valid @RequestBody CustomerRegisterRequest customer) {
+        log.debug("AuthController | Register | user email: " + customer.getEmail());
 
-        authService.register(userDTO);
+        authService.register(customer);
 
         return ResponseEntity
                 .ok()
                 .body(new ApiResponse(true, "Account created successfully"));
+
+    }
+
+    @GetMapping("/verify/{code}")
+    public ResponseEntity<?> verify(@PathVariable("code") String code) {
+        log.debug("AuthController | verify | code: " + code);
+
+        authService.verify(code);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Account verified successfully"));
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@Valid @RequestBody UserEmailRequest email) {
+        log.debug("AuthController | forgotPassword | email: " + email);
+
+        authService.forgotPassword(email.getUserEmail());
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Check your email"));
+    }
+
+    @PostMapping("/reset_password")
+    public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequest resetPasswordRequest) {
+        log.debug("AuthController | resetPassword ");
+
+        authService.resetPassword(resetPasswordRequest.getResetPasswordToken(), resetPasswordRequest.getPassword());
+
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Password updated successfully"));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
         log.debug("AuthController | Login | user email: " + loginRequest.getEmail());
 
         String token = authService.login(loginRequest.getEmail(), loginRequest.getPassword());
@@ -46,47 +73,4 @@ public class AuthController {
                 .body(new LoginResponse(loginRequest.getEmail(), token));
     }
 
-    @PostMapping("/verify-account")
-    public ResponseEntity<?> verifyAccount(@Valid @RequestBody VerifyAccountRequest verifyAccountRequest) {
-        log.debug("AuthController | verifyAccount | user email: " + verifyAccountRequest.getUserEmail());
-
-        return ResponseEntity
-                .ok()
-                .body(authService.verifyAccount(verifyAccountRequest));
-    }
-
-    @PostMapping("/resend-verify-mail")
-    public ResponseEntity<?> resendVerifyMail(@Valid @RequestBody UserEmailRequest email) {
-        log.debug("AuthController | resendVerifyMail | user email: " + email.getUserEmail());
-
-        authService.resendVerifyAccount(email.getUserEmail());
-
-        return ResponseEntity
-                .ok()
-                .body(new ApiResponse(true, "Mail resend successfully"));
-    }
-
-    @PostMapping("/send-reset-password-token")
-    public ResponseEntity<?> sendResetPasswordToken(@Valid @RequestBody UserEmailRequest email) {
-        log.debug("AuthController | sendResetPasswordToken | user email: " + email.getUserEmail());
-
-        authService.sendResetPasswordToken(email.getUserEmail());
-
-        return ResponseEntity
-                .ok()
-                .body(new ApiResponse(true, "Reset token send successfully"));
-
-    }
-
-    @PostMapping("/reset-password")
-    public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequest resetPasswordRequest) {
-        log.debug("AuthController | sendResetPasswordToken | user email: " + resetPasswordRequest.getUserEmail());
-
-        authService.resetPassword(resetPasswordRequest.getUserEmail(), resetPasswordRequest.getResetPasswordToken(), resetPasswordRequest.getNewPassword());
-
-        return ResponseEntity
-                .ok()
-                .body(new ApiResponse(true, "Password change successfully"));
-
-    }
 }

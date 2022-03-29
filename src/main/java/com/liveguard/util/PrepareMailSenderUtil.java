@@ -8,7 +8,6 @@ import java.util.Properties;
 
 @Slf4j
 public class PrepareMailSenderUtil {
-
     public static JavaMailSenderImpl prepareMailSender(EmailSettingBag settings) {
 
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
@@ -27,9 +26,10 @@ public class PrepareMailSenderUtil {
 
         mailSender.setJavaMailProperties(mailProperties);
 
-        log.debug("PrepareMailSenderUtil | prepareMailSender | mailSender : " + mailSender.toString());
+        log.debug("PrepareMailSenderUtil | prepareMailSender | mailSender : " + mailSender);
 
         return mailSender;
     }
+
 
 }
