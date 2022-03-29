@@ -26,8 +26,13 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
+    @Column(length = 4000)
+    private String about;
+
     private String avatar;
     private String phone;
+
+    @Column(length = 512)
     private String address;
     private String gender;
 

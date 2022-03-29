@@ -40,6 +40,7 @@ public class AuthServiceImp implements AuthService {
                           PasswordEncoder passwordEncoder, SettingService settingService,
                           VerificationCodeRepository verificationCodeRepository,
                           AuthenticationManager authenticationManager, TokenService tokenService) {
+
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;

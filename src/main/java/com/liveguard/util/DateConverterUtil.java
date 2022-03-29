@@ -19,13 +19,13 @@ public class DateConverterUtil {
                 .toLocalDateTime();
     }
 
-    public Date convertLocalDateToDate(LocalDate dateToConvert) {
+    public static Date convertLocalDateToDate(LocalDate dateToConvert) {
         return java.util.Date.from(dateToConvert.atStartOfDay()
                 .atZone(ZoneId.systemDefault())
                 .toInstant());
     }
 
-    Date convertLocalDateTimeToDate(LocalDateTime dateToConvert) {
+    public static Date convertLocalDateTimeToDate(LocalDateTime dateToConvert) {
         return java.util.Date
                 .from(dateToConvert.atZone(ZoneId.systemDefault())
                         .toInstant());

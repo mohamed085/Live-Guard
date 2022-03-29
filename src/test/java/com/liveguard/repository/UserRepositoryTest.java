@@ -45,5 +45,16 @@ class UserRepositoryTest {
         assertEquals(user.getResetPasswordToken(), token);
     }
 
+    @Test
+    void updateAvatar() {
+        String avatar = "/test.jpg";
+        userRepository.updateAvatar(13L, avatar);
+
+        User user = userRepository.findById(13L).get();
+
+        System.out.println(user.toString());
+        assertEquals(user.getAvatar(), avatar);
+    }
+
 
 }
