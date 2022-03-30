@@ -19,7 +19,7 @@ public class CustomerForgetPasswordUtil {
     public static void sendEmail(User user, SettingService settingService) {
 
         log.debug("CustomerForgetPasswordUtil | sendEmail | send reset link to user: " + user.getEmail());
-        String link = settingService.getWebsiteLink() + "forgot-password/" + user.getResetPasswordToken();
+        String link = settingService.getWebsiteLink() + "reset-password/" + user.getResetPasswordToken();
 
         EmailSettingBag emailSettings = settingService.getEmailSettings();
         JavaMailSenderImpl mailSender = PrepareMailSenderUtil.prepareMailSender(emailSettings);
