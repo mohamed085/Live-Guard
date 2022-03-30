@@ -24,7 +24,11 @@ public class UserMapper {
         userDTO.setPhone(user.getPhone());
         userDTO.setGender(user.getGender());
         userDTO.setAddress(user.getAddress());
-        userDTO.setDateOfBirth(DateConverterUtil.convertLocalDateToDate(user.getDateOfBirth()));
+
+        if (user.getDateOfBirth() != null) {
+            userDTO.setDateOfBirth(DateConverterUtil.convertLocalDateToDate(user.getDateOfBirth()));
+
+        }
         userDTO.setCreatedDate(DateConverterUtil.convertLocalDateTimeToDate(user.getCreatedTime()));
         userDTO.setEnable(user.getEnable());
         userDTO.setAccountNonLocked(user.getAccountNonLocked());
