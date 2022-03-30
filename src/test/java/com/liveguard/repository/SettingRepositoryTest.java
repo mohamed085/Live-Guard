@@ -49,11 +49,11 @@ class SettingRepositoryTest {
                 new Setting("MAIL_HOST", "smtp.gmail.com", SettingCategory.MAIL_SERVER),
                 new Setting("MAIL_PORT", "587", SettingCategory.MAIL_SERVER),
                 new Setting("MAIL_USERNAME", "Mohamed085555@gmail.com", SettingCategory.MAIL_SERVER),
-                new Setting("MAIL_PASSWORD", "Hadeer@123", SettingCategory.MAIL_SERVER),
+                new Setting("MAIL_PASSWORD", "", SettingCategory.MAIL_SERVER),
                 new Setting("SMTP_AUTH", "true", SettingCategory.MAIL_SERVER),
                 new Setting("SMTP_SECURED", "true", SettingCategory.MAIL_SERVER),
-                new Setting("MAIL_FROM", "Molla.company@gmail.com", SettingCategory.MAIL_SERVER),
-                new Setting("MAIL_SENDER_NAME", "Molla Company", SettingCategory.MAIL_SERVER),
+                new Setting("MAIL_FROM", "LiveGuard.company@gmail.com", SettingCategory.MAIL_SERVER),
+                new Setting("MAIL_SENDER_NAME", "Live Guard Company", SettingCategory.MAIL_SERVER),
                 new Setting("CUSTOMER_VERIFY_SUBJECT", "", SettingCategory.MAIL_TEMPLATES),
                 new Setting("CUSTOMER_VERIFY_CONTENT", "", SettingCategory.MAIL_TEMPLATES)
         );
