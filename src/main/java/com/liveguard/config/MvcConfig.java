@@ -14,6 +14,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         exposeDirectory("user-photos", registry);
         exposeDirectory("chip-version-photos", registry);
+        exposeDirectory("chip-photos", registry);
 
     }
 
