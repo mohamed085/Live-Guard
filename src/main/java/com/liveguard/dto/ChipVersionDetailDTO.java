@@ -22,9 +22,5 @@ public class ChipVersionDetailDTO {
     @NotEmpty(message = "Value must not empty")
     private String value;
 
-    public ChipVersionDetailDTO(@NotNull(message = "Name must not null") @NotEmpty(message = "Name must not empty") String name, @NotNull(message = "Value must not null") @NotEmpty(message = "Value must not empty") String value) {
-        this.name = name;
-        this.value = value;
-    }
 
 }

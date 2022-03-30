@@ -21,6 +21,11 @@ public class ChipVersionImage  extends BaseEntity {
     @JoinColumn(name = "chip_version_id")
     private ChipVersion chipVersion;
 
+    public ChipVersionImage(String photo, ChipVersion chipVersion) {
+        this.photo = photo;
+        this.chipVersion = chipVersion;
+    }
+
     @Override
     public String toString() {
         return "ChipVersionImage{" +

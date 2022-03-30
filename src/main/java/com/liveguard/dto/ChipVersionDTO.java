@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,11 +39,11 @@ public class ChipVersionDTO {
 
     @JsonProperty("created_time")
     @JsonFormat(pattern="dd-MM-yyyy HH:mm")
-    private Date createdTime;
+    private LocalDateTime createdTime;
 
     @JsonProperty("updated_time")
     @JsonFormat(pattern="dd-MM-yyyy HH:mm")
-    private Date updatedTime;
+    private LocalDateTime updatedTime;
 
     private Boolean enabled;
 
@@ -58,7 +59,7 @@ public class ChipVersionDTO {
     @JsonProperty("discount_percent")
     private Float discountPercent;
 
-    @JsonProperty("Discount_price")
+    @JsonProperty("discount_price")
     private Float discountPrice;
 
     private Float weight;

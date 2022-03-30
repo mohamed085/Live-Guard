@@ -19,6 +19,11 @@ public class ChipVersionDetail extends BaseEntity {
     @JoinColumn(name = "chip_version_id")
     private ChipVersion chipVersion;
 
+    public ChipVersionDetail(String name, String value) {
+        this.name = name;
+        this.value = value;
+    }
+
     public ChipVersionDetail(String name, String value, ChipVersion chipVersion) {
         this.name = name;
         this.value = value;
