@@ -81,4 +81,13 @@ public class ChipController {
                 .body(chipService.addNewUser(chipId, userId));
     }
 
+    @GetMapping("/my-chips")
+    public ResponseEntity<?> getAllMyChips() {
+        log.debug("ChipTypeController | getAllMyChips");
+
+        return ResponseEntity
+                .ok()
+                .body(chipService.findAllUserChips());
+    }
+
 }

@@ -2,6 +2,7 @@ package com.liveguard.service.serviceImp;
 
 import com.liveguard.domain.*;
 import com.liveguard.dto.ChipDTO;
+import com.liveguard.dto.SimpleChipDTO;
 import com.liveguard.exception.BusinessException;
 import com.liveguard.mapper.ChipMapper;
 import com.liveguard.payload.ApiResponse;
@@ -9,6 +10,7 @@ import com.liveguard.payload.UpdateChipDetailsRequest;
 import com.liveguard.repository.*;
 import com.liveguard.service.AccountService;
 import com.liveguard.service.ChipService;
+import com.liveguard.service.UserTaskMuteService;
 import com.liveguard.util.FileUploadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -32,16 +34,19 @@ public class ChipServiceImp implements ChipService {
     private final ChipUserRepository chipUserRepository;
     private final UserRepository userRepository;
     private final ChipDetailRepository chipDetailRepository;
+    private final UserTaskMuteService userTaskMuteService;
 
     public ChipServiceImp(ChipRepository chipRepository, ChipVersionRepository chipVersionRepository,
                           AccountService accountService, ChipUserRepository chipUserRepository,
-                          UserRepository userRepository, ChipDetailRepository chipDetailRepository) {
+                          UserRepository userRepository, ChipDetailRepository chipDetailRepository,
+                          UserTaskMuteService userTaskMuteService) {
         this.chipRepository = chipRepository;
         this.chipVersionRepository = chipVersionRepository;
         this.accountService = accountService;
         this.chipUserRepository = chipUserRepository;
         this.userRepository = userRepository;
         this.chipDetailRepository = chipDetailRepository;
+        this.userTaskMuteService = userTaskMuteService;
     }
 
     @Override
@@ -50,13 +55,15 @@ public class ChipServiceImp implements ChipService {
 
         try {
             Chip chip = new Chip();
-            ChipVersion chipVersion = chipVersionRepository.findById(chipDTO.getChipVersionId()).get();
+            ChipVersion chipVersion = chipVersionRepository.findById(chipDTO.getChipVersionId())
+                    .orElseThrow(() -> new BusinessException("Chip version not founr", HttpStatus.NOT_FOUND));
 
             chip.setName(chipDTO.getName());
             chip.setChipVersion(chipVersion);
             chip.setPassword(RandomStringUtils.randomAlphanumeric(9));
             chip.setUsed(false);
             Chip savedChip = chipRepository.save(chip);
+
             return ChipMapper.chipToChipDTO(savedChip);
         } catch (Exception e) {
             log.error("ChipService | add | error: " + e.getMessage());
@@ -93,6 +100,7 @@ public class ChipServiceImp implements ChipService {
                 ChipUser chipUser = new ChipUser(chip, user, LocalDateTime.now(), ChipUserType.Controller);
                 chipUserRepository.save(chipUser);
 
+                userTaskMuteService.addTasksMuteDefaultToNewUser(chip.getId(), user);
                 return new ApiResponse(true, "Chip add successfully");
             } else {
                 throw new BusinessException("Chip not add successfully, password incorrect", HttpStatus.BAD_REQUEST);
@@ -197,10 +205,32 @@ public class ChipServiceImp implements ChipService {
                 ChipUser newChipUser = new ChipUser(chip, newUser, LocalDateTime.now(), ChipUserType.Normal);
                 chipUserRepository.save(newChipUser);
 
+                userTaskMuteService.addTasksMuteDefaultToNewUser(chip.getId(), newUser);
+
                 return new ApiResponse(true, "User successfully");
             } else {
                 throw new BusinessException("You have not access to add new user", HttpStatus.FORBIDDEN);
             }
+        } catch (Exception e) {
+            log.error("ChipService | updatePhoto | error: " + e.getMessage());
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public List<SimpleChipDTO> findAllUserChips() {
+        log.debug("ChipService | findAllUserChips");
+        User user = accountService.getAuthenticatedAccount();
+
+        try {
+            List<ChipUser> chipUsers = chipUserRepository.findAllByUserId(user.getId());
+            List<SimpleChipDTO> chips = new ArrayList<>();
+
+            chipUsers.forEach(chipUser -> {
+                chips.add(new SimpleChipDTO(chipUser.getChip().getId(), chipUser.getChip().getName(), chipUser.getChip().getPhoto()));
+            });
+
+            return chips;
         } catch (Exception e) {
             log.error("ChipService | updatePhoto | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

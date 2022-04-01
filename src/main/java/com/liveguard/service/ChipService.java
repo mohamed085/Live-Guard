@@ -1,9 +1,13 @@
 package com.liveguard.service;
 
+import com.liveguard.domain.Chip;
 import com.liveguard.dto.ChipDTO;
+import com.liveguard.dto.SimpleChipDTO;
 import com.liveguard.payload.ApiResponse;
 import com.liveguard.payload.UpdateChipDetailsRequest;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 public interface ChipService {
 
@@ -18,4 +22,6 @@ public interface ChipService {
     ApiResponse updateChipDetails(Long chipId, UpdateChipDetailsRequest updateChipDetailsRequest);
 
     ApiResponse addNewUser(Long chipId, Long userId);
+
+    List<SimpleChipDTO> findAllUserChips();
 }

@@ -54,8 +54,10 @@ class SettingRepositoryTest {
                 new Setting("SMTP_SECURED", "true", SettingCategory.MAIL_SERVER),
                 new Setting("MAIL_FROM", "LiveGuard.company@gmail.com", SettingCategory.MAIL_SERVER),
                 new Setting("MAIL_SENDER_NAME", "Live Guard Company", SettingCategory.MAIL_SERVER),
-                new Setting("CUSTOMER_VERIFY_SUBJECT", "", SettingCategory.MAIL_TEMPLATES),
-                new Setting("CUSTOMER_VERIFY_CONTENT", "", SettingCategory.MAIL_TEMPLATES)
+                new Setting("CUSTOMER_VERIFY_SUBJECT", "Please verify your code registration to continue.", SettingCategory.MAIL_TEMPLATES),
+                new Setting("CUSTOMER_VERIFY_CONTENT", "<div>Dear [[name]],</div><div><b><br></b></div><div><b>Please verify your code registration to continue </b></div><span style=\"font-size:18px;\"><br>\n" +
+                        "  <br>\n" +
+                        "  <a href=\"[[url]]\" target=\"_self\">VERIFY</a><h1></h1><span style=\"font-size:24px;\"><font color=\"#0000ff\"><b></b></font></span></span><div><b><font color=\"#0000ff\"></font></b></div>", SettingCategory.MAIL_TEMPLATES)
         );
 
         List<Setting> savedGeneralSettings = settingRepository.saveAll(emailSettings);

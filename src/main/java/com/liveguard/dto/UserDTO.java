@@ -38,11 +38,11 @@ public class UserDTO {
     private String address;
 
     @JsonProperty("date_of_birth")
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern="dd MMMM yyyy")
     private Date dateOfBirth;
 
     @JsonProperty("create_date")
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm")
+    @JsonFormat(pattern="dd MMMM yyyy h:mm a")
     private Date createdDate;
 
     private Boolean enable;

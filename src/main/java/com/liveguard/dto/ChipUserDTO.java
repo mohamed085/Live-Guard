@@ -17,7 +17,7 @@ public class ChipUserDTO {
     private SimpleUserDTO user;
 
     @JsonProperty("add_date")
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm")
+    @JsonFormat(pattern="dd MMMM yyyy h:mm a")
     private LocalDateTime addDate;
 
     @JsonProperty("chip_user_type")

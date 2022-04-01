@@ -7,6 +7,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.Collections;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
@@ -37,5 +40,15 @@ class ChipUserRepositoryTest {
         System.out.println(isExist);
 
         assertEquals(isExist, true);
+    }
+
+    @Test
+    void findAllByUserId() {
+        Long userId = 1L;
+
+        List<ChipUser> users = chipUserRepository.findAllByUserId(userId);
+        System.out.println(users);
+
+        assertNotNull(users);
     }
 }

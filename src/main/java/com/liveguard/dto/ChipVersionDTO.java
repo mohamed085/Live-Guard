@@ -38,11 +38,11 @@ public class ChipVersionDTO {
     private String fullDescription;
 
     @JsonProperty("created_time")
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm")
+    @JsonFormat(pattern="dd MMMM yyyy h:mm a")
     private LocalDateTime createdTime;
 
     @JsonProperty("updated_time")
-    @JsonFormat(pattern="dd-MM-yyyy HH:mm")
+    @JsonFormat(pattern="dd MMMM yyyy h:mm a")
     private LocalDateTime updatedTime;
 
     private Boolean enabled;

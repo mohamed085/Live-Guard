@@ -37,7 +37,7 @@ public class ChipUser extends BaseEntity {
     @Override
     public String toString() {
         return "ChipUser{" +
-                "id=" + super.getId() +
+                "chip=" + chip.getName() +
                 ", user=" + user.getEmail() +
                 ", addDate=" + addDate +
                 ", chipUserType=" + chipUserType +

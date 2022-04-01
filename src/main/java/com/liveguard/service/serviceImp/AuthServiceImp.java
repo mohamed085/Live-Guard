@@ -148,7 +148,7 @@ public class AuthServiceImp implements AuthService {
             String token = tokenService.generateToken(authenticate);
             return token;
         } catch (Exception e) {
-            log.error("AuthService | register | error: " + e.getMessage());
+            log.error("AuthService | Login | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
