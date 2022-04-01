@@ -56,7 +56,7 @@ public class ChipServiceImp implements ChipService {
         try {
             Chip chip = new Chip();
             ChipVersion chipVersion = chipVersionRepository.findById(chipDTO.getChipVersionId())
-                    .orElseThrow(() -> new BusinessException("Chip version not founr", HttpStatus.NOT_FOUND));
+                    .orElseThrow(() -> new BusinessException("Chip version not found", HttpStatus.NOT_FOUND));
 
             chip.setName(chipDTO.getName());
             chip.setChipVersion(chipVersion);
@@ -92,9 +92,16 @@ public class ChipServiceImp implements ChipService {
         log.debug("ChipService | addNewChipToUser | chip id: " + chipId);
         User user = accountService.getAuthenticatedAccount();
 
+        log.debug("ChipService | addNewChipToUser | user: " + user.toString());
+
         try {
             Chip chip = chipRepository.findById(chipId)
                     .orElseThrow(() -> new BusinessException("This chip not found", HttpStatus.NOT_FOUND));
+
+
+            if (chipUserRepository.existsByChipIdAndUserId(chipId, user.getId())) {
+                throw new BusinessException("You already assign this chip", HttpStatus.NOT_FOUND);
+            }
 
             if (chip.getPassword().equals(chipPassword)) {
                 ChipUser chipUser = new ChipUser(chip, user, LocalDateTime.now(), ChipUserType.Controller);

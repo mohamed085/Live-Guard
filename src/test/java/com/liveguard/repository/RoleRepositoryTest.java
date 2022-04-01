@@ -32,6 +32,7 @@ class RoleRepositoryTest {
     @Test
     void saveAll() {
         List<Role> roles = Arrays.asList(
+                new Role("Admin", "manage everything"),
                 new Role("Customer", "users that use applications"),
                 new Role("Shipper", "view products, view orders and update order status"),
                 new Role("Assistant", "manage questions and reviews"),

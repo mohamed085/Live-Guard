@@ -5,8 +5,10 @@ import com.liveguard.domain.Task;
 import com.liveguard.domain.User;
 import com.liveguard.domain.UserTaskMute;
 import com.liveguard.exception.BusinessException;
+import com.liveguard.payload.ApiResponse;
 import com.liveguard.repository.TaskRepository;
 import com.liveguard.repository.UserTaskMuteRepository;
+import com.liveguard.service.AccountService;
 import com.liveguard.service.UserTaskMuteService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,10 +23,13 @@ public class UserTaskMuteServiceImp implements UserTaskMuteService {
 
     private final UserTaskMuteRepository userTaskMuteRepository;
     private final TaskRepository taskRepository;
+    private final AccountService accountService;
 
-    public UserTaskMuteServiceImp(UserTaskMuteRepository userTaskMuteRepository, TaskRepository taskRepository) {
+    public UserTaskMuteServiceImp(UserTaskMuteRepository userTaskMuteRepository, TaskRepository taskRepository,
+                                  AccountService accountService) {
         this.userTaskMuteRepository = userTaskMuteRepository;
         this.taskRepository = taskRepository;
+        this.accountService = accountService;
     }
 
     @Override
@@ -82,4 +87,21 @@ public class UserTaskMuteServiceImp implements UserTaskMuteService {
     }
 
 
+    @Override
+    public ApiResponse updateMuteStatus(Long taskId, Boolean mute) {
+        log.debug("UserTaskMuteService | updateMuteStatus | taskId: " + taskId);
+        log.debug("UserTaskMuteService | updateMuteStatus | mute: " + mute);
+
+        User user = accountService.getAuthenticatedAccount();
+        log.debug("UserTaskMuteService | updateMuteStatus | user: " + user.toString());
+
+        try {
+            userTaskMuteRepository.updateMuteStatus(user.getId(), taskId, mute);
+
+            return new ApiResponse(true, "Task mute updated successfully");
+        } catch (Exception e) {
+            log.error("UserTaskMuteService | updateMuteStatus | error: " + e.getMessage());
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

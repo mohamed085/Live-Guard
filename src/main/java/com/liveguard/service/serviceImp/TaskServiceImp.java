@@ -4,6 +4,7 @@ import com.liveguard.domain.*;
 import com.liveguard.dto.*;
 import com.liveguard.exception.BusinessException;
 import com.liveguard.mapper.TaskMapper;
+import com.liveguard.payload.ApiResponse;
 import com.liveguard.repository.*;
 import com.liveguard.service.AccountService;
 import com.liveguard.service.TaskService;
@@ -91,10 +92,11 @@ public class TaskServiceImp implements TaskService {
 
         try {
              ITaskDTO task = taskRepository.findByIdInITaskDTO(id, user.getId())
-                     .orElseThrow(() -> new BusinessException("TAsk not found", HttpStatus.BAD_REQUEST));
+                     .orElseThrow(() -> new BusinessException("Task not found", HttpStatus.BAD_REQUEST));
 
              List<ITaskRepeat> repeats = taskRepository.findAllRepeatDaysInTask(task.getId());
              return TaskMapper.iTaskToTaskDTO(task, repeats);
+
         } catch (Exception e) {
             log.error("TaskService | findById | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -162,4 +164,5 @@ public class TaskServiceImp implements TaskService {
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }

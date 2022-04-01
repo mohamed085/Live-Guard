@@ -1,11 +1,15 @@
 package com.liveguard.repository;
 
 import com.liveguard.domain.User;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.annotation.Rollback;
+
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,6 +20,26 @@ class UserRepositoryTest {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    RoleRepository roleRepository;
+
+    @Test
+    void save() {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        User user = new User();
+        user.setName("Mohamed Emad");
+        user.setPassword(passwordEncoder.encode("MO0420"));
+        user.setEmail("mohamed@gmail.com");
+        user.getRoles().add(roleRepository.findById(1L).get());
+        user.setEnable(true);
+        user.setCreatedTime(LocalDateTime.now());
+        user.setCredentialsNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setAccountNonExpired(true);
+
+        userRepository.save(user);
+    }
 
     @Test
     void findByEmail() {
