@@ -1,6 +1,7 @@
 package com.liveguard.controller;
 
 import com.liveguard.dto.ChipVersionDTO;
+import com.liveguard.payload.ApiResponse;
 import com.liveguard.service.ChipVersionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -57,4 +58,23 @@ public class ChipVersionController {
                 .body(chipVersionService.findById(id));
     }
 
+    @GetMapping("/{id}/enabled/{status}")
+    public ResponseEntity<?> updateEnabledStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
+        log.debug("ChipVersionController | updateEnabledStatus | chip id: " + id);
+
+        chipVersionService.updateEnabledStatus(id, status);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Chip id: " + id + " updated successfully"));
+    }
+
+    @GetMapping("/in-stock/{id}/{status}")
+    public ResponseEntity<?> updateInStockStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
+        log.debug("ChipVersionController | updateInStockStatus | chip id: " + id);
+
+        chipVersionService.updateInStockStatus(id, status);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Chip id: " + id + " updated successfully"));
+    }
 }

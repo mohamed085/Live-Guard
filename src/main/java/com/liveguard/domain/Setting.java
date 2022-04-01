@@ -18,7 +18,7 @@ public class Setting implements Serializable {
     @Column(name = "`key`", nullable = false, length = 128)
     private String key;
 
-    @Column(nullable = false)
+    @Column(length = 4096, nullable = false)
     private String value;
 
     @Enumerated(EnumType.STRING)

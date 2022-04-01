@@ -5,6 +5,7 @@ import com.liveguard.domain.ChipVersionDetail;
 import com.liveguard.dto.ChipVersionDTO;
 import com.liveguard.exception.BusinessException;
 import com.liveguard.mapper.ChipVersionMapper;
+import com.liveguard.payload.ApiResponse;
 import com.liveguard.repository.ChipVersionRepository;
 import com.liveguard.service.ChipVersionService;
 import com.liveguard.util.FileUploadUtil;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +68,8 @@ public class ChipVersionServiceImp implements ChipVersionService {
 
             return ChipVersionMapper.chipVersionToChipVersionDTO(savedChipVersion);
         } catch (Exception e) {
-            log.error("ChipVersionService | add | error: " + e.getMessage());
+            log.error("ChipTypeController | add | error");
+            e.printStackTrace();
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -81,7 +84,8 @@ public class ChipVersionServiceImp implements ChipVersionService {
 
             return ChipVersionMapper.chipVersionToChipVersionDTO(chipVersion);
         } catch (Exception e) {
-            log.error("ChipVersionService | findById | error: " + e.getMessage());
+            log.error("ChipTypeController | findById | error");
+            e.printStackTrace();
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -98,6 +102,7 @@ public class ChipVersionServiceImp implements ChipVersionService {
             return chipVersionDTOs;
         } catch (Exception e) {
             log.error("ChipVersionService | findAll | error: " + e.getMessage());
+            e.printStackTrace();
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -113,9 +118,40 @@ public class ChipVersionServiceImp implements ChipVersionService {
             chipVersions.forEach(chipVersion -> chipVersionDTOs.add(ChipVersionMapper.chipVersionToChipVersionDTO(chipVersion)));
             return chipVersionDTOs;
         } catch (Exception e) {
-            log.error("ChipVersionService | findAll | error: " + e.getMessage());
+            log.error("ChipVersionService | findAllEnable | error: " + e.getMessage());
+            e.printStackTrace();
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    @Override
+    @Transactional
+    public void updateEnabledStatus(Long id, Boolean status) {
+        log.debug("ChipTypeController | updateEnabledStatus | chip id: " + id);
+        log.debug("ChipTypeController | updateEnabledStatus | status: " + status);
+
+        try {
+            chipVersionRepository.updateEnabledStatus(id, status);
+        } catch (Exception e) {
+            log.error("ChipTypeController | updateEnabledStatus | error");
+            e.printStackTrace();
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void updateInStockStatus(Long id, Boolean status) {
+        log.debug("ChipTypeController | updateInStockStatus | chip id: " + id);
+        log.debug("ChipTypeController | updateInStockStatus | status: " + status);
+
+        try {
+            chipVersionRepository.updateInStockStatus(id, status);
+        } catch (Exception e) {
+            log.error("ChipTypeController | updateInStockStatus | error");
+            e.printStackTrace();
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

@@ -51,7 +51,7 @@ public class ChipVersion extends BaseEntity {
     private List<ChipVersionDetail> details = new ArrayList<>();
 
     public float getDiscountPrice() {
-        if (discountPercent > 0) {
+        if (discountPercent > 0 || discountPercent == null) {
             return price * ((100 - discountPercent) / 100);
         }
         return this.price;

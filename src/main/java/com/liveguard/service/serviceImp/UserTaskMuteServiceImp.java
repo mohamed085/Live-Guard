@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,6 +89,7 @@ public class UserTaskMuteServiceImp implements UserTaskMuteService {
 
 
     @Override
+    @Transactional
     public ApiResponse updateMuteStatus(Long taskId, Boolean mute) {
         log.debug("UserTaskMuteService | updateMuteStatus | taskId: " + taskId);
         log.debug("UserTaskMuteService | updateMuteStatus | mute: " + mute);
