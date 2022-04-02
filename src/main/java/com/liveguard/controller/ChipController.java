@@ -41,7 +41,7 @@ public class ChipController {
                 .body(chipService.findById(id));
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<?> getAll() {
         log.debug("ChipTypeController | getAll");
 
