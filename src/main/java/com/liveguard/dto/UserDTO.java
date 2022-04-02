@@ -68,4 +68,7 @@ public class UserDTO {
     private String avatar;
 
     private List<String> roles;
+
+    @JsonProperty("instagram_url")
+    private List<Long> rolesId;
 }

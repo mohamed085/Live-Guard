@@ -27,7 +27,8 @@ public class DayServiceImp implements DayService {
         try {
             return taskDayRepository.findAll();
         } catch (Exception e) {
-            log.error("TaskDayService | findAll | error: " + e.getMessage());
+            e.printStackTrace();
+            log.error("TaskDayService | findAll | error");
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
