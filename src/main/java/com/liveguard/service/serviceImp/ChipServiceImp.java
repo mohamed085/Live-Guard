@@ -158,6 +158,26 @@ public class ChipServiceImp implements ChipService {
     }
 
     @Override
+    public void deleteById(Long id) {
+        log.debug("ChipService | deleteById | id: " + id);
+        try {
+            Chip chip = chipRepository.findById(id)
+                    .orElseThrow(() -> new BusinessException("This chip not found", HttpStatus.NOT_FOUND));
+
+            if (chip.getUsed()) {
+                throw new BusinessException("This chip already used", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            chipRepository.deleteById(id);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("ChipService | deleteById | error");
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
     public List<ChipDTO> findAllByChipVersion(Long id) {
         log.debug("ChipService | findAllByChipVersion | id: " + id);
 

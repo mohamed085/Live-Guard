@@ -42,6 +42,17 @@ public class ChipController {
                 .body(chipService.findById(id));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
+        log.debug("ChipController | getAll");
+
+        chipService.deleteById(id);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Chip deleted successfully"));
+    }
+
+
     @GetMapping("")
     public ResponseEntity<?> getAll() {
         log.debug("ChipController | getAll");

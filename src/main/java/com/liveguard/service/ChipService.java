@@ -20,6 +20,8 @@ public interface ChipService {
 
     Page<ChipDTO> findAllByPage(int pageNum, String sortField, String sortDir, String keyword);
 
+    void deleteById(Long id);
+
     List<ChipDTO> findAllByChipVersion(Long id);
 
     ApiResponse addNewChipToUser(Long chipId, String chipPassword);
