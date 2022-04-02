@@ -10,7 +10,7 @@ import java.util.List;
 @Slf4j
 public class ChipMapper {
 
-    public static ChipDTO chipToChipDTO(Chip chip) {
+    public static ChipDTO chipToChipDTO(Chip chip, Boolean setPassword) {
         log.debug("ChipMapper | chipToChipDTO | chip: " + chip.toString());
         ChipDTO chipDTO = new ChipDTO();
 
@@ -27,7 +27,12 @@ public class ChipMapper {
         chipDTO.setId(chip.getId());
         chipDTO.setName(chip.getName());
         chipDTO.setPhoto(chip.getPhoto());
-        chipDTO.setPassword("");
+
+        if (setPassword) {
+            chipDTO.setPassword(chipDTO.getPassword());
+        } else {
+            chipDTO.setPassword("");
+        }
         chipDTO.setUsed(chip.getUsed());
         chipDTO.setChipVersionId(chip.getChipVersion().getId());
         chipDTO.setChipVersion(new SimpleChipVersion(chip.getChipVersion().getId(),

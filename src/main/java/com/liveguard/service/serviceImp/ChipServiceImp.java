@@ -64,7 +64,7 @@ public class ChipServiceImp implements ChipService {
             chip.setUsed(false);
             Chip savedChip = chipRepository.save(chip);
 
-            return ChipMapper.chipToChipDTO(savedChip);
+            return ChipMapper.chipToChipDTO(savedChip, false);
         } catch (Exception e) {
             e.printStackTrace();
             log.error("ChipService | add | error");
@@ -80,7 +80,7 @@ public class ChipServiceImp implements ChipService {
             Chip chip = chipRepository.findById(id)
                     .orElseThrow(() -> new BusinessException("This chip not found", HttpStatus.NOT_FOUND));
 
-            return ChipMapper.chipToChipDTO(chip);
+            return ChipMapper.chipToChipDTO(chip, false);
         } catch (Exception e) {
             e.printStackTrace();
             log.error("ChipService | add | error");
@@ -95,7 +95,7 @@ public class ChipServiceImp implements ChipService {
         try {
             List<ChipDTO> chipDTOS = new ArrayList<>();
             chipRepository.findAll().forEach(chip -> {
-                chipDTOS.add(ChipMapper.chipToChipDTO(chip));
+                chipDTOS.add(ChipMapper.chipToChipDTO(chip, true));
             });
 
             return chipDTOS;
@@ -113,7 +113,7 @@ public class ChipServiceImp implements ChipService {
         try {
             List<ChipDTO> chipDTOS = new ArrayList<>();
             chipRepository.findAllByChipVersionId(id).forEach(chip -> {
-                chipDTOS.add(ChipMapper.chipToChipDTO(chip));
+                chipDTOS.add(ChipMapper.chipToChipDTO(chip, true));
             });
 
             return chipDTOS;
