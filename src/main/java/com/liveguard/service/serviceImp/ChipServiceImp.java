@@ -13,6 +13,7 @@ import com.liveguard.service.ChipService;
 import com.liveguard.service.UserTaskMuteService;
 import com.liveguard.util.FileUploadUtil;
 import lombok.extern.slf4j.Slf4j;
+import net.bytebuddy.utility.RandomString;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -58,7 +59,11 @@ public class ChipServiceImp implements ChipService {
             ChipVersion chipVersion = chipVersionRepository.findById(chipDTO.getChipVersionId())
                     .orElseThrow(() -> new BusinessException("Chip version not found", HttpStatus.NOT_FOUND));
 
-            chip.setName(chipDTO.getName());
+            if (chipDTO.getName() != null) {
+                chip.setName(chipDTO.getName());
+            } else {
+                chip.setName(RandomString.make(10));
+            }
             chip.setChipVersion(chipVersion);
             chip.setPassword(RandomStringUtils.randomAlphanumeric(9));
             chip.setUsed(false);
