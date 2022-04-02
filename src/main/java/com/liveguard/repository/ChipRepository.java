@@ -16,4 +16,9 @@ public interface ChipRepository extends JpaRepository<Chip, Long> {
     @Query("UPDATE Chip c SET c.name = ?2 WHERE c.id = ?1")
     @Modifying
     void updateName(Long id, String name);
+
+    @Query("UPDATE Chip c SET c.used = ?2 WHERE c.id = ?1")
+    @Modifying
+    void updateUsedStatus(Long id, Boolean used);
+
 }

@@ -88,6 +88,7 @@ public class ChipServiceImp implements ChipService {
     }
 
     @Override
+    @Transactional
     public ApiResponse addNewChipToUser(Long chipId, String chipPassword) {
         log.debug("ChipService | addNewChipToUser | chip id: " + chipId);
         User user = accountService.getAuthenticatedAccount();
@@ -98,7 +99,6 @@ public class ChipServiceImp implements ChipService {
             Chip chip = chipRepository.findById(chipId)
                     .orElseThrow(() -> new BusinessException("This chip not found", HttpStatus.NOT_FOUND));
 
-
             if (chipUserRepository.existsByChipIdAndUserId(chipId, user.getId())) {
                 throw new BusinessException("You already assign this chip", HttpStatus.NOT_FOUND);
             }
@@ -108,6 +108,7 @@ public class ChipServiceImp implements ChipService {
                 chipUserRepository.save(chipUser);
 
                 userTaskMuteService.addTasksMuteDefaultToNewUser(chip.getId(), user);
+                chipRepository.updateUsedStatus(chip.getId(), true);
                 return new ApiResponse(true, "Chip add successfully");
             } else {
                 throw new BusinessException("Chip not add successfully, password incorrect", HttpStatus.BAD_REQUEST);
