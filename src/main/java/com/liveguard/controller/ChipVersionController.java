@@ -1,11 +1,12 @@
 package com.liveguard.controller;
 
 import com.liveguard.dto.ChipVersionDTO;
-import com.liveguard.payload.ApiResponse;
+import com.liveguard.payload.*;
 import com.liveguard.service.ChipVersionService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -77,4 +78,70 @@ public class ChipVersionController {
                 .ok()
                 .body(new ApiResponse(true, "Chip id: " + id + " updated successfully"));
     }
+
+    @PutMapping("/{id}/image")
+    public ResponseEntity<ApiResponse> updateMainImage(@PathVariable("id") Long id,
+                                                               @Valid @RequestParam("file") MultipartFile multipartFile) {
+        log.debug("ChipVersionController | updateMainImage | chip id: " + id);
+
+        chipVersionService.updateMainImage(id, multipartFile);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Image saved successfully"));
+    }
+
+    @PutMapping("/{id}/overview")
+    public ResponseEntity<ApiResponse> updateOverview(@PathVariable("id") Long id,
+                                                              @Valid @RequestBody UpdateChipVersionOverviewRequest chipVersionOverview) {
+
+        log.debug("ChipVersionController | updateMainImage | chip id: " + id);
+        log.debug("ChipVersionController | updateOverview | chipVersionOverview: " + chipVersionOverview.toString());
+
+        this.chipVersionService.updateOverview(id, chipVersionOverview);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Chip version id: " + id + " updated successfully"));
+    }
+
+    @PutMapping("/{id}/description")
+    public ResponseEntity<ApiResponse> updateDescription(@PathVariable("id") Long id,
+                                                                 @Valid @RequestBody UpdateChipVersionDescriptionRequest chipVersionDescription) {
+
+        log.debug("ChipVersionController | updateDescription | chip id: " + id);
+        log.debug("ChipVersionController | updateDescription | chipVersionOverview: " + chipVersionDescription.toString());
+
+        chipVersionService.updateDescription(id, chipVersionDescription);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Chip id: " + id + " updated successfully"));
+    }
+
+
+    @PutMapping("/{id}/details")
+    public ResponseEntity<ApiResponse> updateDetails(@PathVariable("id") Long id,
+                                                             @Valid @RequestBody UpdateChipVersionDetailsRequest chipVersionDetails) {
+
+        log.debug("ChipVersionController | updateDetails | chip id: " + id);
+        log.debug("ChipVersionController | updateDetails | chipVersionOverview: " + chipVersionDetails.toString());
+
+        chipVersionService.updateDetails(id, chipVersionDetails.getChipTypeDetailDTOs());
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Chip id: " + id + " updated successfully"));
+    }
+
+    @PutMapping("/{id}/shipping")
+    public ResponseEntity<ApiResponse> updateShipping(@PathVariable("id") Long id,
+                                                              @Valid @RequestBody UpdateChipVersionShippingRequest chipVersionShipping) {
+
+        log.debug("ChipVersionController | updateShipping | chip id: " + id);
+        log.debug("ChipVersionController | updateShipping | chipVersionShipping: " + chipVersionShipping.toString());
+
+        chipVersionService.updateShipping(id, chipVersionShipping);
+
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Chip id: " + id + " updated successfully"));
+    }
+
 }
