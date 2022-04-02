@@ -15,6 +15,10 @@ public interface ChipService {
 
     ChipDTO findById(Long id);
 
+    List<ChipDTO> findAll();
+
+    List<ChipDTO> findAllByChipVersion(Long id);
+
     ApiResponse addNewChipToUser(Long chipId, String chipPassword);
 
     ApiResponse updatePhoto(Long chipId, MultipartFile multipartFile);

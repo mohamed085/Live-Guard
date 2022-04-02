@@ -66,9 +66,9 @@ public class ChipServiceImp implements ChipService {
 
             return ChipMapper.chipToChipDTO(savedChip);
         } catch (Exception e) {
-            log.error("ChipService | add | error: " + e.getMessage());
+            e.printStackTrace();
+            log.error("ChipService | add | error");
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-
         }
     }
 
@@ -82,7 +82,44 @@ public class ChipServiceImp implements ChipService {
 
             return ChipMapper.chipToChipDTO(chip);
         } catch (Exception e) {
-            log.error("ChipService | add | error: " + e.getMessage());
+            e.printStackTrace();
+            log.error("ChipService | add | error");
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public List<ChipDTO> findAll() {
+        log.debug("ChipService | findAll");
+
+        try {
+            List<ChipDTO> chipDTOS = new ArrayList<>();
+            chipRepository.findAll().forEach(chip -> {
+                chipDTOS.add(ChipMapper.chipToChipDTO(chip));
+            });
+
+            return chipDTOS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("ChipService | findAll | error");
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public List<ChipDTO> findAllByChipVersion(Long id) {
+        log.debug("ChipService | findAllByChipVersion | id: " + id);
+
+        try {
+            List<ChipDTO> chipDTOS = new ArrayList<>();
+            chipRepository.findAllByChipVersionId(id).forEach(chip -> {
+                chipDTOS.add(ChipMapper.chipToChipDTO(chip));
+            });
+
+            return chipDTOS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("ChipService | findAllByChipVersion | error");
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -110,11 +147,13 @@ public class ChipServiceImp implements ChipService {
                 userTaskMuteService.addTasksMuteDefaultToNewUser(chip.getId(), user);
                 chipRepository.updateUsedStatus(chip.getId(), true);
                 return new ApiResponse(true, "Chip add successfully");
+
             } else {
                 throw new BusinessException("Chip not add successfully, password incorrect", HttpStatus.BAD_REQUEST);
             }
         } catch (Exception e) {
-            log.error("ChipService | add | error: " + e.getMessage());
+            e.printStackTrace();
+            log.error("ChipService | addNewChipToUser | error");
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -150,7 +189,8 @@ public class ChipServiceImp implements ChipService {
                 throw new BusinessException("You have not access to change photo", HttpStatus.FORBIDDEN);
             }
         } catch (Exception e) {
-            log.error("ChipService | updatePhoto | error: " + e.getMessage());
+            e.printStackTrace();
+            log.error("ChipService | updatePhoto | error");
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -185,7 +225,8 @@ public class ChipServiceImp implements ChipService {
                 throw new BusinessException("You have not access to change photo", HttpStatus.FORBIDDEN);
             }
         } catch (Exception e) {
-            log.error("ChipService | updateChipDetails | error: " + e.getMessage());
+            e.printStackTrace();
+            log.error("ChipService | updateChipDetails | error");
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -220,7 +261,8 @@ public class ChipServiceImp implements ChipService {
                 throw new BusinessException("You have not access to add new user", HttpStatus.FORBIDDEN);
             }
         } catch (Exception e) {
-            log.error("ChipService | updatePhoto | error: " + e.getMessage());
+            e.printStackTrace();
+            log.error("ChipService | addNewUser | error");
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -240,7 +282,8 @@ public class ChipServiceImp implements ChipService {
 
             return chips;
         } catch (Exception e) {
-            log.error("ChipService | updatePhoto | error: " + e.getMessage());
+            e.printStackTrace();
+            log.error("ChipService | findAllUserChips | error");
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

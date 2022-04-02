@@ -41,6 +41,24 @@ public class ChipController {
                 .body(chipService.findById(id));
     }
 
+    @GetMapping("/")
+    public ResponseEntity<?> getAll() {
+        log.debug("ChipTypeController | getAll");
+
+        return ResponseEntity
+                .ok()
+                .body(chipService.findAll());
+    }
+
+    @GetMapping("/version/{id}")
+    public ResponseEntity<?> getAllByChipVersion(@PathVariable("id") Long id) {
+        log.debug("ChipTypeController | getAll");
+
+        return ResponseEntity
+                .ok()
+                .body(chipService.findAllByChipVersion(id));
+    }
+
     @PostMapping("/add-new-chip-my-chips")
     public ResponseEntity<?> addNewChipToUser(@RequestBody AddNewChipRequest addNewChipRequest) {
         log.debug("ChipTypeController | addNewChipToUser");

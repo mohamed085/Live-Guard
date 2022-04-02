@@ -6,8 +6,12 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface ChipRepository extends JpaRepository<Chip, Long> {
+
+    List<Chip> findAllByChipVersionId(Long id);
 
     @Query("UPDATE Chip c SET c.photo = ?2 WHERE c.id = ?1")
     @Modifying
