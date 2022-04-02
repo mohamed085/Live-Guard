@@ -33,9 +33,9 @@ public class ChipMapper {
         chipDTO.setPhoto(chip.getPhoto());
 
         if (setPassword) {
-            chipDTO.setPassword(chipDTO.getPassword());
+            chipDTO.setPassword(chip.getPassword());
         } else {
-            chipDTO.setPassword("");
+            chipDTO.setPassword(null);
         }
         chipDTO.setUsed(chip.getUsed());
         chipDTO.setChipVersionId(chip.getChipVersion().getId());
