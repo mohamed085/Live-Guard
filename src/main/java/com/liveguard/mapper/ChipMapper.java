@@ -17,13 +17,17 @@ public class ChipMapper {
         List<ChipDetailDTO> details = new ArrayList<>();
         List<ChipUserDTO> chipUsers = new ArrayList<>();
 
-        chip.getDetails().forEach(detail -> details.add(new ChipDetailDTO(detail.getId(), detail.getName(), detail.getValue())));
-        chip.getUsers().forEach(chipUser -> {
-            chipUsers.add(new ChipUserDTO(chipUser.getId(),
-                    new SimpleUserDTO(chipUser.getUser().getId(), chipUser.getUser().getEmail(), chipUser.getUser().getName(), chipUser.getUser().getAbout(), chipUser.getUser().getAvatar()),
-                    chipUser.getAddDate(), chipUser.getChipUserType()));
-        });
+        if (chip.getDetails().size() > 0) {
+            chip.getDetails().forEach(detail -> details.add(new ChipDetailDTO(detail.getId(), detail.getName(), detail.getValue())));
+        }
 
+        if (chip.getUsers().size() > 0) {
+            chip.getUsers().forEach(chipUser -> {
+                chipUsers.add(new ChipUserDTO(chipUser.getId(),
+                        new SimpleUserDTO(chipUser.getUser().getId(), chipUser.getUser().getEmail(), chipUser.getUser().getName(), chipUser.getUser().getAbout(), chipUser.getUser().getAvatar()),
+                        chipUser.getAddDate(), chipUser.getChipUserType()));
+            });
+        }
         chipDTO.setId(chip.getId());
         chipDTO.setName(chip.getName());
         chipDTO.setPhoto(chip.getPhoto());
