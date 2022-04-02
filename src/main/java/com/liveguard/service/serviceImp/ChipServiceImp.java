@@ -62,9 +62,9 @@ public class ChipServiceImp implements ChipService {
             ChipVersion chipVersion = chipVersionRepository.findById(chipDTO.getChipVersionId())
                     .orElseThrow(() -> new BusinessException("Chip version not found", HttpStatus.NOT_FOUND));
 
-            if (chipDTO.getName() != null) {
-                chip.setName(chipDTO.getName());
-            } else {
+            chip.setName(chipDTO.getName());
+
+            if (chipDTO.getName() == null || chipDTO.getName().equals("")) {
                 chip.setName(RandomString.make(10));
             }
             chip.setChipVersion(chipVersion);

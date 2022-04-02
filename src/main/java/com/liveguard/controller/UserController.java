@@ -2,6 +2,7 @@ package com.liveguard.controller;
 
 import com.liveguard.service.UserServices;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,5 +36,22 @@ public class UserController {
         return ResponseEntity
                 .ok()
                 .body(userServices.findAllCustomersInSimpleForm());
+    }
+
+    @GetMapping("/page/{pageNum}")
+    public ResponseEntity<?> getAllByPage(@PathVariable(name = "pageNum") int pageNum,
+                                          @Param("sortField") String sortField,
+                                          @Param("sortDir") String sortDir,
+                                          @Param("keyword") String keyword) {
+
+        log.debug("UserController | getAllByPage");
+        log.debug("UserController | getAllByPage | pageNum: " + pageNum);
+        log.debug("UserController | getAllByPage | sortField: " + sortField);
+        log.debug("UserController | getAllByPage | sortDir: " + sortDir);
+        log.debug("UserController | getAllByPage | keyword: " + keyword);
+
+        return ResponseEntity
+                .ok()
+                .body(userServices.findAllByPage(pageNum, sortField, sortDir, keyword));
     }
 }
