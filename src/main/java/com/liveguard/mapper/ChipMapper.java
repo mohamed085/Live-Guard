@@ -3,6 +3,7 @@ package com.liveguard.mapper;
 import com.liveguard.domain.Chip;
 import com.liveguard.dto.*;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +18,11 @@ public class ChipMapper {
         List<ChipDetailDTO> details = new ArrayList<>();
         List<ChipUserDTO> chipUsers = new ArrayList<>();
 
-        if (chip.getDetails().size() > 0) {
+        if (chip.getDetails() != null) {
             chip.getDetails().forEach(detail -> details.add(new ChipDetailDTO(detail.getId(), detail.getName(), detail.getValue())));
         }
 
-        if (chip.getUsers().size() > 0) {
+        if (chip.getUsers() != null) {
             chip.getUsers().forEach(chipUser -> {
                 chipUsers.add(new ChipUserDTO(chipUser.getId(),
                         new SimpleUserDTO(chipUser.getUser().getId(), chipUser.getUser().getEmail(), chipUser.getUser().getName(), chipUser.getUser().getAbout(), chipUser.getUser().getAvatar()),
@@ -47,4 +48,5 @@ public class ChipMapper {
 
         return chipDTO;
     }
+
 }
