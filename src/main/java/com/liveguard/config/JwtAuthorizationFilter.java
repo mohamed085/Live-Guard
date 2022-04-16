@@ -32,23 +32,27 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-            throws IOException, ServletException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) {
+        try {
 
-        // Read the Authorization header, where the JWT token should be
-        String header = request.getHeader(JwtProperties.HEADER_STRING);
+            // Read the Authorization header, where the JWT token should be
+            String header = request.getHeader(JwtProperties.HEADER_STRING);
 
-        // If header does not contain BEARER or is null delegate to Spring impl and exit
-        if (header == null || !header.startsWith(JwtProperties.TOKEN_PREFIX)) {
+            // If header does not contain BEARER or is null delegate to Spring impl and exit
+            if (header == null || !header.startsWith(JwtProperties.TOKEN_PREFIX)) {
+                chain.doFilter(request, response);
+                return;
+            }
+            // If header is present, try grab user principal from database and perform authorization
+            Authentication authentication = getUsernamePasswordAuthentication(request);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            // Continue filter execution
             chain.doFilter(request, response);
-            return;
-        }
-        // If header is present, try grab user principal from database and perform authorization
-        Authentication authentication = getUsernamePasswordAuthentication(request);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        } catch (ServletException | IOException e) {
+            throw new BusinessException(e.getMessage(), HttpStatus.BAD_REQUEST);
 
-        // Continue filter execution
-        chain.doFilter(request, response);
+        }
     }
 
     // Bearer
