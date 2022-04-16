@@ -17,13 +17,21 @@ public class LocationController {
     @GetMapping("/{chipId}/{lng}/{lat}")
     @ResponseStatus(HttpStatus.OK)
     public void addLocation(@PathVariable("chipId") Long chipId,
-                                        @PathVariable("lng") Double lng,
-                                        @PathVariable("lat") Double lat,
-                                         HttpServletRequest request) {
+                            @PathVariable("lng") Double lng,
+                            @PathVariable("lat") Double lat,
+                            HttpServletRequest request) {
 
         log.debug("LocationController | addLocation | chipId: " + chipId);
         log.debug("LocationController | addLocation | lng: " + lng);
         log.debug("LocationController | addLocation | lat: " + lat);
         log.debug("LocationController | addLocation | request: " + request.getRemoteAddr());
     }
+
+    @GetMapping("")
+    @ResponseStatus(HttpStatus.OK)
+    public void addLocation2(HttpServletRequest request) {
+
+        log.debug("LocationController | addLocation | request: " + request.getRemoteAddr());
+    }
+
 }
