@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Slf4j
 @RestController
 @RequestMapping("/location")
@@ -17,11 +19,16 @@ public class LocationController {
     @GetMapping("/{chipId}/{lng}/{lat}")
     public ResponseEntity<?> addLocation(@PathVariable("chipId") Long chipId,
                                         @PathVariable("lng") Double lng,
-                                        @PathVariable("lat") Double lat) {
+                                        @PathVariable("lat") Double lat,
+                                         HttpServletRequest request) {
 
-        String s = "chipId: " + chipId + ", lng: " + lng + ", lat: " + lat;
+        log.debug("LocationController | addLocation | chipId: " + chipId);
+        log.debug("LocationController | addLocation | lng: " + lng);
+        log.debug("LocationController | addLocation | lat: " + lat);
+        log.debug("LocationController | addLocation | request: " + request.getRemoteAddr());
+
         return ResponseEntity
                 .ok()
-                .body(s);
+                .body(null);
     }
 }
