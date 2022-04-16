@@ -15,8 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 public class LocationController {
 
     @GetMapping("/{chipId}/{lng}/{lat}")
-    @ResponseStatus(HttpStatus.OK)
-    public void addLocation(@PathVariable("chipId") Long chipId,
+    public ResponseEntity<?> addLocation(@PathVariable("chipId") Long chipId,
                             @PathVariable("lng") Double lng,
                             @PathVariable("lat") Double lat,
                             HttpServletRequest request) {
@@ -25,13 +24,21 @@ public class LocationController {
         log.debug("LocationController | addLocation | lng: " + lng);
         log.debug("LocationController | addLocation | lat: " + lat);
         log.debug("LocationController | addLocation | request: " + request.getRemoteAddr());
+
+        return ResponseEntity
+                .ok()
+                .body("Success");
     }
 
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
-    public void addLocation2(HttpServletRequest request) {
+    public ResponseEntity<?> addLocation2(HttpServletRequest request) {
 
-        log.debug("LocationController | addLocation | request: " + request.getRemoteAddr());
+        log.debug("LocationController | addLocation2 | request: " + request.getRemoteAddr());
+
+        return ResponseEntity
+                .ok()
+                .body("Success");
     }
 
 }
