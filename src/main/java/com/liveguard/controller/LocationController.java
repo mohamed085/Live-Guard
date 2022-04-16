@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
 @RestController
-@RequestMapping("/location")
+@RequestMapping("/loc")
 public class LocationController {
 
     @GetMapping("/{chipId}/{lng}/{lat}")
