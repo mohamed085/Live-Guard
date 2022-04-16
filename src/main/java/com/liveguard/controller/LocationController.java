@@ -2,12 +2,10 @@ package com.liveguard.controller;
 
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,7 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 public class LocationController {
 
     @GetMapping("/{chipId}/{lng}/{lat}")
-    public ResponseEntity<?> addLocation(@PathVariable("chipId") Long chipId,
+    @ResponseStatus(HttpStatus.OK)
+    public void addLocation(@PathVariable("chipId") Long chipId,
                                         @PathVariable("lng") Double lng,
                                         @PathVariable("lat") Double lat,
                                          HttpServletRequest request) {
@@ -26,9 +25,5 @@ public class LocationController {
         log.debug("LocationController | addLocation | lng: " + lng);
         log.debug("LocationController | addLocation | lat: " + lat);
         log.debug("LocationController | addLocation | request: " + request.getRemoteAddr());
-
-        return ResponseEntity
-                .ok()
-                .body(null);
     }
 }
