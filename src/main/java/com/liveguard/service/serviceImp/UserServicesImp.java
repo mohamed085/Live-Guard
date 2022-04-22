@@ -4,9 +4,12 @@ import com.liveguard.domain.User;
 import com.liveguard.exception.BusinessException;
 import com.liveguard.repository.UserRepository;
 import com.liveguard.service.UserService;
+import com.liveguard.util.FileUploadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 
@@ -115,6 +118,32 @@ public class UserServicesImp implements UserService {
 
         } catch (Exception e) {
             log.error("UserService | updateResetPasswordToken | error: " + e.getMessage());
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @Override
+    @Transactional
+    public void updateAvatar(Long id, MultipartFile multipartFile) {
+        log.debug("UserService | updateAvatar | id: " + id);
+        log.debug("UserService | updateAvatar | file name: " + multipartFile.getName());
+
+        try {
+            String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            log.debug("UserService | updateAvatar | file name: " + fileName);
+
+            String avatar = "/user-photos/" + id + "/" + fileName;
+            userRepository.updateAvatar(id, avatar);
+            String uploadDir = "user-photos/" + id;
+
+            log.debug("UserService | updateAvatar | avatar : " + avatar);
+            log.debug("UserService | updateAvatar | uploadDir : " + uploadDir);
+
+            FileUploadUtil.cleanDir(uploadDir);
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+
+        } catch (Exception e) {
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 

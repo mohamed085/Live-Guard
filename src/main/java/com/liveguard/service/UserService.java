@@ -1,6 +1,7 @@
 package com.liveguard.service;
 
 import com.liveguard.domain.User;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface UserService {
 
@@ -17,4 +18,6 @@ public interface UserService {
     User findByResetPasswordToken(String resetPasswordToken);
 
     void updatePassword(Long id, String newPassword);
+
+    void updateAvatar(Long id, MultipartFile multipartFile);
 }
