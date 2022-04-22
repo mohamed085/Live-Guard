@@ -31,7 +31,19 @@ public class VerificationCodeServiceImp implements VerificationCodeService {
             log.error("VerificationCodeService | save | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
 
+    @Override
+    public VerificationCode findByCode(String code) {
+        log.debug("VerificationCodeService | findByCode | code: " + code);
 
+        try {
+            return verificationCodeRepository.findByCode(code)
+                    .orElseThrow(() -> new BusinessException("User not found", HttpStatus.NOT_FOUND));
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("VerificationCodeService | findByCode | error: " + e.getMessage());
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

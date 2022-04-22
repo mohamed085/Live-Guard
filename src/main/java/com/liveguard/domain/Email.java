@@ -5,9 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
@@ -23,8 +21,11 @@ public class Email extends BaseEntity {
     @Column(length = 8192, nullable = false)
     private String content;
     private String receiver;
+    @Enumerated(EnumType.STRING)
     private EmailSendStatus status;
+
     private LocalDateTime createdDate;
+
     private LocalDateTime sendDate;
 
     @Override

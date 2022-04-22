@@ -53,8 +53,6 @@ public class CustomerRegisterUtil {
         log.debug("CustomerRegisterUtil | createVerificationCode | user: " + user.getEmail());
         VerificationCode code = new VerificationCode();
         code.setCode(String.valueOf(RandomString.make(64)));
-        code.setStatus(VerificationCodeStatus.ACTIVE);
-        code.setTempVerify(0);
         code.setUser(user);
         VerificationCode savedCode = verificationCodeService.save(code);
         log.debug("CustomerRegisterUtil | createVerificationCode | savedCode: " + savedCode.toString());
@@ -83,13 +81,14 @@ public class CustomerRegisterUtil {
         log.debug("CustomerRegisterUtil | prepareVerificationEmail | subject: " + subject);
         log.debug("CustomerRegisterUtil | prepareVerificationEmail | content: " + content);
 
-
         Email email = new Email();
 
         email.setReceiver(verificationCode.getUser().getEmail());
         email.setSubject(subject);
         email.setContent(content);
         email.setStatus(EmailSendStatus.UNSEND);
+
+        log.debug("CustomerRegisterUtil | prepareVerificationEmail | email: " + email.toString());
 
         return email;
     }

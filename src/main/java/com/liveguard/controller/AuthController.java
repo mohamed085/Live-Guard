@@ -1,14 +1,10 @@
 package com.liveguard.controller;
 
-import com.liveguard.payload.ApiResponse;
-import com.liveguard.payload.CustomerRegisterRequest;
+import com.liveguard.payload.*;
 import com.liveguard.service.AuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -34,5 +30,48 @@ public class AuthController {
                 .body(new ApiResponse(true, "Account created successfully"));
 
     }
+
+    @GetMapping("/verify/{code}")
+    public ResponseEntity<?> verify(@PathVariable("code") String code) {
+        log.debug("AuthController | verify | code: " + code);
+
+        authService.verify(code);
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Account verified successfully"));
+    }
+
+    @PostMapping("/forgot-password")
+    public ResponseEntity<?> forgotPassword(@Valid @RequestBody UserEmailRequest email) {
+        log.debug("AuthController | forgotPassword | email: " + email);
+
+        authService.forgotPassword(email.getUserEmail());
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Check your email"));
+    }
+
+    @PostMapping("/reset_password")
+    public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequest resetPasswordRequest) {
+        log.debug("AuthController | resetPassword ");
+
+        authService.resetPassword(resetPasswordRequest.getResetPasswordToken(), resetPasswordRequest.getPassword());
+
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "Password updated successfully"));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest loginRequest) {
+        log.debug("AuthController | Login | user email: " + loginRequest.getEmail());
+
+        String token = authService.login(loginRequest.getEmail(), loginRequest.getPassword());
+
+        return ResponseEntity
+                .ok()
+                .body(new LoginResponse(loginRequest.getEmail(), token));
+    }
+
 
 }

@@ -15,10 +15,7 @@ import java.time.LocalDateTime;
 public class VerificationCode extends BaseEntity {
 
     private String code;
-    private int tempVerify;
     private LocalDateTime createDate;
-    @Enumerated(EnumType.STRING)
-    private VerificationCodeStatus status;
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -28,9 +25,7 @@ public class VerificationCode extends BaseEntity {
         return "VerificationCode{" +
                 "id='" + super.getId() + '\'' +
                 ", code='" + code + '\'' +
-                ", tempVerify=" + tempVerify +
                 ", createDate=" + createDate +
-                ", status=" + status +
                 ", user=" + user.toString() +
                 '}';
     }
