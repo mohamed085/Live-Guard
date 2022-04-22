@@ -49,6 +49,34 @@ public class UserServicesImp implements UserService {
     }
 
     @Override
+    public User findByVerificationCode(String verificationCode) {
+        log.debug("UserService | findByVerificationCode | verificationCode: " + verificationCode);
+        try {
+            return userRepository.findByVerificationCode(verificationCode)
+                    .orElseThrow(() -> new BusinessException("User not found", HttpStatus.NOT_FOUND));
+
+        } catch (Exception e) {
+            log.error("UserService | findByVerificationCode | error: " + e.getMessage());
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void updateVerificationCode(Long id, String verificationCode) {
+        log.debug("UserService | updateEnableStatus | id: " + id);
+        log.debug("UserService | updateEnableStatus | verificationCode: " + verificationCode);
+
+        try {
+            userRepository.updateVerificationCode(id, verificationCode);
+        } catch (Exception e) {
+            log.error("UserService | updateEnableStatus | error: " + e.getMessage());
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
+    @Override
     @Transactional
     public void updateEnableStatus(Long id, Boolean status) {
         log.debug("UserService | updateEnableStatus | id: " + id);

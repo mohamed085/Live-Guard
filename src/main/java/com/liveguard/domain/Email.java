@@ -18,7 +18,7 @@ public class Email extends BaseEntity {
 
     private String subject;
 
-    @Column(length = 8192, nullable = false)
+    @Column(length = 4096)
     private String content;
     private String receiver;
     @Enumerated(EnumType.STRING)

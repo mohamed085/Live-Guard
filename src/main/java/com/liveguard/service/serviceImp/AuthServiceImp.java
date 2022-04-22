@@ -2,7 +2,6 @@ package com.liveguard.service.serviceImp;
 
 import com.liveguard.domain.Email;
 import com.liveguard.domain.User;
-import com.liveguard.domain.VerificationCode;
 import com.liveguard.exception.BusinessException;
 import com.liveguard.payload.CustomerRegisterRequest;
 import com.liveguard.service.*;
@@ -27,7 +26,6 @@ public class AuthServiceImp implements AuthService {
     private final UserService userService;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
-    private final VerificationCodeService verificationCodeService;
     private final EmailService emailService;
     private final SendEmailService sendEmailService;
     private final SettingService settingService;
@@ -35,11 +33,13 @@ public class AuthServiceImp implements AuthService {
     private final TokenService tokenService;
 
 
-    public AuthServiceImp(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder, VerificationCodeService verificationCodeService, EmailService emailService, SendEmailService sendEmailService, SettingService settingService, AuthenticationManager authenticationManager, TokenService tokenService) {
+    public AuthServiceImp(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder,
+                          EmailService emailService, SendEmailService sendEmailService,
+                          SettingService settingService, AuthenticationManager authenticationManager,
+                          TokenService tokenService) {
         this.userService = userService;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
-        this.verificationCodeService = verificationCodeService;
         this.emailService = emailService;
         this.sendEmailService = sendEmailService;
         this.settingService = settingService;
@@ -61,10 +61,8 @@ public class AuthServiceImp implements AuthService {
                     (customer, passwordEncoder, roleService);
 
             userService.save(user);
-            VerificationCode verificationCode = CustomerRegisterUtil
-                    .createVerificationCode(user, verificationCodeService);
 
-            Email email = CustomerRegisterUtil.prepareVerificationEmail(verificationCode, settingService);
+            Email email = CustomerRegisterUtil.prepareVerificationEmail(user, settingService);
 
             emailService.save(email);
             sendEmailService.send(email);
@@ -83,10 +81,10 @@ public class AuthServiceImp implements AuthService {
         log.debug("AuthService | verify | code: " + code);
 
         try {
-            VerificationCode verificationCode = verificationCodeService.findByCode(code);
-            User user = verificationCode.getUser();
+            User user = userService.findByVerificationCode(code);
 
             log.debug("AuthService | verify | enable user id: " + user.getId());
+            userService.updateVerificationCode(user.getId(), "");
             userService.updateEnableStatus(user.getId(), true);
 
         } catch (Exception e) {

@@ -9,6 +9,10 @@ public interface UserService {
 
     Boolean existsByEmail(String email);
 
+    User findByVerificationCode(String verificationCode);
+
+    void updateVerificationCode(Long id, String verificationCode);
+
     void updateEnableStatus(Long id, Boolean status);
 
     User findByEmail(String email);

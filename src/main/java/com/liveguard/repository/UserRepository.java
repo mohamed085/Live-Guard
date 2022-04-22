@@ -20,6 +20,12 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
     Optional<User> findByEmail(String email);
 
+    Optional<User> findByVerificationCode(String verificationCode);
+
+    @Query("UPDATE User u SET u.verificationCode = ?2 WHERE u.id = ?1")
+    @Modifying
+    void updateVerificationCode(Long id, String verificationCode);
+
     @Query("UPDATE User u SET u.enable = ?2 WHERE u.id = ?1")
     @Modifying
     void updateEnableStatus(Long id, Boolean status);

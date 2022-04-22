@@ -26,7 +26,7 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
-    @Column(length = 4000)
+    @Column(length = 4096)
     private String about;
 
     private String avatar;
@@ -34,12 +34,14 @@ public class User extends BaseEntity {
 
     @Column(length = 512)
     private String address;
+
     private String gender;
 
     private LocalDate dateOfBirth;
     private String postalCode;
     private LocalDateTime createdTime;
 
+    private String verificationCode;
     private String resetPasswordToken;
 
     private Boolean enable;
