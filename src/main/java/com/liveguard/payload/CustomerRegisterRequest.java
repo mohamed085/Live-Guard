@@ -33,6 +33,5 @@ public class CustomerRegisterRequest {
     private String gender;
 
     @JsonProperty("date_of_birth")
-    @JsonFormat(pattern="yyyy-MM-dd")
     private Date dateOfBirth;
 }
