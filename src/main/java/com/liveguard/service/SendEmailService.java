@@ -9,4 +9,5 @@ public interface SendEmailService {
 
     void send(Email email) throws MessagingException, UnsupportedEncodingException;
 
+    void sendEmailToNonSentEmailsJob();
 }

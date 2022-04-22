@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -48,5 +49,19 @@ public class EmailServiceImp implements EmailService {
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    @Override
+    public Set<Email> findNonSentEmails() {
+        log.debug("EmailService | findNonSentEmails");
+
+        try {
+            return emailRepository.findAllByStatus(EmailSendStatus.UNSEND);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("EmailService | findNonSentEmails | error: " + e.getMessage());
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

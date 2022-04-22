@@ -10,6 +10,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Repository
 public interface EmailRepository extends PagingAndSortingRepository<Email, Long> {
@@ -17,4 +18,6 @@ public interface EmailRepository extends PagingAndSortingRepository<Email, Long>
     @Query("UPDATE Email e SET e.status = ?2, e.sendDate = ?3 WHERE e.id = ?1")
     @Modifying
     void updateStatus(Long id, EmailSendStatus status, LocalDateTime sendDate);
+
+    Set<Email> findAllByStatus(EmailSendStatus status);
 }

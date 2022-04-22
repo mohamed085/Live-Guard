@@ -50,6 +50,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
             // Continue filter execution
             chain.doFilter(request, response);
         } catch (ServletException | IOException e) {
+            e.printStackTrace();
             throw new BusinessException(e.getMessage(), HttpStatus.BAD_REQUEST);
 
         }
