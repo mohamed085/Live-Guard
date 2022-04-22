@@ -43,6 +43,7 @@ public class UserServicesImp implements UserService {
             return userRepository.existsByEmail(email);
 
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("UserService | existsByEmail | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -56,6 +57,7 @@ public class UserServicesImp implements UserService {
                     .orElseThrow(() -> new BusinessException("User not found", HttpStatus.NOT_FOUND));
 
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("UserService | findByVerificationCode | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -70,6 +72,7 @@ public class UserServicesImp implements UserService {
         try {
             userRepository.updateVerificationCode(id, verificationCode);
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("UserService | updateEnableStatus | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -85,6 +88,7 @@ public class UserServicesImp implements UserService {
         try {
             userRepository.updateEnableStatus(id, status);
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("UserService | updateEnableStatus | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -100,6 +104,7 @@ public class UserServicesImp implements UserService {
                     .orElseThrow(() -> new BusinessException("User not found", HttpStatus.NOT_FOUND));
 
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("UserService | existsByEmail | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -115,6 +120,7 @@ public class UserServicesImp implements UserService {
             userRepository.updateResetPasswordToken(id, resetPasswordToken);
 
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("UserService | updateResetPasswordToken | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -130,6 +136,7 @@ public class UserServicesImp implements UserService {
                     .orElseThrow(() -> new BusinessException("User not found", HttpStatus.NOT_FOUND));
 
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("UserService | updateResetPasswordToken | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -145,6 +152,7 @@ public class UserServicesImp implements UserService {
             userRepository.updatePassword(id, newPassword);
 
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("UserService | updateResetPasswordToken | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -172,8 +180,25 @@ public class UserServicesImp implements UserService {
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
 
         } catch (Exception e) {
+            e.printStackTrace();
+            log.error("UserService | updateAvatar | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
+    }
+
+    @Override
+    public User findById(Long id) {
+        log.debug("UserService | findById | id: " + id);
+
+        try {
+            return userRepository.findById(id)
+                    .orElseThrow(() -> new BusinessException("This user not found", HttpStatus.NOT_FOUND));
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("UserService | findById | error: " + e.getMessage());
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

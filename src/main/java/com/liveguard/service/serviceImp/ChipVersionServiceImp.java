@@ -37,7 +37,7 @@ public class ChipVersionServiceImp implements ChipVersionService {
     }
 
     @Override
-    public ChipVersionDTO add(ChipVersionDTO chipVersionDTO) {
+    public ChipVersion add(ChipVersionDTO chipVersionDTO) {
         log.debug("ChipVersionService | add | chipVersionDTO: " + chipVersionDTO.toString());
 
         try {
@@ -70,9 +70,7 @@ public class ChipVersionServiceImp implements ChipVersionService {
 
             }
 
-            ChipVersion savedChipVersion = chipVersionRepository.save(chipVersion);
-
-            return ChipVersionMapper.chipVersionToChipVersionDTO(savedChipVersion);
+            return chipVersionRepository.save(chipVersion);
         } catch (Exception e) {
             log.error("ChipTypeController | add | error");
             e.printStackTrace();
@@ -81,14 +79,13 @@ public class ChipVersionServiceImp implements ChipVersionService {
     }
 
     @Override
-    public ChipVersionDTO findById(Long id) {
+    public ChipVersion findById(Long id) {
         log.debug("ChipVersionService | findById | id: " + id);
 
         try {
-            ChipVersion chipVersion = chipVersionRepository.findById(id)
+            return chipVersionRepository.findById(id)
                     .orElseThrow(() -> new BusinessException("This chip type not found", HttpStatus.NOT_FOUND));
 
-            return ChipVersionMapper.chipVersionToChipVersionDTO(chipVersion);
         } catch (Exception e) {
             log.error("ChipTypeController | findById | error");
             e.printStackTrace();
@@ -97,15 +94,12 @@ public class ChipVersionServiceImp implements ChipVersionService {
     }
 
     @Override
-    public List<ChipVersionDTO> findAll() {
+    public List<ChipVersion> findAll() {
         log.debug("ChipVersionService | findAll");
 
         try {
-            List<ChipVersion> chipVersions = chipVersionRepository.findAll();
-            List<ChipVersionDTO> chipVersionDTOs = new ArrayList<>();
+            return chipVersionRepository.findAll();
 
-            chipVersions.forEach(chipVersion -> chipVersionDTOs.add(ChipVersionMapper.chipVersionToChipVersionDTO(chipVersion)));
-            return chipVersionDTOs;
         } catch (Exception e) {
             log.error("ChipVersionService | findAll | error: " + e.getMessage());
             e.printStackTrace();
@@ -114,15 +108,12 @@ public class ChipVersionServiceImp implements ChipVersionService {
     }
 
     @Override
-    public List<ChipVersionDTO> findAllEnable() {
+    public List<ChipVersion> findAllEnable() {
         log.debug("ChipVersionService | findAllEnable");
 
         try {
-            List<ChipVersion> chipVersions = chipVersionRepository.findAllByEnabledTrue();
-            List<ChipVersionDTO> chipVersionDTOs = new ArrayList<>();
+            return chipVersionRepository.findAllByEnabledTrue();
 
-            chipVersions.forEach(chipVersion -> chipVersionDTOs.add(ChipVersionMapper.chipVersionToChipVersionDTO(chipVersion)));
-            return chipVersionDTOs;
         } catch (Exception e) {
             log.error("ChipVersionService | findAllEnable | error: " + e.getMessage());
             e.printStackTrace();

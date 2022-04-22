@@ -63,6 +63,7 @@ public class AccountServiceImp implements AccountService {
         try {
             userService.save(user);
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("AuthService | updateAuthenticatedAccount | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

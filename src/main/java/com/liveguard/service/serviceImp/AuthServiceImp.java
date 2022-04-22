@@ -111,6 +111,7 @@ public class AuthServiceImp implements AuthService {
             sendEmailService.send(email1);
 
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("AuthService | register | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -127,6 +128,7 @@ public class AuthServiceImp implements AuthService {
             userService.updatePassword(user.getId(), passwordEncoder.encode(newPassword));
             userService.updateResetPasswordToken(user.getId(), "");
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("AuthService | register | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -137,7 +139,9 @@ public class AuthServiceImp implements AuthService {
         log.debug("AuthService | Login | user try to login: " + email);
 
         try {
-            userService.findByEmail(email);
+            if (!userService.existsByEmail(email)) {
+                throw new BusinessException("User not found", HttpStatus.NOT_FOUND);
+            }
 
             Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
             log.debug("AuthService | Login | user try to login: " + authenticate.getDetails());
@@ -146,6 +150,7 @@ public class AuthServiceImp implements AuthService {
             String token = tokenService.generateToken(authenticate);
             return token;
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("AuthService | Login | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

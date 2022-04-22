@@ -1,6 +1,7 @@
 package com.liveguard.controller;
 
 import com.liveguard.dto.ChipVersionDTO;
+import com.liveguard.mapper.ChipVersionMapper;
 import com.liveguard.payload.*;
 import com.liveguard.service.ChipVersionService;
 import lombok.extern.slf4j.Slf4j;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -27,16 +30,22 @@ public class ChipVersionController {
 
         return ResponseEntity
                 .ok()
-                .body(chipVersionService.add(chipVersionDTO));
+                .body(ChipVersionMapper.chipVersionToChipVersionDTO(chipVersionService.add(chipVersionDTO)));
     }
 
     @GetMapping("")
     public ResponseEntity<?> getAll() {
         log.debug("ChipVersionController | getAll");
 
+        List<ChipVersionDTO> chipVersionDTOs = new ArrayList<>();
+
+        chipVersionService.findAll().forEach(chipVersion -> {
+            chipVersionDTOs.add(ChipVersionMapper.chipVersionToChipVersionDTO(chipVersion));
+        });
+
         return ResponseEntity
                 .ok()
-                .body(chipVersionService.findAll());
+                .body(chipVersionDTOs);
 
     }
 
@@ -44,9 +53,15 @@ public class ChipVersionController {
     public ResponseEntity<?> getAllEnable() {
         log.debug("ChipVersionController | getAll");
 
+        List<ChipVersionDTO> chipVersionDTOs = new ArrayList<>();
+
+        chipVersionService.findAllEnable().forEach(chipVersion -> {
+            chipVersionDTOs.add(ChipVersionMapper.chipVersionToChipVersionDTO(chipVersion));
+        });
+
         return ResponseEntity
                 .ok()
-                .body(chipVersionService.findAllEnable());
+                .body(chipVersionDTOs);
 
     }
 
@@ -56,7 +71,7 @@ public class ChipVersionController {
 
         return ResponseEntity
                 .ok()
-                .body(chipVersionService.findById(id));
+                .body(ChipVersionMapper.chipVersionToChipVersionDTO(chipVersionService.findById(id)));
     }
 
     @GetMapping("/{id}/enabled/{status}")

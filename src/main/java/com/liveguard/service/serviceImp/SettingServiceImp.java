@@ -29,6 +29,7 @@ public class SettingServiceImp implements SettingService {
         try {
             return settingRepository.findByKey("WEBSITE_LINK").getValue();
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("SettingService | getWebsiteLink | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -44,6 +45,7 @@ public class SettingServiceImp implements SettingService {
 
             return new EmailSettingBag(settings);
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("SettingService | getEmailSettings | error: " + e.getMessage());
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }

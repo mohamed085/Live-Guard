@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface NotificationService {
 
+    void save(Notification notification);
 
+    List<Notification> findAllByUserId(Long userId);
 }

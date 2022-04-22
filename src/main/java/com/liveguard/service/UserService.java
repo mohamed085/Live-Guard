@@ -24,4 +24,6 @@ public interface UserService {
     void updatePassword(Long id, String newPassword);
 
     void updateAvatar(Long id, MultipartFile multipartFile);
+
+    User findById(Long id);
 }

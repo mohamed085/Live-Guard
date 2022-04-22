@@ -30,6 +30,7 @@ public class LiveGuardUserServiceImp implements LiveGuardUserService {
                     .map(LiveGuardUserDetails:: new)
                     .orElseThrow(() -> new UsernameNotFoundException("Could not find user with email: " + email));
         } catch (Exception e) {
+            e.printStackTrace();
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

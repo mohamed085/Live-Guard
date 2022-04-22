@@ -13,13 +13,13 @@ import java.util.List;
 
 public interface ChipVersionService {
 
-    ChipVersionDTO add(ChipVersionDTO chipVersionDTO);
+    ChipVersion add(ChipVersionDTO chipVersionDTO);
 
-    ChipVersionDTO findById(Long id);
+    ChipVersion findById(Long id);
 
-    List<ChipVersionDTO> findAll();
+    List<ChipVersion> findAll();
 
-    List<ChipVersionDTO> findAllEnable();
+    List<ChipVersion> findAllEnable();
 
     void updateEnabledStatus(Long id, Boolean status);
 
