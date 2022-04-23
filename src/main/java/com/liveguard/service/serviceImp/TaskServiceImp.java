@@ -199,4 +199,19 @@ public class TaskServiceImp implements TaskService {
         }
     }
 
+    @Override
+    public List<Task> findByChipIdAndRepeatEquals(Long chipId, Day day) {
+        log.debug("TaskService | findByChipIdAndRepeatEquals | chipId: " + chipId);
+        log.debug("TaskService | findByChipIdAndRepeatEquals | day: " + day.toString());
+
+
+        try {
+            return taskRepository.findByChipIdAndRepeatEquals(chipId, day);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("TaskService | findOtherTasksInChip | error: " + e.getMessage());
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

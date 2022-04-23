@@ -1,5 +1,6 @@
 package com.liveguard.repository;
 
+import com.liveguard.domain.Day;
 import com.liveguard.domain.Task;
 import com.liveguard.dto.ITaskDTO;
 import com.liveguard.dto.ITaskRepeat;
@@ -75,6 +76,11 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
             "WHERE tasks.chip_id = :chipId AND users_tasks_mute.user_id = :userId AND tasks.add_by_user_id <> :userId ;",
             nativeQuery = true)
     List<ITaskDTO> findOtherTasksInITaskDTO(@Param("userId") Long userId, @Param("chipId") Long chipId);
+
+
+    List<Task> findByChipIdAndAddByUserId(Long chipId, Long userId);
+
+    List<Task> findByChipIdAndRepeatEquals(Long chip_id, Day repeat);
 
 
 }

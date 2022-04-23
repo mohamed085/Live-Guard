@@ -19,6 +19,8 @@ public class Notification extends BaseEntity {
     private String subject;
     @Column(length = 4096)
     private String content;
+
+    private String ringtone;
     private String photo;
     private LocalDateTime createdTime;
 
@@ -28,6 +30,7 @@ public class Notification extends BaseEntity {
                 "id='" + super.getId() + '\'' +
                 ", subject='" + subject + '\'' +
                 ", content='" + content + '\'' +
+                ", ringtone='" + ringtone + '\'' +
                 ", photo='" + photo + '\'' +
                 ", createdTime=" + createdTime +
                 '}';

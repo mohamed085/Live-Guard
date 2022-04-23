@@ -114,4 +114,19 @@ public class UserTaskMuteServiceImp implements UserTaskMuteService {
          * TODO
          */
     }
+
+    @Override
+    public List<UserTaskMute> findAllByTaskIdAndStatus(Long taskId, Boolean status) {
+        log.debug("UserTaskMuteService | findAllByTaskIdAndStatus | taskId: " + taskId);
+        log.debug("UserTaskMuteService | findAllByTaskIdAndStatus | status: " + status);
+
+
+        try {
+            return userTaskMuteRepository.findAllByTaskIdAndStatus(taskId, status);
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("UserTaskMuteService | findAllByTaskIdAndStatus | error: " + e.getMessage());
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

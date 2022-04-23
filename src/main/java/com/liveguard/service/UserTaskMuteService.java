@@ -6,6 +6,8 @@ import com.liveguard.domain.User;
 import com.liveguard.domain.UserTaskMute;
 import com.liveguard.payload.ApiResponse;
 
+import java.util.List;
+
 public interface UserTaskMuteService {
 
     void addTasksMuteDefaultToNewUser(Long chipId, User user);
@@ -15,4 +17,6 @@ public interface UserTaskMuteService {
     void updateMuteStatus(Long taskId, Boolean mute);
 
     void deleteUserTaskMute(Long userId, Long chipId);
+
+    List<UserTaskMute> findAllByTaskIdAndStatus(Long taskId, Boolean status);
 }

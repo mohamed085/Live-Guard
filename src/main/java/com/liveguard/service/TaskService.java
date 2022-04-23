@@ -1,5 +1,6 @@
 package com.liveguard.service;
 
+import com.liveguard.domain.Day;
 import com.liveguard.domain.Task;
 import com.liveguard.dto.ITaskDTO;
 import com.liveguard.dto.SimpleTaskDTO;
@@ -23,4 +24,6 @@ public interface TaskService {
     List<SimpleTaskDTO> findMyTasksInChip(Long id);
 
     List<SimpleTaskDTO> findOtherTasksInChip(Long id);
+
+    List<Task> findByChipIdAndRepeatEquals(Long chipId, Day day);
 }
