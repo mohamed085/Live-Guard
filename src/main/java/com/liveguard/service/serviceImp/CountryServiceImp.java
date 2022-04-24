@@ -28,6 +28,10 @@ public class CountryServiceImp implements CountryService {
             return countryRepository.findById(id)
                     .orElseThrow(() -> new BusinessException("Country not found", HttpStatus.NOT_FOUND));
 
+        } catch (BusinessException e) {
+            e.printStackTrace();
+            log.error("ShippingRateService | findAllByPage | error: " + e.getMessage());
+            throw new BusinessException(e.getMessage(), e.getHttpStatus());
         } catch (Exception e) {
             e.printStackTrace();
             log.error("CountryService | findAll | error: " + e.getMessage());
@@ -59,6 +63,10 @@ public class CountryServiceImp implements CountryService {
             }
 
             countryRepository.save(country);
+        } catch (BusinessException e) {
+            e.printStackTrace();
+            log.error("ShippingRateService | findAllByPage | error: " + e.getMessage());
+            throw new BusinessException(e.getMessage(), e.getHttpStatus());
         } catch (Exception e) {
             e.printStackTrace();
             log.error("CountryService | save | error: " + e.getMessage());

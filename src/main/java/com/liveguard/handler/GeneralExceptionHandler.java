@@ -87,4 +87,13 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler  {
     }
 
 
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public ResponseEntity<ErrorResponse> handleException(BusinessException e, WebRequest request) {
+        ErrorResponse errorResponse= new ErrorResponse();
+
+        errorResponse.setMessage(e.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }
