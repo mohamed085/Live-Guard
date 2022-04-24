@@ -2,7 +2,7 @@ let btn = document.querySelector('#btn');
 let div = document.querySelector('#div');
 let userName = null;
 let stomp = null;
-let URL = "http://localhost:8081/api"
+let URL = "https://live-guard.herokuapp.com/api"
 
 // function connectSocket(event) {
 //     let socket = new SockJS(URL + '/connect');
@@ -25,7 +25,7 @@ function connectSocket(event) {
     stomp = Stomp.over(socket);
     stomp.connect({}, function(frame) {
         console.log('Connected: ' + frame);
-        stomp.subscribe('/live-guard/global-notification', function(messageOutput) {
+            stomp.subscribe('/live-guard/global-notification', function(messageOutput) {
             sendMessage(JSON.parse(messageOutput.body));
         });
 

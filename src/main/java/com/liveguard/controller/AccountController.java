@@ -3,6 +3,7 @@ package com.liveguard.controller;
 import com.liveguard.dto.UserDTO;
 import com.liveguard.mapper.UserMapper;
 import com.liveguard.payload.ApiResponse;
+import com.liveguard.payload.UpdateAccountRequest;
 import com.liveguard.service.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -32,10 +33,10 @@ public class AccountController {
     }
 
     @PutMapping("")
-    public ResponseEntity<?> updateUserInfo(@Valid @RequestBody UserDTO userDTO) {
+    public ResponseEntity<?> updateUserInfo(@Valid @RequestBody UpdateAccountRequest updateAccountRequest) {
         log.debug("AccountController | updateUserInfo");
 
-        accountService.updateAuthenticatedAccount(userDTO);
+        accountService.updateAuthenticatedAccount(updateAccountRequest);
         return ResponseEntity
                 .ok()
                 .body(new ApiResponse(true, "Account updated successfully"));

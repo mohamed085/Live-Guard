@@ -4,6 +4,7 @@ import com.liveguard.domain.User;
 import com.liveguard.dto.UserDTO;
 import com.liveguard.exception.BusinessException;
 import com.liveguard.mapper.UserMapper;
+import com.liveguard.payload.UpdateAccountRequest;
 import com.liveguard.service.AccountService;
 import com.liveguard.service.UserService;
 import com.liveguard.util.FileUploadUtil;
@@ -43,31 +44,21 @@ public class AccountServiceImp implements AccountService {
     }
 
     @Override
-    public void updateAuthenticatedAccount(UserDTO userDTO) {
-        log.debug("AccountService | updateAuthenticatedAccount | userDTO: " + userDTO.toString());
+    @Transactional
+    public void updateAuthenticatedAccount(UpdateAccountRequest updateAccountRequest) {
+        log.debug("AccountService | updateAuthenticatedAccount | userDTO: " + updateAccountRequest.toString());
+
         User oldUser = getAuthenticatedAccount();
         log.debug("AccountService | updateAuthenticatedAccount | oldUser: " + oldUser.toString());
 
-        User user = UserMapper.UserDTOToUser(userDTO);
-        user.setRoles(oldUser.getRoles());
-
-        if (user.getPassword() != null) {
-            user.setPassword(oldUser.getPassword());
-        }
-
-        if (oldUser.getResetPasswordToken() != null) {
-            user.setResetPasswordToken(oldUser.getResetPasswordToken());
-        }
-
-        user.setAuthenticationType(oldUser.getAuthenticationType());
-        try {
-            userService.save(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-            log.error("AuthService | updateAuthenticatedAccount | error: " + e.getMessage());
-            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
+        userService.updateInfo(oldUser.getId(),
+                updateAccountRequest.getName(),
+                updateAccountRequest.getAbout(),
+                updateAccountRequest.getPhone(),
+                updateAccountRequest.getAddress(),
+                updateAccountRequest.getFacebookUrl(),
+                updateAccountRequest.getTwitterUrl(),
+                updateAccountRequest.getInstagramUrl());
     }
 
     @Override

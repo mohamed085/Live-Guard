@@ -25,12 +25,12 @@ public class SendNotificationServiceImp implements SendNotificationService {
     @Override
     @Async
     public void sendGlobalNotification(Notification notification) {
-        log.debug("SendLocationService | sendGlobalNotification ");
+        log.debug("SendNotificationService | sendGlobalNotification ");
 
         String destination = "/live-guard/global-notification";
 
-        log.debug("SendLocationService | sendGlobalNotification | destination: " + destination);
-        log.debug("SendLocationService | sendGlobalNotification | message: " + notification);
+        log.debug("SendNotificationService | sendGlobalNotification | destination: " + destination);
+        log.debug("SendNotificationService | sendGlobalNotification | message: " + notification);
 
         template.convertAndSend(destination, notification);
 
@@ -39,14 +39,14 @@ public class SendNotificationServiceImp implements SendNotificationService {
     @Override
     @Async
     public void sendPrivateNotification(Notification notification, User user) {
-        log.debug("SendLocationService | sendPrivateNotification | user id: " + user.getId());
+        log.debug("SendNotificationService | sendPrivateNotification | user id: " + user.getId());
 
         String destination = "/live-guard/private-notification";
         String userDestination = String.valueOf(user.getId());
 
-        log.debug("SendLocationService | sendPrivateNotification | destination: " + destination);
-        log.debug("SendLocationService | sendPrivateNotification | userDestination: " + userDestination);
-        log.debug("SendLocationService | sendPrivateNotification | message: " + notification);
+        log.debug("SendNotificationService | sendPrivateNotification | destination: " + destination);
+        log.debug("SendNotificationService | sendPrivateNotification | userDestination: " + userDestination);
+        log.debug("SendNotificationService | sendPrivateNotification | message: " + notification);
 
         template.convertAndSendToUser(userDestination, destination, notification);
 

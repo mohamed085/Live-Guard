@@ -44,6 +44,12 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
     @Modifying
     void updateAvatar(Long id, String avatar);
 
+    @Query("UPDATE User u SET u.name = ?2, u.about = ?3, u.phone = ?4, u.address = ?5," +
+            "u.facebookUrl = ?6, u.twitterUrl = ?7, u.instagramUrl = ?8 WHERE u.id = ?1")
+    @Modifying
+    void updateInfo(Long id, String name, String about, String phone, String address,
+                    String facebookUrl, String twitterUrl, String instagramUrl);
+    
     List<User> findAllByRoles(Role role);
 
     @Query("SELECT u FROM User u WHERE u.name LIKE %?1% OR u.email LIKE %?1%")

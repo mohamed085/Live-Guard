@@ -26,4 +26,7 @@ public interface UserService {
     void updateAvatar(Long id, MultipartFile multipartFile);
 
     User findById(Long id);
+
+    void updateInfo(Long id, String name, String about, String phone, String address,
+                    String facebookUrl, String twitterUrl, String instagramUrl);
 }

@@ -201,4 +201,22 @@ public class UserServicesImp implements UserService {
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Override
+    @Transactional
+    public void updateInfo(Long id, String name, String about, String phone, String address,
+                           String facebookUrl, String twitterUrl, String instagramUrl) {
+        log.debug("UserService | updateInfo | id: " + id);
+        log.debug("UserService | updateInfo | name: " + name);
+
+        try {
+            userRepository.updateInfo(id, name, about, phone, address, facebookUrl, twitterUrl, instagramUrl);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("UserService | findById | error: " + e.getMessage());
+            throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
 }
