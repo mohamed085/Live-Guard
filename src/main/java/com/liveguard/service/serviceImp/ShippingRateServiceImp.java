@@ -1,6 +1,8 @@
 package com.liveguard.service.serviceImp;
 
+import com.liveguard.domain.Address;
 import com.liveguard.domain.ShippingRate;
+import com.liveguard.domain.User;
 import com.liveguard.exception.BusinessException;
 import com.liveguard.repository.ShippingRateRepository;
 import com.liveguard.service.ShippingRateService;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -103,4 +106,15 @@ public class ShippingRateServiceImp implements ShippingRateService {
 
         shippingRateRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<ShippingRate> getShippingRateForAddress(Address address) {
+        String state = address.getState();
+        if (state == null || state.isEmpty()) {
+            state = address.getCity();
+        }
+
+        return shippingRateRepository.findByCountryAndState(address.getCountry(), state);
+    }
+
 }

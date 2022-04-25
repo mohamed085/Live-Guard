@@ -41,7 +41,7 @@ public class SendNotificationServiceImp implements SendNotificationService {
     public void sendPrivateNotification(Notification notification, User user) {
         log.debug("SendNotificationService | sendPrivateNotification | user id: " + user.getId());
 
-        String destination = "/live-guard/private-notification";
+        String destination = "/user/live-guard/private-notification";
         String userDestination = String.valueOf(user.getId());
 
         log.debug("SendNotificationService | sendPrivateNotification | destination: " + destination);

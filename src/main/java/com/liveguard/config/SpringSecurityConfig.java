@@ -4,6 +4,7 @@ import com.liveguard.repository.UserRepository;
 import com.liveguard.service.LiveGuardUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.BeanIds;
@@ -20,6 +21,7 @@ import org.springframework.web.filter.CorsFilter;
 
 @Configuration
 @EnableWebSecurity
+@Order(1)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final LiveGuardUserService liveGuardUserService;
@@ -44,6 +46,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthorizationFilter(authenticationManagerBean(), userRepository))
                 .authorizeRequests()
                 .antMatchers("/auth/**").permitAll()
+                .antMatchers("/connect/**").permitAll()
                 .antMatchers("/location/add").permitAll()
                 .anyRequest().authenticated()
                 .and()

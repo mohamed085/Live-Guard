@@ -1,7 +1,10 @@
 package com.liveguard.service;
 
+import com.liveguard.domain.Address;
 import com.liveguard.domain.ShippingRate;
 import org.springframework.data.domain.Page;
+
+import java.util.Optional;
 
 public interface ShippingRateService {
 
@@ -16,4 +19,6 @@ public interface ShippingRateService {
     void updateCODSupport(Long id, Boolean CODSupport);
 
     void delete(Long id);
+
+    Optional<ShippingRate> getShippingRateForAddress(Address address);
 }

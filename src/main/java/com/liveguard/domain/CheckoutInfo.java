@@ -32,6 +32,9 @@ public class CheckoutInfo {
     @JsonProperty("cod_supported")
     private boolean codSupported;
 
+    @JsonProperty("ship_to")
+    private String shipTo;
+
     @JsonProperty("deliver_date")
     @JsonFormat(pattern="dd MMMM yyyy")
     public Date getDeliverDate() {
