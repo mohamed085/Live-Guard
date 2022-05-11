@@ -19,18 +19,16 @@ let URL = "http://localhost:8081/api"
 // }
 
 function connectSocket(event) {
-    let token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtb2hhbWVkMDg1NTU1QGdtYWlsLmNvbSIsImV4cCI6MTY1MTc3NTA1NX0.DDon7shMG-dFhcfcEvtjwJOQQpmSTGDwGR5POxFWd7n1QzpeXqMol608-wZvADaQti7zbYVsls60hyvT3CfgvA";
-
     let socket = new SockJS(URL + '/connect');
 
     stomp = Stomp.over(socket);
-    stomp.connect({"Authorization": "Bearer " + token}, function(frame) {
+    stomp.connect({}, function(frame) {
         console.log('Connected: ' + frame);
             stomp.subscribe('/live-guard/global-notification', function(messageOutput) {
             sendMessage(JSON.parse(messageOutput.body));
         });
 
-        stomp.subscribe('/user/live-guard/private-notification', function(messageOutput) {
+        stomp.subscribe('/live-guard/private-notification/2', function(messageOutput) {
             sendMessage(JSON.parse(messageOutput.body));
         });
     });

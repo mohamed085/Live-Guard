@@ -41,14 +41,12 @@ public class SendNotificationServiceImp implements SendNotificationService {
     public void sendPrivateNotification(Notification notification, User user) {
         log.debug("SendNotificationService | sendPrivateNotification | user id: " + user.getId());
 
-        String destination = "/user/live-guard/private-notification";
-        String userDestination = String.valueOf(user.getId());
+        String destination = "/live-guard/private-notification/" + user.getId();
 
         log.debug("SendNotificationService | sendPrivateNotification | destination: " + destination);
-        log.debug("SendNotificationService | sendPrivateNotification | userDestination: " + userDestination);
         log.debug("SendNotificationService | sendPrivateNotification | message: " + notification);
 
-        template.convertAndSendToUser(userDestination, destination, notification);
+        template.convertAndSend(destination, notification);
 
     }
 

@@ -5,6 +5,7 @@ import com.liveguard.mapper.AddressMapper;
 import com.liveguard.payload.ApiResponse;
 import com.liveguard.service.AddressService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,7 @@ public class AddressController {
         addressService.findMyAddresses().forEach(address -> {
             addresses.add(AddressMapper.addressToAddressDTO(address));
         });
+
         return ResponseEntity
                 .ok()
                 .body(addresses);

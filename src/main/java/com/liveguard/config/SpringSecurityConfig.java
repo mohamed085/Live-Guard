@@ -9,7 +9,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -26,6 +25,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final LiveGuardUserService liveGuardUserService;
     private final UserRepository userRepository;
+
 
     public SpringSecurityConfig(LiveGuardUserService liveGuardUserService, UserRepository userRepository) {
         this.liveGuardUserService = liveGuardUserService;
@@ -45,8 +45,8 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilter(new JwtAuthorizationFilter(authenticationManagerBean(), userRepository))
                 .authorizeRequests()
+                .antMatchers("/live-guard/**").permitAll()
                 .antMatchers("/auth/**").permitAll()
-                .antMatchers("/connect/**").permitAll()
                 .antMatchers("/location/add").permitAll()
                 .anyRequest().authenticated()
                 .and()

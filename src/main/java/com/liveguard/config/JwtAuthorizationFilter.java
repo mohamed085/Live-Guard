@@ -6,6 +6,7 @@ import com.liveguard.domain.User;
 import com.liveguard.exception.BusinessException;
 import com.liveguard.repository.UserRepository;
 import com.liveguard.util.JwtProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,6 +22,7 @@ import java.io.IOException;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
 
+@Slf4j
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
     private UserRepository userRepository;
