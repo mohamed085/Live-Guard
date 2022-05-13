@@ -27,7 +27,7 @@ public class ChipUser extends BaseEntity {
     private User user;
 
     @OneToMany(mappedBy = "chipUser", cascade = CascadeType.ALL)
-    private List<ChipDetail> details;
+    private List<ChipUserDetail> details;
 
     @Enumerated(EnumType.STRING)
     private ChipUserType chipUserType;

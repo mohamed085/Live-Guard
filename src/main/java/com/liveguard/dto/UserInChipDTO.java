@@ -9,10 +9,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SimpleUserDTO {
+public class UserInChipDTO {
     private Long id;
     private String email;
     private String name;
     private String about;
     private String avatar;
+
+    @JsonProperty("role")
+    private ChipUserType chipUserType;
 }

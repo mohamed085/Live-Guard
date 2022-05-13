@@ -2,6 +2,7 @@ package com.liveguard.handler;
 
 import com.liveguard.exception.BusinessException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -86,6 +87,15 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler  {
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
     }
 
+
+    @ExceptionHandler(DataAccessResourceFailureException.class)
+    @ResponseBody
+    public ResponseEntity<ErrorResponse> handleDataAccessResourceFailureException(DataAccessResourceFailureException e, WebRequest request) {
+        ErrorResponse errorResponse= new ErrorResponse();
+
+        errorResponse.setMessage(e.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
     @ExceptionHandler(Exception.class)
     @ResponseBody

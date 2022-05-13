@@ -6,7 +6,9 @@ import com.liveguard.domain.ChipUserType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.Multipart;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,17 +21,21 @@ public class ChipUserDTO {
     private String photo;
 
     @JsonProperty("photo_file")
-    private String photoFile;
+    private MultipartFile photoFile;
 
     @JsonProperty("add_date")
     @JsonFormat(pattern="dd MMMM yyyy h:mm a")
     private LocalDateTime addDate;
 
-    private SimpleUserDTO user;
-
-    private List<ChipDetailDTO> details;
+    private List<ChipUserDetailDTO> details;
 
     @JsonProperty("chip_user_type")
     private ChipUserType chipUserType;
+
+    @JsonProperty("chip_version")
+    private SimpleChipVersion chipVersion;
+
+    @JsonProperty("chip_id")
+    private Long chipId;
 }
 

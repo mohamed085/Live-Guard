@@ -24,5 +24,7 @@ public interface ChipService {
 
     void updateUsedStatus(Long chipId, Boolean used);
 
+    Chip findByKeyAndPassword(String key, String password);
+
 
 }

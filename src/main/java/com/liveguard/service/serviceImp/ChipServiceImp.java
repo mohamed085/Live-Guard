@@ -129,4 +129,14 @@ public class ChipServiceImp implements ChipService {
 
         chipRepository.updateUsedStatus(chipId, used);
     }
+
+    @Override
+    public Chip findByKeyAndPassword(String key, String password) {
+        log.debug("ChipService | existsByKeyAndPassword | key: " + key);
+        log.debug("ChipService | existsByKeyAndPassword | password: " + password);
+
+
+        return chipRepository.findByKeyAndPassword(key, password)
+                .orElseThrow(() -> new BusinessException("Key or password incorrect", HttpStatus.NOT_FOUND));
+    }
 }

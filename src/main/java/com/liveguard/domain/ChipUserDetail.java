@@ -10,11 +10,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "chip_details")
+@Table(name = "chip_user_details")
 @NoArgsConstructor
 @Getter
 @Setter
-public class ChipDetail extends BaseEntity {
+public class ChipUserDetail extends BaseEntity {
 
     private String name;
     private String value;
@@ -22,6 +22,13 @@ public class ChipDetail extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "chip_user_id")
     private ChipUser chipUser;
+
+    public ChipUserDetail(Long id, String name, String value, ChipUser chipUser) {
+        super(id);
+        this.name = name;
+        this.value = value;
+        this.chipUser = chipUser;
+    }
 
     @Override
     public String toString() {

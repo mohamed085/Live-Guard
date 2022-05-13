@@ -9,6 +9,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ChipRepository extends PagingAndSortingRepository<Chip, Long> {
@@ -25,4 +26,6 @@ public interface ChipRepository extends PagingAndSortingRepository<Chip, Long> {
     void updateUsedStatus(Long id, Boolean used);
 
     boolean existsByIdAndUsed(Long id, Boolean used);
+
+    Optional<Chip> findByKeyAndPassword(String key, String password);
 }

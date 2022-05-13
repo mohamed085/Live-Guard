@@ -1,4 +1,4 @@
-package com.liveguard.dto;
+package com.liveguard.payload;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChipDetailDTO {
+public class AddNewChipRequest {
     private Long id;
-    private String name;
-    private String value;
+    private String key;
+    private String password;
 }
