@@ -1,18 +1,15 @@
 package com.liveguard.controller;
 
 import com.liveguard.dto.ChipDTO;
-import com.liveguard.dto.SimpleChipDTO;
 import com.liveguard.mapper.ChipMapper;
-import com.liveguard.payload.AddNewChipRequest;
 import com.liveguard.payload.ApiResponse;
-import com.liveguard.payload.UpdateChipDetailsRequest;
 import com.liveguard.service.ChipService;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -31,47 +28,28 @@ public class ChipController {
 
     @PostMapping("")
     public ResponseEntity<?> addChip(@Valid @RequestBody ChipDTO chipDTO) {
-        log.debug("ChipController | addChipType | chipTypeDTO: " + chipDTO.getName());
+        log.debug("ChipController | addChip | chipDTO: " + chipDTO.toString());
 
+        chipService.save(chipDTO);
         return ResponseEntity
                 .ok()
-                .body(ChipMapper.chipToChipDTO(chipService.add(chipDTO), false));
+                .body(new ApiResponse(true, "Chip added successfully"));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable("id") Long id) {
-        log.debug("ChipController | getAll");
+        log.debug("ChipController | getById | id: " + id);
 
         return ResponseEntity
                 .ok()
                 .body(ChipMapper.chipToChipDTO(chipService.findById(id), false));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
-        log.debug("ChipController | getAll");
-
-        chipService.deleteById(id);
-        return ResponseEntity
-                .ok()
-                .body(new ApiResponse(true, "Chip deleted successfully"));
-    }
-
-
     @GetMapping("")
-    public ResponseEntity<?> getAll() {
-        log.debug("ChipController | getAll");
+    public ResponseEntity<?> getFirstPage() {
+        log.debug("ChipController | getFirstPage");
 
-        Page<ChipDTO> chipDTOPage = chipService
-                .findAllByPage(1, "id", "asc", null)
-                .map(chip -> {
-                    ChipDTO chipDTO = ChipMapper.chipToChipDTO(chip, true);
-                    return chipDTO;
-                });
-
-        return ResponseEntity
-                .ok()
-                .body(chipDTOPage);
+        return getAllByPage(1, null, null, null);
     }
 
     @GetMapping("/page/{pageNum}")
@@ -113,74 +91,14 @@ public class ChipController {
                 .body(chipDTOS);
     }
 
-    @PostMapping("/add-new-chip-my-chips")
-    public ResponseEntity<?> addNewChipToUser(@RequestBody AddNewChipRequest addNewChipRequest) {
-        log.debug("ChipController | addNewChipToUser");
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
+        log.debug("ChipController | deleteById | id: " + id);
 
-        chipService.addNewChipToUser(addNewChipRequest.getId(), addNewChipRequest.getPassword());
+        chipService.deleteById(id);
         return ResponseEntity
                 .ok()
-                .body(new ApiResponse(true, "Chip add successfully"));
-    }
-
-    @PutMapping("/{id}/photo")
-    public ResponseEntity<?> updateChipPhoto(@PathVariable("id") Long id, @Valid @RequestParam("file") MultipartFile multipartFile) {
-        log.debug("ChipController | updateChipPhoto | chip id: " + id);
-        log.debug("ChipController | updateChipPhoto");
-
-        chipService.updatePhoto(id, multipartFile);
-        return ResponseEntity
-                .ok()
-                .body(new ApiResponse(true, "Photo changed successfully"));
-    }
-
-    @PutMapping("/{id}/details")
-    public ResponseEntity<?> updateChipDetails(@PathVariable("id") Long id, @Valid @RequestBody UpdateChipDetailsRequest updateChipDetailsRequest) {
-        log.debug("ChipController | updateChipDetails | chip id: " + id);
-
-        chipService.updateChipDetails(id, updateChipDetailsRequest);
-        return ResponseEntity
-                .ok()
-                .body(new ApiResponse(true, "Details changed successfully"));
-    }
-
-    @GetMapping("/{chipId}/new-user/{userId}")
-    public ResponseEntity<?> addNewUser(@PathVariable("chipId") Long chipId,
-                                        @PathVariable("userId") Long userId) {
-        log.debug("ChipController | addNewUser | chip id: " + chipId);
-        log.debug("ChipController | addNewUser | user id: " + userId);
-
-        chipService.addNewUser(chipId, userId);
-        return ResponseEntity
-                .ok()
-                .body(new ApiResponse(true, "User added successfully"));
-    }
-
-    @GetMapping("/{chipId}/remove-user/{userId}")
-    public ResponseEntity<?> removeUser(@PathVariable("chipId") Long chipId,
-                                           @PathVariable("userId") Long userId) {
-        log.debug("ChipController | removeUser | chip id: " + chipId);
-        log.debug("ChipController | removeUser | user id: " + userId);
-
-        chipService.removeUser(chipId, userId);
-        return ResponseEntity
-                .ok()
-                .body(new ApiResponse(true, "User removed successfully"));
-    }
-
-    @GetMapping("/my-chips")
-    public ResponseEntity<?> getAllMyChips() {
-        log.debug("ChipController | getAllMyChips");
-
-        List<SimpleChipDTO> chips = new ArrayList<>();
-
-        chipService.findAllAuthenticatedUserChips().forEach(chip -> {
-            chips.add(new SimpleChipDTO(chip.getId(), chip.getName(), chip.getPhoto()));
-        });
-
-        return ResponseEntity
-                .ok()
-                .body(chips);
+                .body(new ApiResponse(true, "Chip deleted successfully"));
     }
 
 }

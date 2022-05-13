@@ -20,7 +20,7 @@ public class Review extends BaseEntity {
     @Column(length = 300, nullable = false)
     private String comment;
 
-    private int rating;
+    private Double rating;
     private LocalDateTime reviewTime;
 
     @ManyToOne
@@ -30,11 +30,4 @@ public class Review extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    private int votes;
-
-    private boolean upVotedByCurrentCustomer;
-    private boolean downVotedByCurrentCustomer;
-
-
 }

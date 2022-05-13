@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 @RestController
 public class MainController {
@@ -26,9 +27,14 @@ public class MainController {
         User user = accountService.getAuthenticatedAccount();
         Notification notification = new Notification();
         notification.setContent("Hi: " + user.getName());
+        notification.setUser(user);
+        notification.setRingtone("test");
+        notification.setCreatedTime(LocalDateTime.now());
+        notification.setPhoto("test");
+        notification.setSubject("test");
 
         sendNotificationService.sendGlobalNotification(notification);
-        sendNotificationService.sendPrivateNotification(notification, user);
+        sendNotificationService.sendPrivateNotification(notification);
     }
 
 }

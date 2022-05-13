@@ -20,15 +20,8 @@ public class ChipDetail extends BaseEntity {
     private String value;
 
     @ManyToOne
-    @JoinColumn(name = "chip_id")
-    private Chip chip;
-
-    public ChipDetail(Long id, String name, String value, Chip chip) {
-        super(id);
-        this.name = name;
-        this.value = value;
-        this.chip = chip;
-    }
+    @JoinColumn(name = "chip_user_id")
+    private ChipUser chipUser;
 
     @Override
     public String toString() {

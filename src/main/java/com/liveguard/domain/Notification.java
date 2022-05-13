@@ -4,9 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,6 +21,10 @@ public class Notification extends BaseEntity {
     private String ringtone;
     private String photo;
     private LocalDateTime createdTime;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Override
     public String toString() {

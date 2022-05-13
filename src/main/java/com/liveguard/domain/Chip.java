@@ -14,17 +14,12 @@ import java.util.List;
 @NoArgsConstructor
 public class Chip extends BaseEntity {
 
-    private String name;
-    private String photo;
+    @Column(unique = true, nullable = false)
+    private String key;
+
+    @Column(nullable = false)
     private String password;
     private Boolean used;
-
-    @OneToMany(mappedBy = "chip", cascade = CascadeType.ALL)
-    private List<ChipDetail> details;
-
-    @OneToMany(mappedBy = "chip", cascade = CascadeType.ALL)
-    private List<ChipUser> users;
-
     @ManyToOne
     @JoinColumn(name="chip_version_id", nullable = false)
     private ChipVersion chipVersion;
@@ -33,12 +28,8 @@ public class Chip extends BaseEntity {
     public String toString() {
         return "Chip{" +
                 "id='" + super.getId() + '\'' +
-                ", name='" + name + '\'' +
-                ", photo='" + photo + '\'' +
                 ", password='" + password + '\'' +
                 ", used=" + used +
-                ", details=" + details +
-                ", users=" + users +
                 ", chipVersion=" + chipVersion +
                 '}';
     }

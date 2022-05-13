@@ -1,30 +1,32 @@
 package com.liveguard.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ChipDTO {
+public class ReviewDTO {
 
     private Long id;
+    private String headline;
+    private String comment;
+    private Double rating;
 
-    private String key;
-    private String password;
-    private Boolean used;
+    @JsonProperty("review_time")
+    @JsonFormat(pattern="dd MMMM yyyy")
+    private LocalDateTime reviewTime;
 
-    @NotNull(message = "Chip version id must not null")
     @JsonProperty("chip_version_id")
     private Long chipVersionId;
+
+    private SimpleUserDTO user;
 
     @JsonProperty("chip_version")
     private SimpleChipVersion chipVersion;
 }
-

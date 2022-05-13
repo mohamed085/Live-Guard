@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "chip_users")
@@ -14,6 +15,9 @@ import java.time.LocalDateTime;
 @Setter
 public class ChipUser extends BaseEntity {
 
+    private String name;
+    private String photo;
+    private LocalDateTime addDate;
     @ManyToOne
     @JoinColumn(name = "chip_id")
     private Chip chip;
@@ -22,24 +26,21 @@ public class ChipUser extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private LocalDateTime addDate;
+    @OneToMany(mappedBy = "chipUser", cascade = CascadeType.ALL)
+    private List<ChipDetail> details;
 
     @Enumerated(EnumType.STRING)
     private ChipUserType chipUserType;
 
-    public ChipUser(Chip chip, User user, LocalDateTime addDate, ChipUserType chipUserType) {
-        this.chip = chip;
-        this.user = user;
-        this.addDate = addDate;
-        this.chipUserType = chipUserType;
-    }
-
     @Override
     public String toString() {
         return "ChipUser{" +
-                "chip=" + chip.getName() +
+                "chip=" + chip.getId() +
                 ", user=" + user.getEmail() +
                 ", addDate=" + addDate +
+                ", name='" + name + '\'' +
+                ", photo='" + photo + '\'' +
+                ", details=" + details +
                 ", chipUserType=" + chipUserType +
                 '}';
     }

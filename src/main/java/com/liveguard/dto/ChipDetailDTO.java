@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChipDetailDTO {
-
     private Long id;
     private String name;
     private String value;

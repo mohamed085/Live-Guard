@@ -262,11 +262,19 @@ public class ChipVersionServiceImp implements ChipVersionService {
             ChipVersion chipVersion = chipVersionRepository.findById(id)
                     .orElseThrow(() -> new BusinessException("Chip not found", HttpStatus.NOT_FOUND));
 
-
+            chipVersionRepository.updateShipping(chipVersion.getId(), chipVersionShipping.getWeight());
         } catch (Exception e) {
             log.error("ChipVersionService | updateInStockStatus | error");
             e.printStackTrace();
             throw new BusinessException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @Override
+    @Transactional
+    public void updateReviewCountAndAverageRating(Long id) {
+        log.debug("ChipVersionService | updateReviewCountAndAverageRating | id: " + id);
+
+        chipVersionRepository.updateReviewCountAndAverageRating(id);
     }
 }

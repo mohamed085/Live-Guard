@@ -8,10 +8,6 @@ import java.util.List;
 public interface SendNotificationService {
 
     void sendGlobalNotification(Notification notification);
-    void sendPrivateNotification(Notification notification, User user);
-
-    void sendToMultipleUser(Notification notification, List<User> users);
-
-    void sendToAdmins(Notification notification);
+    void sendPrivateNotification(Notification notification);
 
 }

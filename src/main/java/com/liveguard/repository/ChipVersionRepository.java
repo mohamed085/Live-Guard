@@ -31,6 +31,11 @@ public interface ChipVersionRepository extends JpaRepository<ChipVersion, Long> 
 
     @Query("UPDATE ChipVersion c SET c.weight = ?2 WHERE c.id = ?1")
     @Modifying
-    void updateShipping(Long id, String shortDescription, Double weight);
+    void updateShipping(Long id, Float weight);
 
+    @Query("UPDATE ChipVersion c SET c.averageRating = COALESCE((select AVG(r.rating) FROM Review r WHERE r.chipVersion.id = ?1), 0), " +
+            " c.reviewCount = (SELECT COUNT(r.id) FROM Review r WHERE r.chipVersion.id = ?1) " +
+            " WHERE c.id = ?1")
+    @Modifying
+    void updateReviewCountAndAverageRating(Long id);
 }

@@ -8,17 +8,26 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChipUserDTO {
     private Long id;
-    private SimpleUserDTO user;
+    private String name;
+    private String photo;
+
+    @JsonProperty("photo_file")
+    private String photoFile;
 
     @JsonProperty("add_date")
     @JsonFormat(pattern="dd MMMM yyyy h:mm a")
     private LocalDateTime addDate;
+
+    private SimpleUserDTO user;
+
+    private List<ChipDetailDTO> details;
 
     @JsonProperty("chip_user_type")
     private ChipUserType chipUserType;

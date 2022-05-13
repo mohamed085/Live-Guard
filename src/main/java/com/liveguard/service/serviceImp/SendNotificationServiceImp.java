@@ -1,64 +1,58 @@
 package com.liveguard.service.serviceImp;
 
 import com.liveguard.domain.Notification;
-import com.liveguard.domain.User;
-import com.liveguard.dto.LocationDTO;
-import com.liveguard.mapper.LocationMapper;
+import com.liveguard.dto.NotificationDTO;
+import com.liveguard.mapper.NotificationMapper;
+import com.liveguard.service.NotificationService;
 import com.liveguard.service.SendNotificationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Slf4j
 @Service
 public class SendNotificationServiceImp implements SendNotificationService {
 
     private final SimpMessagingTemplate template;
+    private final NotificationService notificationService;
 
-    public SendNotificationServiceImp(SimpMessagingTemplate template) {
+    public SendNotificationServiceImp(SimpMessagingTemplate template, NotificationService notificationService) {
         this.template = template;
+        this.notificationService = notificationService;
     }
 
     @Override
     @Async
     public void sendGlobalNotification(Notification notification) {
-        log.debug("SendNotificationService | sendGlobalNotification ");
+        NotificationDTO notificationDTO = NotificationMapper.notificationToNotificationDTO(notification);
+
+        log.debug("SendNotificationService | sendGlobalNotification");
 
         String destination = "/live-guard/global-notification";
 
         log.debug("SendNotificationService | sendGlobalNotification | destination: " + destination);
-        log.debug("SendNotificationService | sendGlobalNotification | message: " + notification);
+        log.debug("SendNotificationService | sendGlobalNotification | message: " + notificationDTO);
 
-        template.convertAndSend(destination, notification);
+        template.convertAndSend(destination, notificationDTO);
 
     }
 
     @Override
     @Async
-    public void sendPrivateNotification(Notification notification, User user) {
-        log.debug("SendNotificationService | sendPrivateNotification | user id: " + user.getId());
+    public void sendPrivateNotification(Notification notification) {
+        NotificationDTO notificationDTO = NotificationMapper.notificationToNotificationDTO(notification);
 
-        String destination = "/live-guard/private-notification/" + user.getId();
+        log.debug("SendNotificationService | sendPrivateNotification | user id: " + notification.getUser().getId());
+
+        notificationService.save(notification);
+
+        String destination = "/live-guard/private-notification/" + notification.getUser().getId();
 
         log.debug("SendNotificationService | sendPrivateNotification | destination: " + destination);
-        log.debug("SendNotificationService | sendPrivateNotification | message: " + notification);
+        log.debug("SendNotificationService | sendPrivateNotification | message: " + notificationDTO);
 
-        template.convertAndSend(destination, notification);
-
-    }
-
-    @Override
-    @Async
-    public void sendToMultipleUser(Notification notification, List<User> users) {
-
-    }
-
-    @Override
-    @Async
-    public void sendToAdmins(Notification notification) {
+        template.convertAndSend(destination, notificationDTO);
 
     }
 

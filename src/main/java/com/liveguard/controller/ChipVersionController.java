@@ -75,7 +75,9 @@ public class ChipVersionController {
     }
 
     @GetMapping("/{id}/enabled/{status}")
-    public ResponseEntity<?> updateEnabledStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
+    public ResponseEntity<?> updateEnabledStatus(@PathVariable("id") Long id,
+                                                 @PathVariable("status") Boolean status) {
+
         log.debug("ChipVersionController | updateEnabledStatus | chip id: " + id);
 
         chipVersionService.updateEnabledStatus(id, status);
@@ -85,7 +87,9 @@ public class ChipVersionController {
     }
 
     @GetMapping("/in-stock/{id}/{status}")
-    public ResponseEntity<?> updateInStockStatus(@PathVariable("id") Long id, @PathVariable("status") Boolean status) {
+    public ResponseEntity<?> updateInStockStatus(@PathVariable("id") Long id,
+                                                 @PathVariable("status") Boolean status) {
+
         log.debug("ChipVersionController | updateInStockStatus | chip id: " + id);
 
         chipVersionService.updateInStockStatus(id, status);
@@ -97,6 +101,7 @@ public class ChipVersionController {
     @PutMapping("/{id}/image")
     public ResponseEntity<ApiResponse> updateMainImage(@PathVariable("id") Long id,
                                                        @Valid @RequestParam("file") MultipartFile multipartFile) {
+
         log.debug("ChipVersionController | updateMainImage | chip id: " + id);
 
         chipVersionService.updateMainImage(id, multipartFile);

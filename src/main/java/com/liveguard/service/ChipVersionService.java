@@ -35,4 +35,5 @@ public interface ChipVersionService {
 
     void updateShipping(Long id, UpdateChipVersionShippingRequest chipVersionShipping);
 
+    void updateReviewCountAndAverageRating(Long id);
 }
