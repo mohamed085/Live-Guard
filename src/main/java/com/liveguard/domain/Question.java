@@ -35,4 +35,15 @@ public class Question extends BaseEntity {
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers = new ArrayList<>();
 
+    @Override
+    public String toString() {
+        return "Question{" +
+                "questionContent='" + questionContent + '\'' +
+                ", approved=" + approved +
+                ", askTime=" + askTime +
+                ", chipVersion=" + chipVersion.getId() +
+                ", user=" + user.getId() +
+                ", answers=" + answers +
+                '}';
+    }
 }

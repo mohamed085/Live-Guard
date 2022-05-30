@@ -16,7 +16,6 @@ import java.time.LocalDateTime;
 public class Email extends BaseEntity {
 
     private String subject;
-
     @Column(length = 4096)
     private String content;
     private String receiver;

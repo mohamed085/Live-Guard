@@ -3,6 +3,7 @@ package com.liveguard.repository;
 import com.liveguard.domain.Chip;
 import com.liveguard.domain.ChipUser;
 import com.liveguard.domain.ChipUserDetail;
+import com.liveguard.domain.ChipUserType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -24,4 +25,11 @@ public interface ChipUserRepository extends JpaRepository<ChipUser, Long> {
     void updateChipUserInfo(Long id, String name, String photo);
 
     List<ChipUser> findAllByChipId(Long id);
+
+    boolean existsByUserIdAndChipUserType(Long id, ChipUserType chipUserType);
+
+    boolean existsByUserIdAndChipId(Long userId, Long chipId);
+
+    void deleteByUserIdAndChipId(Long userId, Long chipId);
+
 }

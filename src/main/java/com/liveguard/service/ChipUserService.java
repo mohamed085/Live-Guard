@@ -16,5 +16,13 @@ public interface ChipUserService {
 
     void updateMyChipDetails(ChipUserDTO chipUserDTO);
 
-    List<ChipUser> findAllUsersInChip(Long chipId);
+    void addNewUserToMyChip(Long userId, Long chipId);
+
+    void removeNormalUserFromMyChip(Long userId, Long chipId);
+
+    ChipUser findById(Long id);
+
+    Boolean existByChipIdAndUserId(Long chipId, Long userId);
+
+    List<ChipUser> findAllByChipId(Long chipId);
 }

@@ -30,4 +30,15 @@ public class Answer extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+
+    @Override
+    public String toString() {
+        return "Answer{" +
+                "answerContent='" + answerContent + '\'' +
+                ", approved=" + approved +
+                ", answerTime=" + answerTime +
+                ", question=" + question.getId() +
+                ", user=" + user.getId() +
+                '}';
+    }
 }

@@ -6,9 +6,7 @@ import com.liveguard.exception.BusinessException;
 import com.liveguard.payload.AddNewChipRequest;
 import com.liveguard.repository.ChipUserDetailRepository;
 import com.liveguard.repository.ChipUserRepository;
-import com.liveguard.service.AccountService;
-import com.liveguard.service.ChipService;
-import com.liveguard.service.ChipUserService;
+import com.liveguard.service.*;
 import com.liveguard.util.FileUploadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -28,13 +26,18 @@ public class ChipUserServiceImp implements ChipUserService {
     private final AccountService accountService;
     private final ChipService chipService;
     private final ChipUserDetailRepository chipUserDetailRepository;
+    private final UserService userService;
+    private final ChipUserTaskService chipUserTaskService;
 
     public ChipUserServiceImp(ChipUserRepository chipUserRepository, AccountService accountService,
-                              ChipService chipService, ChipUserDetailRepository chipUserDetailRepository) {
+                              ChipService chipService, ChipUserDetailRepository chipUserDetailRepository,
+                              UserService userService, ChipUserTaskService chipUserTaskService) {
         this.chipUserRepository = chipUserRepository;
         this.accountService = accountService;
         this.chipService = chipService;
         this.chipUserDetailRepository = chipUserDetailRepository;
+        this.userService = userService;
+        this.chipUserTaskService = chipUserTaskService;
     }
 
     @Override
@@ -59,7 +62,8 @@ public class ChipUserServiceImp implements ChipUserService {
         chipUser.setUser(user);
         chipUser.setChipUserType(ChipUserType.Controller);
 
-        chipUserRepository.save(chipUser);
+        ChipUser savedChipUser = chipUserRepository.save(chipUser);
+        chipUserTaskService.addChipUserTaskForNewChipUser(savedChipUser);
     }
 
     @Override
@@ -127,8 +131,81 @@ public class ChipUserServiceImp implements ChipUserService {
     }
 
     @Override
-    public List<ChipUser> findAllUsersInChip(Long chipId) {
-        log.debug("ChipUserService | findAllUsersInChip | chipId: " + chipId);
+    public void addNewUserToMyChip(Long userId, Long chipId) {
+        log.debug("ChipUserService | AddNewUserToMyChip | userId: " + userId);
+        log.debug("ChipUserService | AddNewUserToMyChip | chipId: " + chipId);
+
+        User user = accountService.getAuthenticatedAccount();
+        log.debug("ChipUserService | updateMyChipDetails | user: " + user.toString());
+
+        if (!chipUserRepository.existsByUserIdAndChipUserType(user.getId(), ChipUserType.Controller)) {
+            log.error("You not control this chip");
+            throw new BusinessException("You not control this chip", HttpStatus.BAD_REQUEST);
+        }
+
+        if (chipUserRepository.existsByUserIdAndChipId(userId, chipId)) {
+            log.error("User already exist");
+            throw new BusinessException("User already exist", HttpStatus.BAD_REQUEST);
+        }
+
+        ChipUser chipUser = new ChipUser();
+        chipUser.setName("");
+        chipUser.setPhoto("");
+        chipUser.setAddDate(LocalDateTime.now());
+        chipUser.setChip(chipService.findById(chipId));
+        chipUser.setUser(userService.findById(userId));
+        chipUser.setChipUserType(ChipUserType.Normal);
+
+        ChipUser savedChipUser = chipUserRepository.save(chipUser);
+        chipUserTaskService.addChipUserTaskForNewChipUser(savedChipUser);
+    }
+
+    @Override
+    @Transactional
+    public void removeNormalUserFromMyChip(Long userId, Long chipId) {
+        log.debug("ChipUserService | removeNormalUserFromMyChip | userId: " + userId);
+        log.debug("ChipUserService | removeNormalUserFromMyChip | chipId: " + chipId);
+
+        User user = accountService.getAuthenticatedAccount();
+        log.debug("ChipUserService | updateMyChipDetails | user: " + user.toString());
+
+        if (!chipUserRepository.existsByUserIdAndChipUserType(user.getId(), ChipUserType.Controller)) {
+            log.error("You not control this chip");
+            throw new BusinessException("You not control this chip", HttpStatus.BAD_REQUEST);
+        }
+
+        if (!chipUserRepository.existsByUserIdAndChipId(userId, chipId)) {
+            log.error("User already not exist");
+            throw new BusinessException("User already not exist", HttpStatus.BAD_REQUEST);
+        }
+
+        if (chipUserRepository.existsByUserIdAndChipUserType(userId, ChipUserType.Controller)) {
+            log.error("You not have access to delete this user");
+            throw new BusinessException("You not have access to delete this user", HttpStatus.BAD_REQUEST);
+        }
+
+        chipUserRepository.deleteByUserIdAndChipId(userId, chipId);
+
+    }
+
+    @Override
+    public ChipUser findById(Long id) {
+        log.debug("ChipUserService | findById | id: " + id);
+        return chipUserRepository.findById(id)
+                .orElseThrow(() -> new BusinessException("Chip not found", HttpStatus.NOT_FOUND));
+    }
+
+    @Override
+    public Boolean existByChipIdAndUserId(Long chipId, Long userId) {
+        log.debug("ChipUserService | existByChipIdAndUserId | chipId: " + chipId);
+        log.debug("ChipUserService | existByChipIdAndUserId | userId: " + userId);
+
+        return chipUserRepository.existsByUserIdAndChipId(userId, chipId);
+    }
+
+    @Override
+    public List<ChipUser> findAllByChipId(Long chipId) {
+        log.debug("ChipUserService | findAllByChipId | chipId: " + chipId);
 
         return chipUserRepository.findAllByChipId(chipId);
     }

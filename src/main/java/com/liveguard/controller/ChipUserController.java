@@ -1,10 +1,10 @@
 package com.liveguard.controller;
 
-import com.liveguard.domain.ChipUser;
 import com.liveguard.dto.ChipUserDTO;
 import com.liveguard.dto.UserInChipDTO;
 import com.liveguard.mapper.ChipUserMapper;
 import com.liveguard.payload.AddNewChipRequest;
+import com.liveguard.payload.UpdateUserToMyChipRequest;
 import com.liveguard.payload.ApiResponse;
 import com.liveguard.service.ChipUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -49,6 +49,16 @@ public class ChipUserController {
                 .body(chipUserDTOs);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable("id") Long id) {
+        log.debug("ChipUserController | getById | id: " + id);
+
+        return ResponseEntity
+                .ok()
+                .body(ChipUserMapper.chipUserTOChipUserDTO(chipUserService.findById(id)));
+    }
+
+
     @RequestMapping(value = "/info",  method = RequestMethod.PUT, consumes = {"multipart/form-data"})
     public ResponseEntity<?> updateMyChipInfo(@ModelAttribute ChipUserDTO chipUserDTO) {
         log.debug("ChipUserController | updateMyChipInfo | chipUserDTO: " + chipUserDTO.getName());
@@ -75,7 +85,7 @@ public class ChipUserController {
 
         List<UserInChipDTO> users = new ArrayList<>();
 
-        chipUserService.findAllUsersInChip(id).forEach(chipUser -> {
+        chipUserService.findAllByChipId(id).forEach(chipUser -> {
             users.add(new UserInChipDTO(chipUser.getUser().getId(), chipUser.getUser().getEmail(),
                     chipUser.getUser().getName(), chipUser.getUser().getAbout(), chipUser.getUser().getAvatar(),
                     chipUser.getChipUserType()));
@@ -86,4 +96,23 @@ public class ChipUserController {
                 .body(users);
     }
 
+    @PostMapping("/add-new-user")
+    public ResponseEntity<?> addNewUserToMyChip(@RequestBody UpdateUserToMyChipRequest updateUserToMyChipRequest) {
+        log.debug("ChipUserController | addNewUserToMyChip | updateUserToMyChipRequest: " + updateUserToMyChipRequest.toString());
+
+        chipUserService.addNewUserToMyChip(updateUserToMyChipRequest.getUserId(), updateUserToMyChipRequest.getChipId());
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "User added successfully"));
+    }
+
+    @PostMapping("/remove-new-user")
+    public ResponseEntity<?> removeNormalUserFromMyChip(@RequestBody UpdateUserToMyChipRequest updateUserToMyChipRequest) {
+        log.debug("ChipUserController | removeNormalUserFromMyChip | updateUserToMyChipRequest: " + updateUserToMyChipRequest.toString());
+
+        chipUserService.removeNormalUserFromMyChip(updateUserToMyChipRequest.getUserId(), updateUserToMyChipRequest.getChipId());
+        return ResponseEntity
+                .ok()
+                .body(new ApiResponse(true, "User removed successfully"));
+    }
 }

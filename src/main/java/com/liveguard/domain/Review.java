@@ -30,4 +30,16 @@ public class Review extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "headline='" + headline + '\'' +
+                ", comment='" + comment + '\'' +
+                ", rating=" + rating +
+                ", reviewTime=" + reviewTime +
+                ", chipVersion=" + chipVersion.getId() +
+                ", user=" + user.getId() +
+                '}';
+    }
 }
