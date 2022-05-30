@@ -90,18 +90,22 @@ public class ChipUserServiceImp implements ChipUserService {
         }
 
         try {
-            String fileName = StringUtils.cleanPath(chipUserDTO.getPhotoFile().getOriginalFilename());
-            log.debug("ChipUserService | updateMyChipInfo | file name: " + fileName);
+            if (chipUserDTO.getPhotoFile().isEmpty()) {
+                chipUserRepository.updateChipUserName(chipUserDTO.getId(), chipUserDTO.getName());
 
-            String uploadDir = "chip-user-photos/" + user.getId();
+            } else {
+                String fileName = StringUtils.cleanPath(chipUserDTO.getPhotoFile().getOriginalFilename());
+                log.debug("ChipUserService | updateMyChipInfo | file name: " + fileName);
 
-            log.debug("ChipUserService | updateMyChipInfo | uploadDir : " + uploadDir);
+                String uploadDir = "chip-user-photos/" + user.getId();
 
-            FileUploadUtil.cleanDir(uploadDir);
-            FileUploadUtil.saveFile(uploadDir, fileName, chipUserDTO.getPhotoFile());
+                log.debug("ChipUserService | updateMyChipInfo | uploadDir : " + uploadDir);
 
-            chipUserRepository.updateChipUserInfo(chipUserDTO.getId(), chipUserDTO.getName(), "/chip-user-photos/" + user.getId() + "/" + fileName);
+                FileUploadUtil.cleanDir(uploadDir);
+                FileUploadUtil.saveFile(uploadDir, fileName, chipUserDTO.getPhotoFile());
 
+                chipUserRepository.updateChipUserInfo(chipUserDTO.getId(), chipUserDTO.getName(), "/chip-user-photos/" + user.getId() + "/" + fileName);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             log.error("ChipUserService | updateMyChipInfo | error");
