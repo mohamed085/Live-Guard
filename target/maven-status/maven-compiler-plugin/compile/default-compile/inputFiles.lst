@@ -1,81 +1,164 @@
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\LoginResponse.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\ChipRepository.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\AccountService.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\SettingServiceImp.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\RoleService.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\AccountController.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\util\JwtProperties.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\UserDTO.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\SettingCategory.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\Role.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\ChipController.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\handler\GeneralExceptionHandler.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\UserEmailRequest.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\exception\BusinessException.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\AccountServiceImp.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\Chip.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\RoleRepository.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\AuthenticationType.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\LiveGuardUserDetails.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\VerificationCode.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\BaseEntity.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\UserSimpleDataDTO.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\LiveguardApplication.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\ChipTypeRepository.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\mapper\UserMapper.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\ChipTypeController.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\ErrorResponse.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\ChipAssociatedDetailsServiceImp.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\SettingService.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\User.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\VerifyAccountRequest.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\mapper\ChipMapper.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\VerificationCodeRepository.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\ApiResponse.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\UserService.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\ChipAssociatedDetailsService.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\mapper\ChipAssociatedDetailsMapper.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\ChipDTO.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\LiveGuardUserService.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\EmailSendStatus.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\ChipTypeDTO.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\VerifyAccountResponse.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\util\PrepareMailSenderUtil.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\AuthController.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\AuthService.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\Setting.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\config\SpringSecurityConfig.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\SettingRepository.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\ChipTypeServiceImp.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\EmailService.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\VerificationCodeServiceImp.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\util\FileUploadUtil.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\test.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\ChipServiceImp.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\ChipAssociatedDetailsRepository.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\ChipType.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\RoleServiceImp.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\config\SchedulingConfig.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\VerificationCodeService.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\LiveGuardUserServiceImp.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\config\AsyncConfig.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\LoginRequest.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\ChipService.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\VerificationCodeStatus.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\ChipAssociatedDetailsDTO.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\TokenServiceImp.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\config\JwtAuthorizationFilter.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\AuthServiceImp.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\EmailServiceImp.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\config\MvcConfig.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\util\GenerateCodeUtil.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\UserRepository.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\ChipTypeService.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\EmailSettingBag.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\UserServiceImp.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\config\WebConfig.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\ChipAssociatedDetails.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\mapper\ChipTypeMapper.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\SettingBag.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\ResetPasswordRequest.java
-E:\Materials\Java\Spring\Projects\Graduation Project - Live Guard\src\main\java\com\liveguard\service\TokenService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\mapper\ChipMapper.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\ChipVersionDetailDTO.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\mapper\TaskMapper.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\util\CustomerRegisterUtil.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\ChipUserTaskStatus.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\mapper\ReviewMapper.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\ReviewRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\AccountServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\SendEmailService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\config\JwtAuthorizationFilter.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\util\PrepareMailSenderUtil.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\AccountController.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\QuestionRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\RoleService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\ChipUserType.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\ChipDTO.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\Setting.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\ChipVersionController.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\AnswerServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\Country.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\UpdateChipVersionDetailsRequest.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\TaskDTO.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\SimpleChipVersion.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\AccountService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\UserEmailRequest.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\mapper\QuestionMapper.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\TaskRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\ReviewDTO.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\mapper\AnswerMapper.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\mapper\ChipVersionMapper.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\Chip.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\AnswerRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\SettingService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\SettingServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\TokenService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\NotificationServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\RoleServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\Review.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\ReviewServicesImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\ChipVersionRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\EmailSendStatus.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\ChipUserDTO.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\QuestionServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\Task.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\UpdateAccountRequest.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\ChipUserService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\AuthenticationType.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\Email.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\LoginResponse.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\QuestionDTO.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\ChipRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\LiveGuardUserService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\ChipVersionService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\ChipVersion.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\Role.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\AuthService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\MainController.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\util\DurationBetweenDates.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\RoleController.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\User.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\ChipVersionDetail.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\SettingRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\SendEmailServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\mapper\ChipUserMapper.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\NotificationController.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\State.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\SettingCategory.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\handler\ErrorResponse.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\DayController.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\SendNotificationService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\util\CaseTransfer.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\DayService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\Answer.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\ApiResponse.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\ReviewController.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\config\WebSocketConfig.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\ChipUserDetail.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\QuestionService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\UpdateChipVersionDescriptionRequest.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\ReviewServices.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\EnumDay.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\Notification.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\AnswerController.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\AuthServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\handler\ApiError.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\config\SchedulingConfig.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\ChipUserDetailDTO.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\ChipVersionImageDTO.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\UpdateChipVersionShippingRequest.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\LiveGuardUserDetails.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\ChipUserTaskService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\util\CustomerForgetPasswordUtil.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\NotificationRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\handler\GeneralExceptionHandler.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\CountryController.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\EmailService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\AnswerService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\CountryServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\util\JwtProperties.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\AddNewChipRequest.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\UserInChipDTO.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\util\DateConverterUtil.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\exception\BusinessException.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\StateRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\ChipService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\StateService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\LoginRequest.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\mapper\NotificationMapper.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\UpdateUserToMyChipRequest.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\QuestionController.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\config\WebSocketSecurityConfig.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\TaskService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\Day.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\EmailServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\TokenServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\ChipVersionImage.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\ChipVersionServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\TaskServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\DayServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\UserDTO.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\config\MvcConfig.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\ChipController.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\EmailRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\Question.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\LiveGuardUserServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\CustomerRegisterRequest.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\NotificationDTO.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\EmailSettingBag.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\UserRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\ChipVersionDetailRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\ChipUser.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\SettingBag.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\ChipUserDetailRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\RoleRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\util\GFG.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\StateDTO.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\UpdateChipVersionOverviewRequest.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\util\FileUploadUtil.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\ChipUserRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\DayRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\TaskController.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\UserServicesImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\config\SpringSecurityConfig.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\ChipUserTaskRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\ChipUserController.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\LiveguardApplication.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\ChipUserTaskServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\SimpleUserDTO.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\ChipVersionDTO.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\ChipUserServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\mapper\UserMapper.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\dto\AnswerDTO.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\SendNotificationServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\controller\AuthController.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\config\AsyncConfig.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\repository\CountryRepository.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\CountryService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\UserService.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\ChipUserTask.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\payload\ResetPasswordRequest.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\domain\BaseEntity.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\ChipServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\serviceImp\StateServiceImp.java
+C:\Users\Mohamed\Documents\projects\Graduation Project\Graduation Project - Live Guard\src\main\java\com\liveguard\service\NotificationService.java

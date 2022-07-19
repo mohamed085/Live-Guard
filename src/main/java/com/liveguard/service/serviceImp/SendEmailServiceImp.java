@@ -1,7 +1,6 @@
 package com.liveguard.service.serviceImp;
 
 import com.liveguard.domain.Email;
-import com.liveguard.domain.EmailSendStatus;
 import com.liveguard.domain.EmailSettingBag;
 import com.liveguard.service.EmailService;
 import com.liveguard.service.SendEmailService;

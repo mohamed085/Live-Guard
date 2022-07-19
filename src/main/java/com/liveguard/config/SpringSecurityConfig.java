@@ -46,6 +46,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthorizationFilter(authenticationManagerBean(), userRepository))
                 .authorizeRequests()
                 .antMatchers("/live-guard/**").permitAll()
+                .antMatchers("/connect/**").permitAll()
                 .antMatchers("/auth/**").permitAll()
                 .antMatchers("/location/add").permitAll()
                 .anyRequest().authenticated()

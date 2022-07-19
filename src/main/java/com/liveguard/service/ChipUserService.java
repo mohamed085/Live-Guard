@@ -12,6 +12,8 @@ public interface ChipUserService {
 
     List<ChipUser> findAllByUser();
 
+    List<ChipUser> findAllByChipId(Long chipId);
+
     void updateMyChipInfo(ChipUserDTO chipUserDTO);
 
     void updateMyChipDetails(ChipUserDTO chipUserDTO);
@@ -23,6 +25,4 @@ public interface ChipUserService {
     ChipUser findById(Long id);
 
     Boolean existByChipIdAndUserId(Long chipId, Long userId);
-
-    List<ChipUser> findAllByChipId(Long chipId);
 }

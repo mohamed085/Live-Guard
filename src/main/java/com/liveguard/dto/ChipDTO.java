@@ -26,5 +26,8 @@ public class ChipDTO {
 
     @JsonProperty("chip_version")
     private SimpleChipVersion chipVersion;
+
+
+
 }
 

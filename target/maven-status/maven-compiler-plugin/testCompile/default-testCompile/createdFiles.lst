@@ -1,2 +1,7 @@
-com\liveguard\DateTest.class
+com\liveguard\repository\EmailRepositoryTest.class
+com\liveguard\repository\SettingRepositoryTest.class
 com\liveguard\LiveguardApplicationTests.class
+com\liveguard\repository\StateRepositoryTest.class
+com\liveguard\repository\CountryRepositoryTest.class
+com\liveguard\repository\RoleRepositoryTest.class
+com\liveguard\repository\DayRepositoryTest.class

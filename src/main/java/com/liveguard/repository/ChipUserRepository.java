@@ -17,7 +17,6 @@ public interface ChipUserRepository extends JpaRepository<ChipUser, Long> {
     boolean existsByUserIdAndChipKey(Long id, String key);
 
     List<ChipUser> findAllByUserId(Long id);
-
     boolean existsByUserIdAndId(Long userId, Long id);
 
     @Query("UPDATE ChipUser cu SET cu.name = ?2, cu.photo = ?3 WHERE cu.id = ?1")

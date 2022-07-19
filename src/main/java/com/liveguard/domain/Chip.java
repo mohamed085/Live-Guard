@@ -16,7 +16,6 @@ public class Chip extends BaseEntity {
 
     @Column(unique = true, nullable = false)
     private String key;
-
     @Column(nullable = false)
     private String password;
     private Boolean used;

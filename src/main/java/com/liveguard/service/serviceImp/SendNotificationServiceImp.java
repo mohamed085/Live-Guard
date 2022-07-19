@@ -29,7 +29,7 @@ public class SendNotificationServiceImp implements SendNotificationService {
 
         log.debug("SendNotificationService | sendGlobalNotification");
 
-        String destination = "/live-guard/global-notification";
+        String destination = "/live-guard/notification";
 
         log.debug("SendNotificationService | sendGlobalNotification | destination: " + destination);
         log.debug("SendNotificationService | sendGlobalNotification | message: " + notificationDTO);
@@ -47,7 +47,7 @@ public class SendNotificationServiceImp implements SendNotificationService {
 
         notificationService.save(notification);
 
-        String destination = "/live-guard/private-notification/" + notification.getUser().getId();
+        String destination = "/live-guard/notification/" + notification.getUser().getId();
 
         log.debug("SendNotificationService | sendPrivateNotification | destination: " + destination);
         log.debug("SendNotificationService | sendPrivateNotification | message: " + notificationDTO);

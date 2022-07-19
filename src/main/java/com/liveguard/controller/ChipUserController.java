@@ -79,7 +79,7 @@ public class ChipUserController {
                 .body(new ApiResponse(true, "Update chip details successfully"));
     }
 
-    @GetMapping("/chip/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<?> findAllUsersInChip(@PathVariable("id") Long id) {
         log.debug("ChipUserController | findAllUsersInChip | id: " + id);
 
@@ -115,4 +115,5 @@ public class ChipUserController {
                 .ok()
                 .body(new ApiResponse(true, "User removed successfully"));
     }
+
 }

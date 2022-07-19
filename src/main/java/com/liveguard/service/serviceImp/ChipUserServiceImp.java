@@ -76,6 +76,14 @@ public class ChipUserServiceImp implements ChipUserService {
         return chipUserRepository.findAllByUserId(user.getId());
     }
 
+
+    @Override
+    public List<ChipUser> findAllByChipId(Long chipId) {
+        log.debug("ChipUserService | findAllByChipId | chipId: " + chipId);
+
+        return chipUserRepository.findAllByChipId(chipId);
+    }
+
     @Override
     @Transactional
     public void updateMyChipInfo(ChipUserDTO chipUserDTO) {
@@ -207,12 +215,6 @@ public class ChipUserServiceImp implements ChipUserService {
         return chipUserRepository.existsByUserIdAndChipId(userId, chipId);
     }
 
-    @Override
-    public List<ChipUser> findAllByChipId(Long chipId) {
-        log.debug("ChipUserService | findAllByChipId | chipId: " + chipId);
-
-        return chipUserRepository.findAllByChipId(chipId);
-    }
 
 
 }
